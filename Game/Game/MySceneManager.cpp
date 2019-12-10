@@ -22,6 +22,9 @@ void MySceneManager::updateScene() {
 		{
 		case LOAD_STATE::DARK://真っ黒の画面になった
 			changeScene();//シーン移行
+			loadEffect->nextState();
+			break;
+		case LOAD_STATE::BLACK://ロード中
 			if (scene->isReady()) {//ロードが終わったなら
 				loadEffect->nextState();
 			}
@@ -34,6 +37,7 @@ void MySceneManager::updateScene() {
 		default:
 			break;
 		}
+		loadEffect->update();
 	}
 	scene->update();
 }
@@ -44,6 +48,7 @@ void MySceneManager::drawScene() {
 
 void MySceneManager::setNextScene(SCENE next) {
 	NEXTSCENE = next;
+	loadEffect->loadStart();//ロードを開始させる
 }
 
 void MySceneManager::changeScene() {
@@ -52,6 +57,25 @@ void MySceneManager::changeScene() {
 	case SCENE::TITLE:
 		delete scene;
 		scene = new Title();
+		break;
+	case SCENE::SELECT_SAVEDATA:
+		delete scene;
+		scene = new SelectSaveData();
+		break;
+	case SCENE::CREATE_SAVEDATA:
+		delete scene;
+		scene = new CreateSaveData();
+		break;
+	case SCENE::SELECT_MODE:
+		delete scene;
+		scene = new SelectMode();
+		break;
+	case SCENE::GAME:
+		if (NOWSCENE == SCENE::SELECT_MODE) {
+			MODE mode = ((SelectMode*)scene)->getSelectedMode();
+			delete scene;
+			scene = new Game(mode);
+		}
 		break;
 	}
 

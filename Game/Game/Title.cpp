@@ -3,7 +3,7 @@
 Title::Title(void) {
 	FontAsset::Register(U"titlefont", 70);
 	FontAsset::Preload(U"titlefont");
-	TextureAsset::Register(U"titleback", U"resources/images/back/title.jpg", AssetParameter::LoadAsync());
+	TextureAsset::Register(U"titleback", U"resources/images/backs/title.jpg", AssetParameter::LoadAsync());
 }
 
 Title::~Title(void) {
@@ -21,15 +21,15 @@ bool Title::isReady(void) {
 
 void Title::start(void) {
 	delete backAudio;
-	backAudio = new Audio(U"resources/musics/");
+	backAudio = new Audio(U"resources/musics/backs/title.wav");
 	backAudio->setLoop(true);
 	backAudio->play();
 }
 
 
 void Title::update(void) {
-	if (MyKey::getDecisionKey()) {
-		MySceneManager::setNextScene(SCENE::SYNCRC);
+	if (MyKey::getDecisionKey()) {//決定キーで次のシーンへ移行
+		MySceneManager::setNextScene(SCENE::SELECT_SAVEDATA);
 	}
 	else {
 		changeAlpha();
@@ -37,12 +37,9 @@ void Title::update(void) {
 }
 
 void Title::draw(void) {
-
+	//背景の描画
 	TextureAsset(U"titleback").draw();
-	
-	int a = Window::ClientWidth() / 2;
-	int b = Window::ClientWidth();
-
+	//タイトルのフォント
 	FontAsset(U"titlefont")(U"～Press Button To Start～").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() - 150 + 3, ColorF(0, 0, 0, alpha - 0.05));
 	FontAsset(U"titlefont")(U"～Press Button To Start～").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() - 150, AlphaF(alpha));
 }

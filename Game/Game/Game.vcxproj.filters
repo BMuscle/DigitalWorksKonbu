@@ -94,25 +94,118 @@
     <Filter Include="Resource Files\example\font\LogoTypeGothic">
       <UniqueIdentifier>{b3586a98-5569-49e1-b9d6-cd80cf76ce9d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\MyLib">
+      <UniqueIdentifier>{183a5df1-0e00-46d7-b1e5-5d1a54a60a80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MyLib">
+      <UniqueIdentifier>{44ec60b8-3bc2-4745-b491-0f7ecee412e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene">
+      <UniqueIdentifier>{a7c0f78c-19af-4ce6-8edb-1b200b98b77a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene\SelectSaveData">
+      <UniqueIdentifier>{a5998ddb-5659-4d9a-83cf-236e05123fc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene">
+      <UniqueIdentifier>{ca51f1af-24d0-4c24-8c35-b1a3387b2776}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene\SelectSaveData">
+      <UniqueIdentifier>{2bf98a03-a61e-4b81-a07d-a96eb92c43b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene\Title">
+      <UniqueIdentifier>{114a05ee-8dc5-48ac-8e08-2a1b61ef83a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene\Title">
+      <UniqueIdentifier>{3782995b-1bd2-46d6-a188-db77c09c2b05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene\Game">
+      <UniqueIdentifier>{c392c590-bc68-489e-b5a0-7e7720706f49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene\Game\Soccer">
+      <UniqueIdentifier>{7d861f61-7631-40ee-82c7-25e9e6f26551}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene\Game\Dodge">
+      <UniqueIdentifier>{49b852af-4eb5-4ba5-be07-87c25c37b3c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene\Game\ShoeKick">
+      <UniqueIdentifier>{59ea1f25-36d8-47ff-acff-eb207b8020c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene\Game">
+      <UniqueIdentifier>{cc2733a6-f55e-497c-be45-7be250d30b62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene\Game\Dodge">
+      <UniqueIdentifier>{8206c157-6da8-4f82-8e34-98fd82e57390}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene\Game\Soccer">
+      <UniqueIdentifier>{446bc20e-c900-4ea5-8849-6b1b2650f9af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene\Game\ShoeKick">
+      <UniqueIdentifier>{4956a6ed-e84b-47d2-8572-b7c42d1a4832}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene\Result">
+      <UniqueIdentifier>{250f5c0c-ab83-4e08-8714-1c4d94a14afa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene\Result">
+      <UniqueIdentifier>{2a4efb04-0495-4e08-aec8-fe0de5afea60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene\SelectMode">
+      <UniqueIdentifier>{922782d8-da78-4a3d-8dfd-d663ad1603df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene\SelectMode">
+      <UniqueIdentifier>{bb21692d-7948-4cbb-99d9-ca613d13dd71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene\CreateSaveData">
+      <UniqueIdentifier>{92bf49f2-1178-43c8-8ef1-afdcbde417cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene\CreateSaveData">
+      <UniqueIdentifier>{e143dff4-8a7f-4a94-8d5f-165afadc264b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MyKey.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Title.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MySceneManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LoadEffect.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="MySqlite3.cpp">
+      <Filter>Source Files\MyLib</Filter>
+    </ClCompile>
+    <ClCompile Include="MyKey.cpp">
+      <Filter>Source Files\MyLib</Filter>
     </ClCompile>
     <ClCompile Include="SelectSaveData.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scene\SelectSaveData</Filter>
+    </ClCompile>
+    <ClCompile Include="User.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Title.cpp">
+      <Filter>Source Files\Scene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadEffect.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="sqlite3.c">
+      <Filter>Source Files\MyLib</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectMode.cpp">
+      <Filter>Source Files\Scene\SelectMode</Filter>
+    </ClCompile>
+    <ClCompile Include="CreateSaveData.cpp">
+      <Filter>Source Files\Scene\CreateSaveData</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files\Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Dodge.cpp">
+      <Filter>Source Files\Scene\Game\Dodge</Filter>
+    </ClCompile>
+    <ClCompile Include="ShoeKick.cpp">
+      <Filter>Source Files\Scene\Game\ShoeKick</Filter>
+    </ClCompile>
+    <ClCompile Include="Soccer.cpp">
+      <Filter>Source Files\Scene\Game\Soccer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -321,6 +414,9 @@
     <None Include="App\example\font\LogoTypeGothic\LICENSE_E">
       <Filter>Resource Files\example\font\LogoTypeGothic</Filter>
     </None>
+    <None Include="resource.txt">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="App\engine\font\fontawesome\LICENSE.txt">
@@ -382,23 +478,59 @@
     </Xml>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MyKey.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Title.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MySceneManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MyScene.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="MySqlite3.h">
+      <Filter>Header Files\MyLib</Filter>
     </ClInclude>
-    <ClInclude Include="LoadEffect.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="MyKey.h">
+      <Filter>Header Files\MyLib</Filter>
     </ClInclude>
     <ClInclude Include="SelectSaveData.h">
+      <Filter>Header Files\Scene\SelectSaveData</Filter>
+    </ClInclude>
+    <ClInclude Include="MyScene.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Title.h">
+      <Filter>Header Files\Scene\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="User.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadEffect.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="sqlite3.h">
+      <Filter>Header Files\MyLib</Filter>
+    </ClInclude>
+    <ClInclude Include="sqlite3ext.h">
+      <Filter>Header Files\MyLib</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGameBase.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectMode.h">
+      <Filter>Header Files\Scene\SelectMode</Filter>
+    </ClInclude>
+    <ClInclude Include="Mode.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CreateSaveData.h">
+      <Filter>Header Files\Scene\CreateSaveData</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files\Scene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Dodge.h">
+      <Filter>Header Files\Scene\Game\Dodge</Filter>
+    </ClInclude>
+    <ClInclude Include="ShoeKick.h">
+      <Filter>Header Files\Scene\Game\ShoeKick</Filter>
+    </ClInclude>
+    <ClInclude Include="Soccer.h">
+      <Filter>Header Files\Scene\Game\Soccer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

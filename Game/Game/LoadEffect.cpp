@@ -1,6 +1,6 @@
 #include "LoadEffect.h"
 
-constexpr float alphaSpeed = 1.0 / 60.0 * 1.0;//暗転するスピード
+constexpr float alphaSpeed = 1.0 / 60.0 * 2.0;//暗転するスピード
 
 LoadEffect::LoadEffect() {
 	loadState = LOAD_STATE::NONE;
@@ -23,7 +23,7 @@ void LoadEffect::update() {
 	{
 	case LOAD_STATE::DARKING:
 		alpha += alphaSpeed;
-		if (alpha <= 1) {
+		if (alpha >= 1) {
 			nextState();
 		}
 		break;

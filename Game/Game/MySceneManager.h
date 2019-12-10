@@ -1,13 +1,19 @@
 #pragma once
 #include "MyScene.h"
-#include "Title.h"
 #include "LoadEffect.h"
+#include "Title.h"
+#include "SelectSaveData.h"
+#include "CreateSaveData.h"
+#include "SelectMode.h"
+#include "Game.h"
 
 enum class SCENE {
 	TITLE,
-	SYNCRC,
+	SELECT_SAVEDATA,
+	CREATE_SAVEDATA,
+	SELECT_MODE,
 	GAME,
-	RESULT,
+	MYROOM,
 	NONE
 };
 

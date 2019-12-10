@@ -73,10 +73,13 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MinimalRebuild>false</MinimalRebuild>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>sqlite3.lib</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /I /D /Y "$(OutDir)$(TargetFileName)" "$(ProjectDir)App"</Command>
@@ -108,12 +111,21 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CreateSaveData.cpp" />
+    <ClCompile Include="Dodge.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="LoadEffect.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MyKey.cpp" />
     <ClCompile Include="MySceneManager.cpp" />
+    <ClCompile Include="MySqlite3.cpp" />
+    <ClCompile Include="SelectMode.cpp" />
     <ClCompile Include="SelectSaveData.cpp" />
+    <ClCompile Include="ShoeKick.cpp" />
+    <ClCompile Include="Soccer.cpp" />
+    <ClCompile Include="sqlite3.c" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="User.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\engine\texture\box-shadow\128.png" />
@@ -176,6 +188,7 @@
     <None Include="App\example\test.toml" />
     <None Include="App\nlp\japanese\jumanpp\LICENSE" />
     <None Include="App\nlp\japanese\jumanpp\README.md" />
+    <None Include="resource.txt" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="App\engine\font\fontawesome\LICENSE.txt" />
@@ -238,12 +251,24 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CreateSaveData.h" />
+    <ClInclude Include="Dodge.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="LoadEffect.h" />
+    <ClInclude Include="MiniGameBase.h" />
+    <ClInclude Include="Mode.h" />
     <ClInclude Include="MyKey.h" />
     <ClInclude Include="MyScene.h" />
     <ClInclude Include="MySceneManager.h" />
+    <ClInclude Include="MySqlite3.h" />
+    <ClInclude Include="SelectMode.h" />
     <ClInclude Include="SelectSaveData.h" />
+    <ClInclude Include="ShoeKick.h" />
+    <ClInclude Include="Soccer.h" />
+    <ClInclude Include="sqlite3.h" />
+    <ClInclude Include="sqlite3ext.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="User.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
