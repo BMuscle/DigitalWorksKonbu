@@ -11,7 +11,10 @@ public:
 	static void initialize(bool debugMode = false);	//初期化
 	static void finalize();		//終了化
 	static void update();		//デバッグモード時の計算処理
+	static void debugPrint();
 	static Vec3 getAcceleration();//加速度を返す
 	static Vec3 getAngularvelocity();//角速度を返す
 	static Vec3 getDirection();//方向を返す
+
+	static void setData(Vec3& accel, Vec3& angular, Vec3& dir);//センサーデータの格納
 };

@@ -44,10 +44,15 @@ void Sensor::update() {
 	if (KeyA.pressed()) {
 		direction.x = -1;
 	}
+}
+
+void Sensor::debugPrint() {
 	Print(U"â¡ë¨ìxXYZ" + Format(acceleration));
 	Print(U"äpë¨ìxXYZ" + Format(angularvelocity));
 	Print(U"ï˚å¸XYZ" + Format(direction));
+	Pos
 }
+
 Vec3 Sensor::getAcceleration() {
 	return acceleration;
 }
@@ -56,4 +61,10 @@ Vec3 Sensor::getAngularvelocity() {
 }
 Vec3 Sensor::getDirection() {
 	return direction;
+}
+//ÉfÅ[É^ÇÃäiî[
+void Sensor::setData(Vec3& accel, Vec3& angular, Vec3& dir) {
+	acceleration = accel;
+	angularvelocity = angular;
+	direction = dir;
 }
