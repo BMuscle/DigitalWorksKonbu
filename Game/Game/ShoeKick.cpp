@@ -32,3 +32,7 @@ void ShoeKick::draw(void) {	//•`‰æˆ—
 void ShoeKick::outputResult(void) {//Œ‹‰Ê‚ğDB‚Öo—Í‚·‚é
 
 }
+
+void ShoeKick::stopGame() {	//ƒQ[ƒ€‚ğˆê’†’f‚·‚é
+
+}

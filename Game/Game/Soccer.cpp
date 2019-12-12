@@ -32,3 +32,6 @@ void Soccer::draw(void) {	//•`‰æˆ—
 void Soccer::outputResult(void) {//Œ‹‰Ê‚ğDB‚Öo—Í‚·‚é
 
 }
+void Soccer::stopGame() {	//ƒQ[ƒ€‚ğˆê’†’f‚·‚é
+
+}
