@@ -33,6 +33,7 @@ void MySceneManager::updateScene() {
 			scene->start();
 			loadEffect->nextState();
 			NOWSCENE = NEXTSCENE;//シーン移行を完了する
+			MyKey::setKeyLock(false);//キー入力のロック解除
 			break;
 		default:
 			break;
@@ -49,6 +50,7 @@ void MySceneManager::drawScene() {
 void MySceneManager::setNextScene(SCENE next) {
 	NEXTSCENE = next;
 	loadEffect->loadStart();//ロードを開始させる
+	MyKey::setKeyLock(true);//キー入力をlockする
 }
 
 void MySceneManager::changeScene() {
