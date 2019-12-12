@@ -50,7 +50,6 @@ void Sensor::debugPrint() {
 	Print(U"‰Á‘¬“xXYZ" + Format(acceleration));
 	Print(U"Šp‘¬“xXYZ" + Format(angularvelocity));
 	Print(U"•ûŒüXYZ" + Format(direction));
-	Pos
 }
 
 Vec3 Sensor::getAcceleration() {

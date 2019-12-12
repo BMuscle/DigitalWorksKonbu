@@ -17,7 +17,15 @@ public:
 
 private:
 	Audio* backAudio;//BGM
+	bool isStart;//ロードが終わっているかどうかのフラグ
 
 	Font nameFont;//名前入力欄用フォント
 	TextBox namebox;//名前入力欄
+
+	enum class POPUP_STATE {//ポップアップの状態
+		YES,
+		NO,
+	};
+	POPUP_STATE popUpState;//ポップアップの選択状態
+	void popUpDraw();//ポップアップの描画
 };
