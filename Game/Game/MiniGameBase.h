@@ -1,5 +1,6 @@
 #pragma once
 #include "User.h"
+#include "MyKey.h"
 
 class MiniGame {
 public:
