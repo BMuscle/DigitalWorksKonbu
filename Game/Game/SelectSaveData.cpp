@@ -29,6 +29,7 @@ SelectSaveData::SelectSaveData(void) {
 	selectCountPrev = 0;
 }
 SelectSaveData::~SelectSaveData(void) {
+	delete backAudio;
 	FontAsset::Unregister(U"selectSDfont");
 	TextureAsset::Unregister(U"selectSDback");
 	TextureAsset::Unregister(U"selectSDframe");
@@ -60,11 +61,11 @@ void SelectSaveData::update(void) {
 		//MySceneManager::setNextScene(SCENE::SELECT_MODE);
 	}
 	updateFrameCount();
-	if (!(MyKey::getUpKey() == true && MyKey::getDownKey() == true)) {
-		if (MyKey::getUpKey()) {
+	if (!(MyKey::getUpKeyPressed() == true && MyKey::getDownKeyPressed() == true)) {
+		if (MyKey::getUpKeyPressed()) {
 			rotateSelectedUser(true);
 		}
-		if (MyKey::getDownKey()) {
+		if (MyKey::getDownKeyPressed()) {
 			rotateSelectedUser(false);
 		}
 	}

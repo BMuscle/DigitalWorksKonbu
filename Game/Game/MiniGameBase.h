@@ -10,4 +10,5 @@ public:
 	virtual void update(void) = 0;	//ŒvZˆ—
 	virtual void draw(void) = 0;	//•`‰æˆ—
 	virtual void outputResult(void) = 0;//Œ‹‰Ê‚ğDB‚Öo—Í‚·‚é
+//‰½‚©ˆê‚Â‘«‚è‚È‚¢‹C‚ª‚µ‚Ä‚¢‚é
 };

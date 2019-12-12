@@ -207,6 +207,12 @@
     <ClCompile Include="Soccer.cpp">
       <Filter>Source Files\Scene\Game\Soccer</Filter>
     </ClCompile>
+    <ClCompile Include="Sensor.cpp">
+      <Filter>Source Files\MyLib</Filter>
+    </ClCompile>
+    <ClCompile Include="MySocketServer.cpp">
+      <Filter>Source Files\MyLib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -446,6 +452,9 @@
     <Text Include="App\example\font\LogoTypeGothic\ReadMe_windows.txt">
       <Filter>Resource Files\example\font\LogoTypeGothic</Filter>
     </Text>
+    <Text Include="DBCREATE.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Font Include="App\example\font\AnnyantRoman\AnnyantRoman.ttf">
@@ -531,6 +540,12 @@
     </ClInclude>
     <ClInclude Include="Soccer.h">
       <Filter>Header Files\Scene\Game\Soccer</Filter>
+    </ClInclude>
+    <ClInclude Include="Sensor.h">
+      <Filter>Header Files\MyLib</Filter>
+    </ClInclude>
+    <ClInclude Include="MySocketServer.h">
+      <Filter>Header Files\MyLib</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

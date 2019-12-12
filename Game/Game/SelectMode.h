@@ -18,5 +18,13 @@ public:
 	MODE getSelectedMode();//選択されているモードを返す。シーン移行時に受け渡す
 private:
 	Audio* backAudio;
-	MODE selectedMode;//現在選択されているモード
+	MODE selectedMode;	//現在選択されているモード
+	int frameCount;		//フレーム数をカウントする
+	int selectCountPrev;//選択された時のフレーム数
+
+	String textureName[(int)MODE::SIZE];
+
+	void moveSelectMode();
+	void updateFrameCount();
+
 };

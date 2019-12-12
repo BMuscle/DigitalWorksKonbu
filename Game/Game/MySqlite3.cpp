@@ -2,13 +2,37 @@
 
 sqlite3* MySqlite3::db;
 
+/* SQL実行
+//-------------------------
+err = sqlite3_exec(db,
+	,
+	NULL, NULL, &errMsg);
 
+if (err != SQLITE_OK) {
+	sqlite3_free(errMsg);
+	return false;
+}
+//--------------------------
+*/
 bool MySqlite3::initialize() {	//初期化 DBの初期化を行う
 	int err = sqlite3_open("savedata.db", &db);
 	if (err != SQLITE_OK) {
 		//エラー処理
 		return false;//DBのオープン失敗
 	}
+
+	char* errMsg = NULL;
+	err = 0;
+
+	err = sqlite3_exec(db,
+		"PRAGMA foreign_keys = true;",
+		NULL, NULL, &errMsg);
+
+	if (err != SQLITE_OK) {
+		sqlite3_free(errMsg);
+		return false;
+	}
+
 	return true;//DBのオープン成功
 }
 bool MySqlite3::finalize() {		//終了化
@@ -22,17 +46,118 @@ bool MySqlite3::finalize() {		//終了化
 bool MySqlite3::DBCREATE() {		//基本使用しない　データベースの初期設定を行う。 DBファイル消してから実行
 	char* errMsg = NULL;
 	int err = 0;
-
+	//-------------------------
 	err = sqlite3_exec(db,
-		"CREATE TABLE IF NOT EXISTS myTable "
-		"(id INTEGER PRIMARY KEY AUTOINCREMENT, "
-		"name CHAR(32) NOT NULL)",
+		"CREATE TABLE Users("
+		"id integer primary key,"
+		"name text,"
+		"point integer default 0,"
+		"total_play_time text,"
+		"play_start_time text"
+		");",
 		NULL, NULL, &errMsg);
 
 	if (err != SQLITE_OK) {
 		sqlite3_free(errMsg);
 		return false;
 	}
+	//-------------------------
+	//-------------------------
+	err = sqlite3_exec(db,
+		"CREATE TABLE Items("
+		"id integer primary key,"
+		"name text"
+		");",
+		NULL, NULL, &errMsg);
+
+	if (err != SQLITE_OK) {
+		sqlite3_free(errMsg);
+		return false;
+	}
+	//-------------------------
+	//-------------------------
+	err = sqlite3_exec(db,
+		"CREATE TABLE Collections("
+		"id integer primary key,"
+		"name text"
+		");",
+		NULL, NULL, &errMsg);
+
+	if (err != SQLITE_OK) {
+		sqlite3_free(errMsg);
+		return false;
+	}
+	//--------------------------
+	//-------------------------
+	err = sqlite3_exec(db,
+		"CREATE TABLE UserItems("
+		"id integer primary key autoincrement,"
+		"user_id integer,"
+		"item_id integer,"
+		"flag default 0 check(flag < 2 and flag > -1),"
+		"foreign key (user_id) references Users(id),"
+		"foreign key (item_id) references Items(id)"
+		");",
+		NULL, NULL, &errMsg);
+
+	if (err != SQLITE_OK) {
+		sqlite3_free(errMsg);
+		return false;
+	}
+	//--------------------------
+	//-------------------------
+	err = sqlite3_exec(db,
+		"CREATE TABLE UserCollections("
+		"id integer primary key autoincrement,"
+		"user_id integer,"
+		"collection_id integer,"
+		"flag default 0 check(flag < 2 and flag > -1),"
+		"foreign key (user_id) references Users(id),"
+		"foreign key (collection_id) references Collections(id)"
+		");",
+		NULL, NULL, &errMsg);
+
+	if (err != SQLITE_OK) {
+		sqlite3_free(errMsg);
+		return false;
+	}
+	//--------------------------
+	//-------------------------
+	err = sqlite3_exec(db,
+		"CREATE TABLE Games("
+		"id integer primary key,"
+		"name text"
+		");"
+		,
+		NULL, NULL, &errMsg);
+
+	if (err != SQLITE_OK) {
+		sqlite3_free(errMsg);
+		return false;
+	}
+	//--------------------------
+	//-------------------------
+	err = sqlite3_exec(db,
+		"CREATE TABLE UserCollections("
+		"id integer primary key autoincrement,"
+		"user_id integer,"
+		"game_id integer,"
+		"score1 integer default 0,"
+		"score2 integer default 0,"
+		"score3 integer default 0,"
+		"score4 integer default 0,"
+		"play_date text,"
+		"foreign key (user_id) references Users(id)"
+		"foreign key (game_id) references Games(id)"
+		");"
+		,
+		NULL, NULL, &errMsg);
+
+	if (err != SQLITE_OK) {
+		sqlite3_free(errMsg);
+		return false;
+	}
+	//--------------------------
 	return true;
 }
 const sqlite3* MySqlite3::getDB() {//データベースへのポインタを参照する

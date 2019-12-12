@@ -41,7 +41,7 @@ bool MyKey::getReturnKey(void) {
 	}
 	return false;
 }
-bool MyKey::getUpKey(void) {
+bool MyKey::getUpKeyPressed(void) {
 	if (!lock) {
 		if (padflag) {
 			//return Gamepad(0).buttons[13].down();
@@ -56,7 +56,7 @@ bool MyKey::getUpKey(void) {
 	}
 	return false;
 }
-bool MyKey::getDownKey(void) {
+bool MyKey::getDownKeyPressed(void) {
 	if (!lock) {
 		if (padflag) {
 			if (Gamepad(0).axes[1] >= 1.0) {
@@ -71,7 +71,7 @@ bool MyKey::getDownKey(void) {
 	return false;
 }
 
-bool MyKey::getLeftKey(void) {
+bool MyKey::getLeftKeyPressed(void) {
 	if (!lock) {
 		if (padflag) {
 			if (Gamepad(0).axes[0] <= -1.0) {
@@ -86,7 +86,7 @@ bool MyKey::getLeftKey(void) {
 	return false;
 }
 
-bool MyKey::getRightKey(void) {
+bool MyKey::getRightKeyPressed(void) {
 	if (!lock) {
 		if (padflag) {
 			if (Gamepad(0).axes[0] >= 1.0) {
@@ -100,6 +100,69 @@ bool MyKey::getRightKey(void) {
 	}
 	return false;
 }
+
+//---------------------------------------------------------------------
+//	Downの処理（押した瞬間だけ）
+//----------------------------------------------------------------------
+bool MyKey::getUpKeyDown(void) {		//上キー入力
+	if (!lock) {
+		if (padflag) {
+			//return Gamepad(0).buttons[13].down();
+			if (Gamepad(0).axes[1] <= -1.0) {
+				return true;
+			}
+			return false;//上
+		}
+		else {
+			return KeyUp.down();
+		}
+	}
+	return false;
+}
+bool MyKey::getDownKeyDown(void) {		//下キー入力
+	if (!lock) {
+		if (padflag) {
+			if (Gamepad(0).axes[1] >= 1.0) {
+				return true;
+			}
+			return false;//上
+		}
+		else {
+			return KeyDown.down();
+		}
+	}
+	return false;
+}
+bool MyKey::getLeftKeyDown(void) {		//左キー入力
+	if (!lock) {
+		if (padflag) {
+			if (Gamepad(0).axes[0] <= -1.0) {
+				return true;
+			}
+			return false;
+		}
+		else {
+			return KeyLeft.down();
+		}
+	}
+	return false;
+}
+bool MyKey::getRightKeyDown(void) {		//右キー入力
+	if (!lock) {
+		if (padflag) {
+			if (Gamepad(0).axes[0] >= 1.0) {
+				return true;
+			}
+			return false;
+		}
+		else {
+			return KeyRight.down();
+		}
+	}
+	return false;
+}
+
+
 
 void MyKey::setKeyLock(bool lock) {
 	MyKey::lock = lock;

@@ -1,10 +1,10 @@
 #pragma once
 
 enum class MODE {
-	SOCCER,	//サッカー
-	DODGE,	//ドッジボール
-	SHOEKICK,//靴とばし
-	GACHA,	//ガチャ
-	MYROOM,	//自分の部屋
-	SIZE,
+	SOCCER = 0,	//サッカー
+	DODGE = 1,	//ドッジボール
+	SHOEKICK = 2,//靴とばし
+	GACHA = 3,	//ガチャ
+	MYROOM = 4,	//自分の部屋
+	SIZE = 5,
 };
