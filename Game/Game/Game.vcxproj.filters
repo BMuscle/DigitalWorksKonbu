@@ -213,6 +213,9 @@
     <ClCompile Include="MySocketServer.cpp">
       <Filter>Source Files\MyLib</Filter>
     </ClCompile>
+    <ClCompile Include="MyImageButton.cpp">
+      <Filter>Source Files\MyLib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -545,6 +548,9 @@
       <Filter>Header Files\MyLib</Filter>
     </ClInclude>
     <ClInclude Include="MySocketServer.h">
+      <Filter>Header Files\MyLib</Filter>
+    </ClInclude>
+    <ClInclude Include="MyImageButton.h">
       <Filter>Header Files\MyLib</Filter>
     </ClInclude>
   </ItemGroup>

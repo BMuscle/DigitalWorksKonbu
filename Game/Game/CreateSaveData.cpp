@@ -14,30 +14,35 @@ CreateSaveData::CreateSaveData(void) {
 	FontAsset::Preload(U"createSDfont");
 	TextureAsset::Register(U"createSDback", U"resources/images/backs/createsavedata.png", AssetParameter::LoadAsync());
 	//ポップアップロード
-	TextureAsset::Register(U"createSDpopup", U"resources/images/items/createsavedata/popup.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"createSDyes", U"resources/images/items/createsavedata/yes.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"createSDyeson", U"resources/images/items/createsavedata/yeson.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"createSDno", U"resources/images/items/createsavedata/no.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"createSDnoon", U"resources/images/items/createsavedata/noon.png", AssetParameter::LoadAsync());
+	TextureAsset::Register(U"createSDpopup", U"resources/images/items/createsavedata/popup.png", AssetParameter::LoadAsync());	//決定、戻るボタンの初期化
+	//戻るボタン決定ボタン初期化
+	button[(int)BUTTON::RETURN] = new MyImageButton(U"resources/images/items/createsavedata/button", U"戻る", 50, 100, 800, false);
+	button[(int)BUTTON::DECISION] = new MyImageButton(U"resources/images/items/createsavedata/button", U"決定", 50, 1800, 800, false);
+	//ポップアップのボタン初期化
+	popUpButton[(int)POPUP::YES] = new MyImageButton(U"resources/images/items/createsavedata/popup", U"本当に良い？", 50, Window::ClientWidth() / 2 + POPUP_INTERVAL, Window::ClientHeight() * 0.6, true);
+	popUpButton[(int)POPUP::NO] = new MyImageButton(U"resources/images/items/createsavedata/popup", U"やっぱやめる", 40, Window::ClientWidth() / 2 - POPUP_INTERVAL, Window::ClientHeight() * 0.6, false);
 
 	//変数の初期化
 	nameFont = Font(50);//テキストボックスのフォント
 	namebox = TextBox(nameFont, Vec2(100, 100), NAMEBOX_W, 15, U"");
 	namebox.setCenter(Vec2(NAMEBOX_X, NAMEBOX_Y));
 	namebox.setActive(false);//初期状態でテキストボックスを非アクティブに
-	popUpState = POPUP_STATE::YES;//ポップアップ選択の初期状態はYESに
+	selectState = SELECT_STATE::TEXT;//初期状態の選択状態はテキストボックスに
+	popUpState = POPUP::NONE;//ポップアップ選択の初期状態はYESに
 }
 CreateSaveData::~CreateSaveData(void) {
 	FontAsset::Unregister(U"createSDfont");
 	TextureAsset::Unregister(U"createSDback");
+	delete button[(int)BUTTON::DECISION];
+	delete button[(int)BUTTON::RETURN];
 }
 bool CreateSaveData::isReady(void) {
 	if (TextureAsset::IsReady(U"createSDback")&&
 		TextureAsset::IsReady(U"createSDpopup")&&
-		TextureAsset::IsReady(U"createSDyes")&&
-		TextureAsset::IsReady(U"createSDyeson")&&
-		TextureAsset::IsReady(U"createSDno")&&
-		TextureAsset::IsReady(U"createSDnoon")) {
+		popUpButton[(int)BUTTON::DECISION]->isReady()&&
+		popUpButton[(int)BUTTON::RETURN]->isReady() &&
+		button[(int)BUTTON::DECISION]->isReady()&&
+		button[(int)BUTTON::RETURN]->isReady()) {
 		return true;
 	}
 	return false;
@@ -51,43 +56,117 @@ void CreateSaveData::start(void) {
 	namebox.setActive(true);//ロード終了後でテキストボックスをアクティブに
 }
 void CreateSaveData::update(void) {//計算処理
-
 	if (namebox.isActive()) {//テキストボックスがアクティブの時
 		namebox.update();
-		//入力チェックを入れる
-		if (namebox.getText().isEmpty()) {//文字列が空なら終了する
-			namebox.setActive(true);
-			return;
-		}
 	}
-	else if (MyKey::getDecisionKey()) {//テキストボックスが非アクティブで決定キーが押された時
-		switch (popUpState)
-		{
-		case CreateSaveData::POPUP_STATE::YES://モード選択へ移動
-			MySceneManager::setNextScene(SCENE::SELECT_MODE);
-			break;
-		case CreateSaveData::POPUP_STATE::NO://セーブデータ選択へ戻る
-			MySceneManager::setNextScene(SCENE::SELECT_SAVEDATA);
-			break;
-		}
-	}
-	else {//テキストボックスが非アクティブの時選択の横移動
-		if (MyKey::getLeftKeyDown()) {
-			popUpState = POPUP_STATE::YES;
-		}
-		if (MyKey::getRightKeyDown()) {
-			popUpState = POPUP_STATE::NO;
-		}
+	
+	selectUpdate();//現在の選択状態に対応する計算処理
+	selectMove();//移動処理
+
+				//入力チェックを入れる
+	if (namebox.getText().isEmpty() && selectState != SELECT_STATE::NO) {//文字列が空なら終了する
+		namebox.setActive(true);
+		selectState = SELECT_STATE::TEXT;
+		button[(int)BUTTON::DECISION]->setSelect(false);
+		button[(int)BUTTON::RETURN]->setSelect(false);
 	}
 }
+
+
 void CreateSaveData::draw(void) {//描画処理
 	//背景描画
 	TextureAsset(U"createSDback").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+
+	//ボタンの描画
+	button[(int)BUTTON::DECISION]->draw();
+	button[(int)BUTTON::RETURN]->draw();
+	//テキストボックスの描画
 	namebox.draw();
 	namebox.drawOverlay();
 	FontAsset(U"createSDfont")(U"本人氏名").drawAt(NAMEBOX_X - FontAsset(U"createSDfont").fontSize() * 3 - NAMEBOX_W / 2, NAMEBOX_Y, ColorF(0, 0, 0));
-	if (!namebox.isActive() && isStart) {//テキストボックスが非アクティブの時ポップアップを表示する
+	if (selectState == SELECT_STATE::POPUP) {//テキストボックスが非アクティブの時ポップアップを表示する
 		popUpDraw();
+	}
+}
+
+
+void CreateSaveData::selectUpdate() {//現在の移動状態に対応する計算処理
+	switch (selectState)//現在の選択状態
+	{
+	case CreateSaveData::SELECT_STATE::YES:
+		if (MyKey::getDecisionKey()) {//決定キーが押された時
+			selectState = SELECT_STATE::POPUP;
+			popUpState = POPUP::YES;//ポップアップ表示
+		}
+		return;
+	case CreateSaveData::SELECT_STATE::TEXT:
+		if (MyKey::getDecisionKey()) {//決定キーが押された時
+			selectState = SELECT_STATE::YES;//テキストボックスでエンター押したときYESを選択させる
+			button[(int)BUTTON::DECISION]->setSelect(true);
+			namebox.setActive(false);
+		}
+		return;
+	case CreateSaveData::SELECT_STATE::NO:
+		if (MyKey::getDecisionKey()) {//決定キーが押された時
+			MySceneManager::setNextScene(SCENE::SELECT_SAVEDATA);//セーブデータ選択画面へ戻る
+		}
+		return;
+	case CreateSaveData::SELECT_STATE::POPUP://現在ポップアップ表示中
+		if (MyKey::getDecisionKey()) {//決定キーが押された時
+			switch (popUpState)
+			{
+			case CreateSaveData::POPUP::YES://モード選択へ移動
+				MySceneManager::setNextScene(SCENE::SELECT_MODE);
+				break;
+			case CreateSaveData::POPUP::NO://テキスト選択状態へ戻る
+				selectState = SELECT_STATE::TEXT;
+				namebox.setActive(true);
+				button[(int)BUTTON::DECISION]->setSelect(false);
+				button[(int)BUTTON::RETURN]->setSelect(false);
+				break;
+			}
+		}
+		else {//左右移動
+			if (MyKey::getLeftKeyDown()) {
+				popUpState = POPUP::NO;
+			}
+			if (MyKey::getRightKeyDown()) {
+				popUpState = POPUP::YES;
+			}
+		}
+		return;
+	}
+}
+void CreateSaveData::selectMove() {//選択状態の遷移
+	if (MyKey::getRightKeyDown()) {
+		switch (selectState)
+		{
+		case CreateSaveData::SELECT_STATE::TEXT://テキスト→決定ボタン
+			namebox.setActive(false);
+			selectState = SELECT_STATE::YES;
+			button[(int)BUTTON::DECISION]->setSelect(true);
+			break;
+		case CreateSaveData::SELECT_STATE::NO://戻るボタン→テキスト
+			namebox.setActive(true);
+			selectState = SELECT_STATE::TEXT;
+			button[(int)BUTTON::RETURN]->setSelect(false);
+			break;
+		}
+	}
+	if (MyKey::getLeftKeyDown()) {
+		switch (selectState)
+		{
+		case CreateSaveData::SELECT_STATE::YES://決定ボタン→テキスト
+			namebox.setActive(true);
+			selectState = SELECT_STATE::TEXT;
+			button[(int)BUTTON::DECISION]->setSelect(false);
+			break;
+		case CreateSaveData::SELECT_STATE::TEXT://テキスト→戻るボタン
+			namebox.setActive(false);
+			selectState = SELECT_STATE::NO;
+			button[(int)BUTTON::RETURN]->setSelect(true);
+			break;
+		}
 	}
 }
 
@@ -95,13 +174,15 @@ void CreateSaveData::popUpDraw() {//ポップアップの描画
 	TextureAsset(U"createSDpopup").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
 	switch (popUpState)
 	{
-	case CreateSaveData::POPUP_STATE::YES://YESが選択されているとき
-		TextureAsset(U"createSDno").drawAt(Window::ClientWidth() / 2 + POPUP_INTERVAL, Window::ClientHeight() * 0.6);
-		TextureAsset(U"createSDyeson").drawAt(Window::ClientWidth() / 2 - POPUP_INTERVAL, Window::ClientHeight() * 0.6);
+	case CreateSaveData::POPUP::YES://YESが選択されているとき
+		popUpButton[(int)POPUP::YES]->setSelect(true);
+		popUpButton[(int)POPUP::NO]->setSelect(false);
 		break;
-	case CreateSaveData::POPUP_STATE::NO://NOが選択されているとき
-		TextureAsset(U"createSDnoon").drawAt(Window::ClientWidth() / 2 + POPUP_INTERVAL, Window::ClientHeight() * 0.6);
-		TextureAsset(U"createSDyes").drawAt(Window::ClientWidth() / 2 - POPUP_INTERVAL, Window::ClientHeight() * 0.6);
+	case CreateSaveData::POPUP::NO://NOが選択されているとき
+		popUpButton[(int)POPUP::YES]->setSelect(false);
+		popUpButton[(int)POPUP::NO]->setSelect(true);
 		break;
 	}
+	popUpButton[(int)POPUP::YES]->draw();
+	popUpButton[(int)POPUP::NO]->draw();
 }
