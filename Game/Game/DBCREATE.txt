@@ -1,21 +1,25 @@
+//ユーザー作成
 "CREATE TABLE Users("
 "id integer primary key,"
 "name text,"
 "point integer default 0,"
-"total_play_time text,"
-"play_start_time text"
+"total_play_time integer,"
+"play_start_date text"
 ");"
 
+//アイテム作成
 "CREATE TABLE Items("
 "id integer primary key,"
 "name text"
 ");"
 
+//コレクション作成
 "CREATE TABLE Collections("
 "id integer primary key,"
 "name text"
 ");"
 
+//ユーザーアイテム作成
 "CREATE TABLE UserItems("
 "id integer primary key autoincrement,"
 "user_id integer,"
@@ -25,6 +29,7 @@
 "foreign key (item_id) references Items(id)"
 ");"
 
+//ユーザーコレクション作成
 "CREATE TABLE UserCollections("
 "id integer primary key autoincrement,"
 "user_id integer,"
@@ -34,12 +39,14 @@
 "foreign key (collection_id) references Collections(id)"
 ");"
 
+//ゲーム作成
 "CREATE TABLE Games("
 "id integer primary key,"
 "name text"
 ");"
 
-"CREATE TABLE UserCollections("
+//ゲームスコア作成
+"CREATE TABLE GameScores("
 "id integer primary key autoincrement,"
 "user_id integer,"
 "game_id integer,"
@@ -52,4 +59,13 @@
 "foreign key (game_id) references Games(id)"
 ");"
 
+//データ投入
 
+//ユーザーデータ投入
+"INSERT INTO Users VALUES(1, '', 0, 0, '');"
+"INSERT INTO Users VALUES(2, '', 0, 0, '');"
+"INSERT INTO Users VALUES(3, '', 0, 0, '');"
+
+//ユーザーデータ更新
+"UPDATE Users SET name = '入力値', play_start_date = date('now')"
+"WHERE id = id;"

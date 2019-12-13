@@ -29,17 +29,17 @@ private:
 	};
 
 	enum class SELECT_STATE {
-		YES,
+		RETURN,
 		TEXT,
-		NO,
+		DECISION,
 		POPUP,
 	};
 	SELECT_STATE selectState;
 	MyImageButton* button[(int)BUTTON::SIZE];//左右の戻るボタン決定ボタン
 
 	enum class POPUP {//ポップアップの状態
-		YES,
-		NO,
+		RETURN,
+		DECISION,
 		SIZE,
 		NONE,
 	};

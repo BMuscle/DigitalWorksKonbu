@@ -12,7 +12,6 @@ if (err != SQLITE_OK) {
 	sqlite3_free(errMsg);
 	return false;
 }
-//--------------------------
 */
 bool MySqlite3::initialize() {	//初期化 DBの初期化を行う
 	int err = sqlite3_open("savedata.db", &db);
@@ -46,14 +45,14 @@ bool MySqlite3::finalize() {		//終了化
 bool MySqlite3::DBCREATE() {		//基本使用しない　データベースの初期設定を行う。 DBファイル消してから実行
 	char* errMsg = NULL;
 	int err = 0;
-	//-------------------------
+	//-------ユーザー作成---------
 	err = sqlite3_exec(db,
 		"CREATE TABLE Users("
 		"id integer primary key,"
 		"name text,"
 		"point integer default 0,"
-		"total_play_time text,"
-		"play_start_time text"
+		"total_play_time integer,"
+		"play_start_date text"
 		");",
 		NULL, NULL, &errMsg);
 
@@ -61,8 +60,7 @@ bool MySqlite3::DBCREATE() {		//基本使用しない　データベースの初期設定を行う。 D
 		sqlite3_free(errMsg);
 		return false;
 	}
-	//-------------------------
-	//-------------------------
+	//-------アイテム作成-------------
 	err = sqlite3_exec(db,
 		"CREATE TABLE Items("
 		"id integer primary key,"
@@ -74,8 +72,7 @@ bool MySqlite3::DBCREATE() {		//基本使用しない　データベースの初期設定を行う。 D
 		sqlite3_free(errMsg);
 		return false;
 	}
-	//-------------------------
-	//-------------------------
+	//--------コレクション作成----------
 	err = sqlite3_exec(db,
 		"CREATE TABLE Collections("
 		"id integer primary key,"
@@ -87,8 +84,7 @@ bool MySqlite3::DBCREATE() {		//基本使用しない　データベースの初期設定を行う。 D
 		sqlite3_free(errMsg);
 		return false;
 	}
-	//--------------------------
-	//-------------------------
+	//-------ユーザーアイテム作成------
 	err = sqlite3_exec(db,
 		"CREATE TABLE UserItems("
 		"id integer primary key autoincrement,"
@@ -104,8 +100,7 @@ bool MySqlite3::DBCREATE() {		//基本使用しない　データベースの初期設定を行う。 D
 		sqlite3_free(errMsg);
 		return false;
 	}
-	//--------------------------
-	//-------------------------
+	//----------ユーザーコレクション作成---------
 	err = sqlite3_exec(db,
 		"CREATE TABLE UserCollections("
 		"id integer primary key autoincrement,"
@@ -121,8 +116,7 @@ bool MySqlite3::DBCREATE() {		//基本使用しない　データベースの初期設定を行う。 D
 		sqlite3_free(errMsg);
 		return false;
 	}
-	//--------------------------
-	//-------------------------
+	//----------ゲーム作成-------------
 	err = sqlite3_exec(db,
 		"CREATE TABLE Games("
 		"id integer primary key,"
@@ -135,10 +129,9 @@ bool MySqlite3::DBCREATE() {		//基本使用しない　データベースの初期設定を行う。 D
 		sqlite3_free(errMsg);
 		return false;
 	}
-	//--------------------------
-	//-------------------------
+	//--------ゲームスコア作成------------
 	err = sqlite3_exec(db,
-		"CREATE TABLE UserCollections("
+		"CREATE TABLE GameScores("
 		"id integer primary key autoincrement,"
 		"user_id integer,"
 		"game_id integer,"
@@ -157,9 +150,20 @@ bool MySqlite3::DBCREATE() {		//基本使用しない　データベースの初期設定を行う。 D
 		sqlite3_free(errMsg);
 		return false;
 	}
-	//--------------------------
+	//----------初期データ投入---------
+
+	//-----------ユーザーデータ投入----------
+	err = sqlite3_exec(db,
+		"INSERT INTO Users VALUES(1, '', 0, 0, '');"
+		"INSERT INTO Users VALUES(2, '', 0, 0, '');"
+		"INSERT INTO Users VALUES(3, '', 0, 0, '');",
+		NULL, NULL, &errMsg);
+	if (err != SQLITE_OK) {
+		sqlite3_free(errMsg);
+		return false;
+	}
 	return true;
 }
-const sqlite3* MySqlite3::getDB() {//データベースへのポインタを参照する
+sqlite3* MySqlite3::getDB() {//データベースへのポインタを参照する
 	return db;
 }

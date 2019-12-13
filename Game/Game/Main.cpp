@@ -3,13 +3,14 @@
 #include "MySqlite3.h"
 #include "Sensor.h"
 #include "MySocketServer.h"
+#include "User.h"
 
 void Main()
 {
 	if (!MySqlite3::initialize()) {
 		return; //データベースの初期化失敗
 	}
-	//MySqlite3::DBCREATE();//作成だけ
+	MySqlite3::DBCREATE();//作成だけ
 	Profiler::EnableAssetCreationWarning(false);	//アセットの警告オフ
 	Window::Resize(1920, 1080);						//画面サイズを1920/1080に固定	
 	Graphics::SetTargetFrameRateHz(60);				//FPSを60に固定

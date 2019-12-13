@@ -1,5 +1,7 @@
 #pragma once
 #include <Siv3D.hpp>
+#include "MySqlite3.h"
+#include "sqlite3.h"
 
 class User {
 private:
@@ -11,8 +13,8 @@ public:
 	static void initialize();	//初期化
 	static void finalize();		//終了化
 
-	static bool saveDataAccess(int id);
-	static bool createSaveData(int id, String name);
+	static bool saveDataAccess(int id);//ユーザーデータの選択
+	static bool createSaveData(int id, String name);//ユーザーデータの作成
 
 	//ゲッターセッター
 	static int getUser_Id();
