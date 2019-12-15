@@ -69,3 +69,9 @@
 //ユーザーデータ更新
 "UPDATE Users SET name = '入力値', play_start_date = date('now')"
 "WHERE id = id;"
+
+//空きユーザーデータ取得
+"SELECT id FROM Users WHERE name = '' ORDER BY id ASC limit 1;"
+
+//簡易ユーザーデータ取得
+"SELECT name, total_play_time FROM Users WHERE id = ?;"

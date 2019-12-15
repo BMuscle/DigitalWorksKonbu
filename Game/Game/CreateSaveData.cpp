@@ -36,12 +36,14 @@ CreateSaveData::~CreateSaveData(void) {
 	delete button[(int)BUTTON::DECISION];
 	delete button[(int)BUTTON::RETURN];
 
-	/*----------------
-	ここで選択できるユーザーを検知する
-	
-	----------------*/
 
-	User::createSaveData(1, namebox.getText());//セーブデータ作成
+	int id = User::detectionSaveData();//新規作成できるユーザーを検出する。
+	if (id > 0) {
+		User::createSaveData(id, namebox.getText());//セーブデータ作成
+	}
+	else {
+		//エラー
+	}
 }
 bool CreateSaveData::isReady(void) {
 	if (TextureAsset::IsReady(U"createSDback")&&
