@@ -553,5 +553,8 @@
     <ClInclude Include="MyImageButton.h">
       <Filter>Header Files\MyLib</Filter>
     </ClInclude>
+    <ClInclude Include="TotalPlayTimeTimer.h">
+      <Filter>Header Files\MyLib</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

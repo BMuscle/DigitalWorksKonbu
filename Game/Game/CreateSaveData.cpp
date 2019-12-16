@@ -37,7 +37,7 @@ CreateSaveData::~CreateSaveData(void) {
 	delete button[(int)BUTTON::RETURN];
 
 
-	int id = User::detectionSaveData();//新規作成できるユーザーを検出する。
+	int id = User::getSaveDataSize() + 1;//現在のセーブデータ数の１つ上に新規セーブデータを作成する
 	if (id > 0) {
 		User::createSaveData(id, namebox.getText());//セーブデータ作成
 	}
