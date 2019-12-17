@@ -160,6 +160,12 @@
     <Filter Include="Source Files\Scene\CreateSaveData">
       <UniqueIdentifier>{e143dff4-8a7f-4a94-8d5f-165afadc264b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Scene\MyRoom">
+      <UniqueIdentifier>{14cc8ef4-dd93-4592-a7ed-872638ff1ff0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene\MyRoom">
+      <UniqueIdentifier>{cbfa3af0-0bed-4fca-867c-a5fa04bfa261}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -215,6 +221,9 @@
     </ClCompile>
     <ClCompile Include="MyImageButton.cpp">
       <Filter>Source Files\MyLib</Filter>
+    </ClCompile>
+    <ClCompile Include="MyRoom.cpp">
+      <Filter>Source Files\Scene\MyRoom</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -555,6 +564,9 @@
     </ClInclude>
     <ClInclude Include="TotalPlayTimeTimer.h">
       <Filter>Header Files\MyLib</Filter>
+    </ClInclude>
+    <ClInclude Include="MyRoom.h">
+      <Filter>Header Files\Scene\MyRoom</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

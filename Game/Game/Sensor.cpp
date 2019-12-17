@@ -47,9 +47,19 @@ void Sensor::update() {
 }
 
 void Sensor::debugPrint() {
+	static int maxAccX = 0, maxAccY = 0, maxAccZ = 0;
 	Print(U"â¡ë¨ìxXYZ" + Format(acceleration));
 	Print(U"äpë¨ìxXYZ" + Format(angularvelocity));
 	Print(U"ï˚å¸XYZ" + Format(direction));
+
+	maxAccX = Max((int)acceleration.x, maxAccX);
+	maxAccY = Max((int)acceleration.y, maxAccY);
+	maxAccZ = Max((int)acceleration.z, maxAccZ);
+
+	Print(U"ç≈ëÂâ¡ë¨ìxXYZ" + Format(maxAccX,U" ",maxAccY, U" ", maxAccZ));
+
+
+	Circle(Window::ClientWidth() / 2 + acceleration.x * 2, Window::ClientHeight() / 2 + acceleration.y * 2, 40).draw();
 }
 
 Vec3 Sensor::getAcceleration() {
@@ -66,4 +76,11 @@ void Sensor::setData(Vec3& accel, Vec3& angular, Vec3& dir) {
 	acceleration = accel;
 	angularvelocity = angular;
 	direction = dir;
+
+	acceleration.x /= 10;
+	acceleration.y /= 10;
+	acceleration.z /= 10;
+	acceleration.x *= 10;
+	acceleration.y *= 10;
+	acceleration.z *= 10;
 }

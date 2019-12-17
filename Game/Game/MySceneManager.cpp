@@ -79,6 +79,10 @@ void MySceneManager::changeScene() {
 			scene = new Game(mode);
 		}
 		break;
+	case SCENE::MYROOM:
+		delete scene;
+		scene = new MyRoom();
+		break;
 	}
 
 }

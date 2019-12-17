@@ -6,6 +6,7 @@
 #include "CreateSaveData.h"
 #include "SelectMode.h"
 #include "Game.h"
+#include "MyRoom.h"
 
 enum class SCENE {
 	TITLE,
