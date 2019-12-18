@@ -166,6 +166,12 @@
     <Filter Include="Source Files\Scene\MyRoom">
       <UniqueIdentifier>{cbfa3af0-0bed-4fca-867c-a5fa04bfa261}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Scene\Gacha">
+      <UniqueIdentifier>{4c0ba369-e6e1-40c9-9dae-11b4235c6200}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene\Gacha">
+      <UniqueIdentifier>{2d3a7777-f0c4-4cb9-ae36-e94895c082b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -224,6 +230,9 @@
     </ClCompile>
     <ClCompile Include="MyRoom.cpp">
       <Filter>Source Files\Scene\MyRoom</Filter>
+    </ClCompile>
+    <ClCompile Include="Gacha.cpp">
+      <Filter>Source Files\Scene\Gacha</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -567,6 +576,9 @@
     </ClInclude>
     <ClInclude Include="MyRoom.h">
       <Filter>Header Files\Scene\MyRoom</Filter>
+    </ClInclude>
+    <ClInclude Include="Gacha.h">
+      <Filter>Header Files\Scene\Gacha</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

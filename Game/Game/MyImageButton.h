@@ -10,6 +10,7 @@ public:
 	bool isReady();
 	void setAlpha(float alpha);
 	void draw(ColorF color = ColorF(0,0,0));
+	void drawNotWord( bool selected = false);
 	void setSelect(bool flag);//セレクトされているか状態をセットする
 	bool isSelect();//セレクト状態を返す
 private:

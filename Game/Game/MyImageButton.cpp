@@ -35,6 +35,15 @@ void MyImageButton::draw(ColorF color) {
 	}
 	font(drawWord).drawAt(buttonX, buttonY, color);
 }
+
+void MyImageButton::drawNotWord(bool selected) {
+	if (selected) {
+		TextureAsset(folderpath + U"/on.png").drawAt(buttonX, buttonY, AlphaF(buttonAlpha));
+	}
+	else {
+		TextureAsset(folderpath + U"/off.png").drawAt(buttonX, buttonY, AlphaF(buttonAlpha));
+	}
+}
 void MyImageButton::setSelect(bool flag) {//セレクトされているか状態をセットする
 	selected = flag;
 }

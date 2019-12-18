@@ -127,6 +127,7 @@
     <ClCompile Include="Sensor.cpp" />
     <ClCompile Include="ShoeKick.cpp" />
     <ClCompile Include="Soccer.cpp" />
+    <ClCompile Include="Gacha.cpp" />
     <ClCompile Include="sqlite3.c" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="User.cpp" />
@@ -258,6 +259,7 @@
   <ItemGroup>
     <ClInclude Include="CreateSaveData.h" />
     <ClInclude Include="Dodge.h" />
+    <ClInclude Include="Gacha.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="LoadEffect.h" />
     <ClInclude Include="MiniGameBase.h" />

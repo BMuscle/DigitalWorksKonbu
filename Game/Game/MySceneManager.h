@@ -15,6 +15,7 @@ enum class SCENE {
 	SELECT_MODE,
 	GAME,
 	MYROOM,
+	GACHA,
 	NONE
 };
 
