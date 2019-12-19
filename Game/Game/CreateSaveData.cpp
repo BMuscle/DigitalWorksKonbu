@@ -1,10 +1,12 @@
 #include "CreateSaveData.h"
 
+//テキストボックスの座標 幅 定義
 #define NAMEBOX_X (Window::ClientWidth() * 0.6)
 #define NAMEBOX_Y (Window::ClientHeight() * 0.8)
 #define NAMEBOX_W (Window::ClientWidth() * 0.3)
+//アイテムの位置の間隔を定義
 #define ITEM_INTERVAL (Window::ClientHeight() * 0.2)
-
+//ポップアップのボタンの離れている間隔を定義
 #define POPUP_INTERVAL (Window::ClientWidth() * 0.07)
 
 CreateSaveData::CreateSaveData(void) {
@@ -13,11 +15,14 @@ CreateSaveData::CreateSaveData(void) {
 	FontAsset::Register(U"createSDfont", 70);
 	FontAsset::Preload(U"createSDfont");
 	TextureAsset::Register(U"createSDback", U"resources/images/backs/createsavedata.png", AssetParameter::LoadAsync());
+
 	//ポップアップロード
 	TextureAsset::Register(U"createSDpopup", U"resources/images/items/createsavedata/popup.png", AssetParameter::LoadAsync());	//決定、戻るボタンの初期化
+
 	//戻るボタン決定ボタン初期化
 	button[(int)BUTTON::RETURN] = new MyImageButton(U"resources/images/items/createsavedata/button", U"戻る", 50, 100, 800, false);
 	button[(int)BUTTON::DECISION] = new MyImageButton(U"resources/images/items/createsavedata/button", U"決定", 50, 1800, 800, false);
+	
 	//ポップアップのボタン初期化
 	popUpButton[(int)POPUP::RETURN] = new MyImageButton(U"resources/images/items/createsavedata/popup", U"本当に良い？", 50, (int)Window::ClientWidth() / 2 + (int)POPUP_INTERVAL, (int)Window::ClientHeight() * 0.6, true);
 	popUpButton[(int)POPUP::DECISION] = new MyImageButton(U"resources/images/items/createsavedata/popup", U"やっぱやめる", 40, (int)Window::ClientWidth() / 2 - (int)POPUP_INTERVAL, (int)Window::ClientHeight() * 0.6, false);
@@ -148,7 +153,7 @@ void CreateSaveData::selectUpdate() {//現在の移動状態に対応する計算処理
 	}
 }
 void CreateSaveData::selectMove() {//選択状態の遷移
-	if (MyKey::getRightKeyDown()) {
+	if (MyKey::getRightKeyDown()) {//右キー入力
 		switch (selectState)
 		{
 		case CreateSaveData::SELECT_STATE::TEXT://テキスト→決定ボタン
@@ -163,7 +168,7 @@ void CreateSaveData::selectMove() {//選択状態の遷移
 			break;
 		}
 	}
-	if (MyKey::getLeftKeyDown()) {
+	if (MyKey::getLeftKeyDown()) {//左キー入力
 		switch (selectState)
 		{
 		case CreateSaveData::SELECT_STATE::RETURN://決定ボタン→テキスト
@@ -181,18 +186,20 @@ void CreateSaveData::selectMove() {//選択状態の遷移
 }
 
 void CreateSaveData::popUpDraw() {//ポップアップの描画
+	//ポップアップ背景を描画
 	TextureAsset(U"createSDpopup").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
 	switch (popUpState)
 	{
-	case CreateSaveData::POPUP::RETURN://YESが選択されているとき
+	case CreateSaveData::POPUP::RETURN://YESが選択されているとき 選択状態を変更
 		popUpButton[(int)POPUP::RETURN]->setSelect(true);
 		popUpButton[(int)POPUP::DECISION]->setSelect(false);
 		break;
-	case CreateSaveData::POPUP::DECISION://NOが選択されているとき
+	case CreateSaveData::POPUP::DECISION://NOが選択されているとき 選択状態を変更
 		popUpButton[(int)POPUP::RETURN]->setSelect(false);
 		popUpButton[(int)POPUP::DECISION]->setSelect(true);
 		break;
 	}
+	//描画処理
 	popUpButton[(int)POPUP::RETURN]->draw();
 	popUpButton[(int)POPUP::DECISION]->draw();
 }

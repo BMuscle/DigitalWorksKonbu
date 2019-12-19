@@ -44,11 +44,12 @@ public:
 	static int getSaveDataSize();
 
 	//ゲッターセッター
+
 	//ユーザIDの取得
 	static int getUser_Id();
 	//ユーザーネームの取得
 	static String getUser_Name();
-	//ユーザーがアイテムを持っているかどうかtrue falseで返す
+	//ユーザーがアイテムを持っているかどうかtrue falseで返す keyはcsvの一番左の列
 	static bool getHasItems(GAME_TYPE type, int key);
 
 

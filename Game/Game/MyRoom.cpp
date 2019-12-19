@@ -72,6 +72,7 @@ void MyRoom::moveSelectMode() {
 	
 }
 
+//‚»‚ê‚¼‚ê‚Ìƒ{ƒ^ƒ“‚ð‘S‚Ä•`‰æ‚·‚é
 void MyRoom::drawButton() {
 	TextureAsset(buttonName[MODE::AVATAR]).drawAt(200, 100);
 	TextureAsset(buttonName[MODE::COLLECTION]).drawAt(1600, 300);

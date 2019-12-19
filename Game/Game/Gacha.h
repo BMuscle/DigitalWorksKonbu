@@ -14,17 +14,18 @@ public:
 	void update(void);
 	void draw(void);
 private:
-	Audio* backAudio;
-	enum class BUTTON {
+	Audio* backAudio;//BGM
+	enum class BUTTON {//ボタンの種類
 		GACHA,
 		EXIT,
 		SIZE,
 	};
-	MyImageButton* button[(int)BUTTON::SIZE];//画像ボタンクラス
-	BUTTON selectedButton;//現在選択されているボタン
+	MyImageButton* button[(int)BUTTON::SIZE];	//画像ボタンクラス
+	BUTTON selectedButton;						//現在選択されているボタン
 
-	bool nowGachaing;//現在ガチャしているかどうか
+	bool nowGachaing;							//現在ガチャしているかどうか
 
-	void selectedMove();//現在選択されているものの更新処理
+	//現在選択されているものの更新処理
+	void selectedMove();
 
 };

@@ -65,8 +65,7 @@ void SelectSaveData::start(void) {
 	backAudio->play();
 }
 void SelectSaveData::update(void) {
-	if (MyKey::getDecisionKey()) {
-
+	if (MyKey::getDecisionKey()) {//選択されているセーブデータにより分岐、シーン移行処理
 		if (selectedUser < currentUserSize){//ユーザー数より小さい場所（既にユーザーが存在するところを選択している場合)
 			MySceneManager::setNextScene(SCENE::SELECT_MODE);
 			User::saveDataAccess(selectedUser + 1);
@@ -75,12 +74,12 @@ void SelectSaveData::update(void) {
 			MySceneManager::setNextScene(SCENE::CREATE_SAVEDATA);
 		}
 	}
-	updateFrameCount();
+	updateFrameCount();//フレーム数をカウントアップする
 	if (!(MyKey::getUpKeyPressed() == true && MyKey::getDownKeyPressed() == true)) {
-		if (MyKey::getUpKeyPressed()) {
+		if (MyKey::getUpKeyPressed()) {//セーブデータ選択状態を上方向に回転
 			rotateSelectedUser(true);
 		}
-		if (MyKey::getDownKeyPressed()) {
+		if (MyKey::getDownKeyPressed()) {//セーブデータ選択状態を下方向に回転
 			rotateSelectedUser(false);
 		}
 	}
@@ -111,6 +110,7 @@ void SelectSaveData::draw(void) {
 }
 
 
+//フレーム数をカウントアップする
 void SelectSaveData::updateFrameCount() {
 	frameCount++;
 	if (frameCount > 60 * 3000) {//上限値チェック
@@ -118,6 +118,7 @@ void SelectSaveData::updateFrameCount() {
 	}
 }
 
+//ユーザーの選択状態を更新する(true = 上方向 false = 下方向)
 void SelectSaveData::rotateSelectedUser(bool isUp) {
 	if (frameCount - selectCountPrev >= SELECT_INTERVAL_COUNT) {
 		selectCountPrev = frameCount;
