@@ -10,5 +10,5 @@ public:
 	virtual void update(void) = 0;	//計算処理
 	virtual void draw(void) = 0;	//描画処理
 	virtual void outputResult(void) = 0;//結果をDBへ出力する
-//何か一つ足りない気がしている
+	virtual void stopGame() = 0;	//ゲームを一時中断する
 };

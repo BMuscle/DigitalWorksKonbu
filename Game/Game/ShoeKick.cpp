@@ -4,7 +4,7 @@
 
 
 ShoeKick::ShoeKick(void) {
-	//ƒAƒZƒbƒg‚Öƒ[ƒh
+	//ã‚¢ã‚»ãƒƒãƒˆã¸ãƒ­ãƒ¼ãƒ‰
 	FontAsset::Register(U"shoekickfont", 70);
 	FontAsset::Preload(U"shoekickfont");
 	TextureAsset::Register(U"shoekickback", U"resources/images/backs/shoekick.png", AssetParameter::LoadAsync());
@@ -16,7 +16,7 @@ ShoeKick::ShoeKick(void) {
 	TextureAsset::Register(U"shoekick_rain", U"resources/images/items/game/shoekick/rain.png", AssetParameter::LoadAsync());
 	TextureAsset::Register(U"shoekick_cloudy", U"resources/images/items/game/shoekick/cloudy.png", AssetParameter::LoadAsync());
 
-	nowScene = TITLE;//‰ŠúƒV[ƒ“ƒZƒbƒg
+	nowScene = TITLE;//åˆæœŸã‚·ãƒ¼ãƒ³ã‚»ãƒƒãƒˆ
 	nextScene = TITLE;
 }
 ShoeKick::~ShoeKick(void) {
@@ -24,31 +24,31 @@ ShoeKick::~ShoeKick(void) {
 	TextureAsset::Unregister(U"shoekickback");
 	delete backAudio;
 }
-bool ShoeKick::isReady(void) {	//ƒ[ƒhI—¹‚µ‚Ä‚à‚¢‚¢‚©‚Ç‚¤‚©
+bool ShoeKick::isReady(void) {	//ãƒ­ãƒ¼ãƒ‰çµ‚äº†ã—ã¦ã‚‚ã„ã„ã‹ã©ã†ã‹
 	if (TextureAsset::IsReady(U"shoekickback")) {
 		return true;
 	}
 	return false;
 }
-void ShoeKick::start(void) {	//ƒ[ƒh‹ó‚¯‚½Œã‚ÉÀs‚³‚ê‚é‚à‚Ì
-	//BGMÄ¶ŠJn
+void ShoeKick::start(void) {	//ãƒ­ãƒ¼ãƒ‰ç©ºã‘ãŸå¾Œã«å®Ÿè¡Œã•ã‚Œã‚‹ã‚‚ã®
+	//BGMå†ç”Ÿé–‹å§‹
 	backAudio = new Audio(U"resources/musics/backs/shoekick.wav");
 	backAudio->setLoop(true);
 	backAudio->play();
 }
-void ShoeKick::update(void) {	//ŒvZˆ—
+void ShoeKick::update(void) {	//è¨ˆç®—å‡¦ç†
 	if (nowScene != nextScene) {
 		changeScene();
 	}
 	switch (nowScene) { 
-	case TITLE:/*ƒ^ƒCƒgƒ‹*/
+	case TITLE:/*ã‚¿ã‚¤ãƒˆãƒ«*/
 
-		if (MyKey::getDecisionKey()) { //ƒGƒ“ƒ^[‰Ÿ‚³‚ê‚½‚ç‚¯‚é‰æ–Ê‚ÉˆÚs‚·‚é
+		if (MyKey::getDecisionKey()) { //ã‚¨ãƒ³ã‚¿ãƒ¼æŠ¼ã•ã‚ŒãŸã‚‰ã‘ã‚‹ç”»é¢ã«ç§»è¡Œã™ã‚‹
 			setNextScene(KICK);
 		}
 		break;
 
-	case KICK: /*‘«‚ğU‚Á‚Ä‘¬‚³‚ğæ‚Á‚Ä‚«‚Ä”ò‚Î‚·‚Ü‚Å‚Ì‰æ–Ê*/
+	case KICK: /*è¶³ã‚’æŒ¯ã£ã¦é€Ÿã•ã‚’å–ã£ã¦ãã¦é£›ã°ã™ã¾ã§ã®ç”»é¢*/
 		
 	
 		
@@ -60,33 +60,33 @@ void ShoeKick::update(void) {	//ŒvZˆ—
 
 		setNextScene(FLY);
 		break;
-	case FLY:/*o‚½‘¬‚³‚©‚ç‹——£‚ğæ‚Á‚ÄŒC‚ğ”ò‚Î‚·‰æ–Ê*/
-		//o‚½‘¬‚³‚É‰½‚©‚µ‚ç‚ğ‚©‚¯‚Ä‹——£‚ğo‚·
+	case FLY:/*å‡ºãŸé€Ÿã•ã‹ã‚‰è·é›¢ã‚’å–ã£ã¦é´ã‚’é£›ã°ã™ç”»é¢*/
+		//å‡ºãŸé€Ÿã•ã«ä½•ã‹ã—ã‚‰ã‚’ã‹ã‘ã¦è·é›¢ã‚’å‡ºã™
 		break;
-	case FALL:/*ŒC‚ğ—‰º‚³‚¹‚é‰æ–Ê*/
+	case FALL:/*é´ã‚’è½ä¸‹ã•ã›ã‚‹ç”»é¢*/
 
-		if (MyKey::getDecisionKey()) { //ƒGƒ“ƒ^[‰Ÿ‚³‚ê‚½‚ç“V‹C‚Ì‰æ–Ê‚ÉˆÚs‚·‚é
+		if (MyKey::getDecisionKey()) { //ã‚¨ãƒ³ã‚¿ãƒ¼æŠ¼ã•ã‚ŒãŸã‚‰å¤©æ°—ã®ç”»é¢ã«ç§»è¡Œã™ã‚‹
 			setNextScene (RESULT);
 		}
 		break;
 
-	case RESULT:/*‹——£‚É‚æ‚Á‚Ä•\¦‚·‚é“V‹C‚ğ•Ï‚¦‚éE‚à‚¤ˆê“xƒQ[ƒ€‚ğ‚·‚é‚©ƒ}ƒbƒv‚É–ß‚é‚©‚ğŠm”F‚·‚é‰æ–Ê*/
-		//‚à‚¤ˆê“xƒQ[ƒ€‚ğƒvƒŒƒC‚·‚é‚©ƒ}ƒbƒv‚É–ß‚é‚©•ûŒüƒL[‚Å‘I‘ğ‚µ‚ÄƒGƒ“ƒ^[‚ÅŒˆ’è 
+	case RESULT:/*è·é›¢ã«ã‚ˆã£ã¦è¡¨ç¤ºã™ã‚‹å¤©æ°—ã‚’å¤‰ãˆã‚‹ãƒ»ã‚‚ã†ä¸€åº¦ã‚²ãƒ¼ãƒ ã‚’ã™ã‚‹ã‹ãƒãƒƒãƒ—ã«æˆ»ã‚‹ã‹ã‚’ç¢ºèªã™ã‚‹ç”»é¢*/
+		//ã‚‚ã†ä¸€åº¦ã‚²ãƒ¼ãƒ ã‚’ãƒ—ãƒ¬ã‚¤ã™ã‚‹ã‹ãƒãƒƒãƒ—ã«æˆ»ã‚‹ã‹æ–¹å‘ã‚­ãƒ¼ã§é¸æŠã—ã¦ã‚¨ãƒ³ã‚¿ãƒ¼ã§æ±ºå®š 
 		break;
 
 	}
 
 }
-void ShoeKick::draw(void) {	//•`‰æˆ—
+void ShoeKick::draw(void) {	//æç”»å‡¦ç†
 
-	switch (nowScene) { //‰æ–ÊØ‚è‘Ö‚¦‚Ìƒtƒ‰ƒO
+	switch (nowScene) { //ç”»é¢åˆ‡ã‚Šæ›¿ãˆã®ãƒ•ãƒ©ã‚°
 
 	case TITLE://home
 		TextureAsset(U"shoekick_title").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
 		break;
 	case KICK://keru
 		TextureAsset(U"shoekick_kick").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
-		FontAsset(U"shoekickfont")(U"ƒJƒEƒ“ƒgƒ_ƒEƒ“" + Format(countDown)).drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2, ColorF(0,0,0));
+		FontAsset(U"shoekickfont")(U"ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³" + Format(countDown)).drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2, ColorF(0,0,0));
 		break;
 	case FLY://tonnderu
 		TextureAsset(U"shoekick_fly").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
@@ -101,12 +101,15 @@ void ShoeKick::draw(void) {	//•`‰æˆ—
 		break;
 	}
 }
-void ShoeKick::outputResult(void) {//Œ‹‰Ê‚ğDB‚Öo—Í‚·‚é
+void ShoeKick::outputResult(void) {//çµæœã‚’DBã¸å‡ºåŠ›ã™ã‚‹
 
 }
 
+void ShoeKick::stopGame() {	//ã‚²ãƒ¼ãƒ ã‚’ä¸€æ™‚ä¸­æ–­ã™ã‚‹
+
+}
 void ShoeKick::changeScene() {
-	switch (nowScene)//I—¹ˆ—
+	switch (nowScene)//çµ‚äº†å‡¦ç†
 	{
 	case ShoeKick::TITLE:
 		break;
@@ -119,7 +122,7 @@ void ShoeKick::changeScene() {
 	case ShoeKick::RESULT:
 		break;
 	}
-	switch (nextScene)//‰Šú‰»ˆ—
+	switch (nextScene)//åˆæœŸåŒ–å‡¦ç†
 	{
 	case ShoeKick::TITLE:
 		break;

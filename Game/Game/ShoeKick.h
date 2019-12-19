@@ -6,18 +6,19 @@ class ShoeKick : public MiniGame {
 public:
 	ShoeKick(void);
 	~ShoeKick(void);
-	bool isReady(void);	//ƒ[ƒhI—¹‚µ‚Ä‚à‚¢‚¢‚©‚Ç‚¤‚©
-	void start(void);	//ƒ[ƒh‹ó‚¯‚½Œã‚ÉÀs‚³‚ê‚é‚à‚Ì
-	void update(void);	//ŒvZˆ—
-	void draw(void);	//•`‰æˆ—
-	void outputResult(void);//Œ‹‰Ê‚ğDB‚Öo—Í‚·‚é
+	bool isReady(void);	//ãƒ­ãƒ¼ãƒ‰çµ‚äº†ã—ã¦ã‚‚ã„ã„ã‹ã©ã†ã‹
+	void start(void);	//ãƒ­ãƒ¼ãƒ‰ç©ºã‘ãŸå¾Œã«å®Ÿè¡Œã•ã‚Œã‚‹ã‚‚ã®
+	void update(void);	//è¨ˆç®—å‡¦ç†
+	void draw(void);	//æç”»å‡¦ç†
+	void outputResult(void);//çµæœã‚’DBã¸å‡ºåŠ›ã™ã‚‹
+	void stopGame();	//ã‚²ãƒ¼ãƒ ã‚’ä¸€æ™‚ä¸­æ–­ã™ã‚‹
 
 private:
 	Audio* backAudio;
 
 
 
-	//ƒV[ƒ“•ÏX—p
+	//ã‚·ãƒ¼ãƒ³å¤‰æ›´ç”¨
 	enum SCENE {
 		TITLE,
 		KICK,
@@ -29,9 +30,9 @@ private:
 	void changeScene();
 	void setNextScene(SCENE next);
 
-	//R‚éƒV[ƒ“‚Ì•Ï”
+	//è¹´ã‚‹ã‚·ãƒ¼ãƒ³ã®å¤‰æ•°
 	int countDown;
 
-	//•`‰æ
+	//æç”»
 	void scenedraw(void);
 };
