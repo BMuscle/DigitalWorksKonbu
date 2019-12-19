@@ -69,6 +69,7 @@ void SelectSaveData::update(void) {
 
 		if (selectedUser < currentUserSize){//ユーザー数より小さい場所（既にユーザーが存在するところを選択している場合)
 			MySceneManager::setNextScene(SCENE::SELECT_MODE);
+			User::saveDataAccess(selectedUser + 1);
 		}
 		else {
 			MySceneManager::setNextScene(SCENE::CREATE_SAVEDATA);

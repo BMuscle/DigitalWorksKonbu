@@ -15,7 +15,7 @@ void Main()
 	Window::Resize(1920, 1080);						//画面サイズを1920/1080に固定	
 	Graphics::SetTargetFrameRateHz(60);				//FPSを60に固定
 	MySceneManager::initialize();					//シーンの初期化処理
-	Sensor::initialize(false);						//センサーデータの初期化
+	Sensor::initialize(true);						//センサーデータの初期化
 	MySocketServer::initialize();					//ソケット通信の初期化
 
 	while (System::Update())//ゲームループ

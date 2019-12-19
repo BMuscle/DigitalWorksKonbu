@@ -9,8 +9,11 @@
 
 //アイテム作成
 "CREATE TABLE Items("
-"id integer primary key,"
-"name text"
+"id integer primary key autoincrement,"
+"key integer,"
+"game_id integer,"
+"name text,"
+"foreign key (game_id) references Games(id)"
 ");"
 
 //コレクション作成
@@ -75,3 +78,9 @@
 
 //簡易ユーザーデータ取得
 "SELECT name, total_play_time FROM Users WHERE id = ?;"
+
+//アイテムデータ投入
+"INSERT INTO Items VALUES(?, 1, ?)"
+
+//アイテムデータ検索
+"SELECT Items.key, UserItems.flag FROM UserItems, Items WHERE UserItems.item_id = Items.id AND UserItems.user_id = ? AND Items.game_id = ?;"

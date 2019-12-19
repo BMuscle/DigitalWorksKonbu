@@ -1,9 +1,16 @@
 #pragma once
 #include "sqlite3.h"
+#include <Siv3D.hpp>
 
 class MySqlite3 {
 private:
 	static sqlite3* db;//データベースへのポインタ
+
+	//ゲームデータ投入
+	static void insertGames();
+	//アイテムとユーザーアイテムデータ投入
+	static void insertItems();
+
 public:
 	MySqlite3() = delete;
 	static bool initialize();	//初期化 DBの初期化を行う
