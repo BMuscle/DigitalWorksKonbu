@@ -151,14 +151,14 @@
     <Filter Include="Source Files\Scene\SelectMode">
       <UniqueIdentifier>{922782d8-da78-4a3d-8dfd-d663ad1603df}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Scene\SelectMode">
-      <UniqueIdentifier>{bb21692d-7948-4cbb-99d9-ca613d13dd71}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Scene\CreateSaveData">
       <UniqueIdentifier>{92bf49f2-1178-43c8-8ef1-afdcbde417cd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Scene\CreateSaveData">
       <UniqueIdentifier>{e143dff4-8a7f-4a94-8d5f-165afadc264b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene\SelectSaveData\SelectMode">
+      <UniqueIdentifier>{bb21692d-7948-4cbb-99d9-ca613d13dd71}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -521,7 +521,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SelectMode.h">
-      <Filter>Header Files\Scene\SelectMode</Filter>
+      <Filter>Header Files\Scene\SelectSaveData\SelectMode</Filter>
     </ClInclude>
     <ClInclude Include="Mode.h">
       <Filter>Header Files\Scene</Filter>
