@@ -12,5 +12,18 @@ public:
 	void outputResult(void);//Œ‹‰Ê‚ğDB‚Öo—Í‚·‚é
 	void stopGame();	//ƒQ[ƒ€‚ğˆê’†’f‚·‚é
 private:
+	enum SOCCER_SCENE {
+		TITLE,
+		SELECT,
+	};
 	Audio* backAudio;
+
+	SOCCER_SCENE nowScene, nextScene;
+	void setNextScene(SOCCER_SCENE next);
+	void changeScene();
+
+	void updateTitle();
+	void updateSelect();
+	void drawTitle();
+	void drawSelect();
 };
