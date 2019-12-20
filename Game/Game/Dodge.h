@@ -10,6 +10,7 @@ public:
 	void update(void);	//ŒvZˆ—
 	void draw(void);	//•`‰æˆ—
 	void outputResult(void);//Œ‹‰Ê‚ğDB‚Öo—Í‚·‚é
+	void stopGame();	//ƒQ[ƒ€‚ğˆê’†’f‚·‚é
 private:
 	Audio* backAudio;
 };

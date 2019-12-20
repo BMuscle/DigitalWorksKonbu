@@ -1,34 +1,34 @@
 #include "Soccer.h"
 
 Soccer::Soccer(void) {
-	//ƒAƒZƒbƒg‚Öƒ[ƒh
+	//ã‚¢ã‚»ãƒƒãƒˆã¸ãƒ­ãƒ¼ãƒ‰
 	FontAsset::Register(U"soccerfont", 70);
 	FontAsset::Preload(U"soccerfont");
 	TextureAsset::Register(U"soccerback", U"resources/images/backs/soccer.png", AssetParameter::LoadAsync());
 }
 Soccer::~Soccer(void) {
-	//ƒAƒZƒbƒg‚©‚çƒAƒ“ƒ[ƒh
+	//ã‚¢ã‚»ãƒƒãƒˆã‹ã‚‰ã‚¢ãƒ³ãƒ­ãƒ¼ãƒ‰
 	FontAsset::Unregister(U"soccerfont");
 	TextureAsset::Unregister(U"soccerback");
 	delete backAudio;
 }
-bool Soccer::isReady(void) {	//ƒ[ƒhI—¹‚µ‚Ä‚à‚¢‚¢‚©‚Ç‚¤‚©
+bool Soccer::isReady(void) {	//ãƒ­ãƒ¼ãƒ‰çµ‚äº†ã—ã¦ã‚‚ã„ã„ã‹ã©ã†ã‹
 	if (TextureAsset::IsReady(U"soccerback")) {
 		return true;
 	}
 	return false;
 }
-void Soccer::start(void){	//ƒ[ƒh‹ó‚¯‚½Œã‚ÉÀs‚³‚ê‚é‚à‚Ì
-	//BGMÄ¶ŠJn
+void Soccer::start(void){	//ãƒ­ãƒ¼ãƒ‰ç©ºã‘ãŸå¾Œã«å®Ÿè¡Œã•ã‚Œã‚‹ã‚‚ã®
+	//BGMå†ç”Ÿé–‹å§‹
 	backAudio = new Audio(U"resources/musics/backs/soccer.wav");
 	backAudio->setLoop(true);
 	backAudio->play();
 }
-void Soccer::update(void) {	//ŒvZˆ—
-	if (nowScene != nextScene) {//ƒV[ƒ“‚Ì•ÏX—v‹‚ªs‚í‚ê‚Ä‚¢‚ê‚ÎØ‚è‘Ö‚¦‚é
+void Soccer::update(void) {	//è¨ˆç®—å‡¦ç†
+	if (nowScene != nextScene) {//ã‚·ãƒ¼ãƒ³ã®å¤‰æ›´è¦æ±‚ãŒè¡Œã‚ã‚Œã¦ã„ã‚Œã°åˆ‡ã‚Šæ›¿ãˆã‚‹
 		changeScene();
 	}
-	switch (nowScene)//ƒV[ƒ“‚É‚æ‚Á‚ÄŒvZˆ—‚ğØ‚è‘Ö‚¦‚é
+	switch (nowScene)//ã‚·ãƒ¼ãƒ³ã«ã‚ˆã£ã¦è¨ˆç®—å‡¦ç†ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
 	{
 	case Soccer::TITLE:
 		updateTitle();
@@ -40,10 +40,10 @@ void Soccer::update(void) {	//ŒvZˆ—
 		break;
 	}
 }
-void Soccer::draw(void) {	//•`‰æˆ—
+void Soccer::draw(void) {	//æç”»å‡¦ç†
 	TextureAsset(U"soccerback").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
 
-	switch (nowScene)//ƒV[ƒ“‚É‚æ‚Á‚Ä•`‰æˆ—‚ğØ‚è‘Ö‚¦‚é
+	switch (nowScene)//ã‚·ãƒ¼ãƒ³ã«ã‚ˆã£ã¦æç”»å‡¦ç†ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
 	{
 	case Soccer::TITLE:
 		drawTitle();
@@ -55,19 +55,18 @@ void Soccer::draw(void) {	//•`‰æˆ—
 		break;
 	}
 }
-void Soccer::outputResult(void) {//Œ‹‰Ê‚ğDB‚Öo—Í‚·‚é
+void Soccer::outputResult(void) {//çµæœã‚’DBã¸å‡ºåŠ›ã™ã‚‹
 
 }
-
-void Soccer::setNextScene(SOCCER_SCENE next) {//Ÿ‚ÌƒV[ƒ“‚Ö‚ÌˆÚs—v‹‚ğs‚¤
+void Soccer::setNextScene(SOCCER_SCENE next) {//æ¬¡ã®ã‚·ãƒ¼ãƒ³ã¸ã®ç§»è¡Œè¦æ±‚ã‚’è¡Œã†
 	nextScene = next;
 }
-void Soccer::changeScene() {//ƒV[ƒ“‚ğ•ÏX‚·‚é
+void Soccer::changeScene() {//ã‚·ãƒ¼ãƒ³ã‚’å¤‰æ›´ã™ã‚‹
 	switch (nowScene)
 	{
 	case Soccer::TITLE:
-		//ƒV[ƒ“‚ğ•ÏX‚·‚é‘O‚Éˆ—‚µ‚½‚¢“à—e‚ğ‘‚­
-		//BGMØ‘Ö“™
+		//ã‚·ãƒ¼ãƒ³ã‚’å¤‰æ›´ã™ã‚‹å‰ã«å‡¦ç†ã—ãŸã„å†…å®¹ã‚’æ›¸ã
+		//BGMåˆ‡æ›¿ç­‰
 		break;
 	case Soccer::SELECT:
 
@@ -75,7 +74,7 @@ void Soccer::changeScene() {//ƒV[ƒ“‚ğ•ÏX‚·‚é
 	default:
 		break;
 	}
-	nowScene = nextScene;//Ø‚è‘Ö‚¦‚é
+	nowScene = nextScene;//åˆ‡ã‚Šæ›¿ãˆã‚‹
 }
 
 void Soccer::updateTitle() {
@@ -89,4 +88,7 @@ void Soccer::drawTitle() {
 }
 void Soccer::drawSelect() {
 
+}
+
+void Soccer::stopGame() {	//ã‚²ãƒ¼ãƒ ã‚’ä¸€æ™‚ä¸­æ–­ã™ã‚‹
 }

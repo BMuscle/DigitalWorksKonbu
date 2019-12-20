@@ -32,3 +32,6 @@ void Dodge::draw(void) {	//•`‰æˆ—
 void Dodge::outputResult(void) {//Œ‹‰Ê‚ğDB‚Öo—Í‚·‚é
 
 }
+void Dodge::stopGame() {	//ƒQ[ƒ€‚ğˆê’†’f‚·‚é
+
+}
