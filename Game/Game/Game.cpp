@@ -1,8 +1,7 @@
 #include "Game.h"
 
 Game::Game(MODE gamemode) {
-	//アセットへロード
-	switch (gamemode) {
+	switch (gamemode) {//渡されたゲームの種類によって変更する
 	case MODE::SOCCER:
 		minigame = new Soccer();
 		break;

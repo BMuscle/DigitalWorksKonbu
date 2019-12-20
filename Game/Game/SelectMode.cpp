@@ -73,6 +73,9 @@ void SelectMode::update(void) {
 		if (getSelectedMode() == MODE::MYROOM) {//マイルームシーンへ移行
 			MySceneManager::setNextScene(SCENE::MYROOM);
 		}
+		else if(getSelectedMode() == MODE::GACHA){//ガチャへ移行
+			MySceneManager::setNextScene(SCENE::GACHA);
+		}
 		else {//ゲームへ移行
 			MySceneManager::setNextScene(SCENE::GAME);
 		}
