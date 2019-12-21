@@ -7,6 +7,7 @@
 #include "SelectMode.h"
 #include "Game.h"
 #include "MyRoom.h"
+#include "Gacha.h"
 
 enum class SCENE {
 	TITLE,

@@ -83,6 +83,10 @@ void MySceneManager::changeScene() {
 		delete scene;
 		scene = new MyRoom();
 		break;
+	case SCENE::GACHA:
+		delete scene;
+		scene = new Gacha();
+		break;
 	}
 
 }
