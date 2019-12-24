@@ -84,3 +84,6 @@
 
 //アイテムデータ検索
 "SELECT Items.key, UserItems.flag FROM UserItems, Items WHERE UserItems.item_id = Items.id AND UserItems.user_id = ? AND Items.game_id = ?;"
+
+//ユーザーポイント加算・減算
+"UPDATE User SET point = ? WHERE id = ?"

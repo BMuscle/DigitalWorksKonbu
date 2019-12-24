@@ -3,6 +3,8 @@
 #include "MySqlite3.h"
 #include "sqlite3.h"
 #include <map>
+#include <vector>
+#include <random>
 
 enum class GAME_TYPE {//データベースに入ってる値は＋１
 	SOCCER = 0,
@@ -27,6 +29,14 @@ private:
 
 	static bool selectUser(int id);//ユーザーのデータを変数に格納する
 	static bool selectUserItems(int id);//ユーザーアイテムデータを変数に格納する
+	//アイテムIDを取得
+	static int getItemId(int game_id, int key);
+
+	static String getItemName(int game_id, int key);
+	//ユーザのアイテムを更新する(flagを１に)
+	static void setUserItem(int game_id, int key);
+
+	
 
 public:
 	User() = delete;
@@ -52,6 +62,16 @@ public:
 	//ユーザーがアイテムを持っているかどうかtrue falseで返す keyはcsvの一番左の列
 	static bool getHasItems(GAME_TYPE type, int key);
 
+	//ガチャ用 取得できるアイテムが存在するかどうか
+	static bool hasAllItem();
 
+	//ガチャをして１つアイテムを取得する 取得できたか真偽値で返す
+	static bool getRandomGacha(String& itemName);
 
+	//ポイントの加算
+	static bool addUserPoint(int addPoint);
+	//ポイントの減算
+	static bool subUserPoint(int subPoint);
+	//ポイントの取得
+	static int getUserPoint();
 };

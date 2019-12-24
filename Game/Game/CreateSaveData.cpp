@@ -24,8 +24,8 @@ CreateSaveData::CreateSaveData(void) {
 	button[(int)BUTTON::DECISION] = new MyImageButton(U"resources/images/items/createsavedata/button", U"決定", 50, 1800, 800, false);
 	
 	//ポップアップのボタン初期化
-	popUpButton[(int)POPUP::RETURN] = new MyImageButton(U"resources/images/items/createsavedata/popup", U"本当に良い？", 50, (int)Window::ClientWidth() / 2 + (int)POPUP_INTERVAL, (int)Window::ClientHeight() * 0.6, true);
-	popUpButton[(int)POPUP::DECISION] = new MyImageButton(U"resources/images/items/createsavedata/popup", U"やっぱやめる", 40, (int)Window::ClientWidth() / 2 - (int)POPUP_INTERVAL, (int)Window::ClientHeight() * 0.6, false);
+	popUpButton[(int)POPUP::RETURN] = new MyImageButton(U"resources/images/items/createsavedata/popup", U"本当に良い？", 50, (int)(Window::ClientWidth() / 2) + (int)POPUP_INTERVAL, (int)Window::ClientHeight() * 0.6, true);
+	popUpButton[(int)POPUP::DECISION] = new MyImageButton(U"resources/images/items/createsavedata/popup", U"やっぱやめる", 40, (int)(Window::ClientWidth() / 2) - (int)POPUP_INTERVAL, (int)Window::ClientHeight() * 0.6, false);
 
 	//変数の初期化
 	nameFont = Font(50);//テキストボックスのフォント

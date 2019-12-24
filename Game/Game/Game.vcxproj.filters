@@ -172,6 +172,18 @@
     <Filter Include="Source Files\Scene\Gacha">
       <UniqueIdentifier>{2d3a7777-f0c4-4cb9-ae36-e94895c082b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\MyLib\Effect">
+      <UniqueIdentifier>{578e5524-609a-4fdf-9a41-555323f61d0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MyLib\Effect">
+      <UniqueIdentifier>{825aa79a-6426-4aec-b6a2-02ccd51fd3fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MyLib\Effect\EffectInterFace">
+      <UniqueIdentifier>{085b74cb-3eb0-4396-be8b-1f41abd8573b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\MyLib\Effect\EffectnterFace">
+      <UniqueIdentifier>{23dec329-0cc7-462b-aea3-54bae04eabfa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -233,6 +245,18 @@
     </ClCompile>
     <ClCompile Include="Gacha.cpp">
       <Filter>Source Files\Scene\Gacha</Filter>
+    </ClCompile>
+    <ClCompile Include="MyImageEffect.cpp">
+      <Filter>Source Files\MyLib\Effect\EffectInterFace</Filter>
+    </ClCompile>
+    <ClCompile Include="MyEffects.cpp">
+      <Filter>Source Files\MyLib\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleLoadEffect.cpp">
+      <Filter>Source Files\MyLib</Filter>
+    </ClCompile>
+    <ClCompile Include="MyToast.cpp">
+      <Filter>Source Files\MyLib\Effect\EffectInterFace</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -579,6 +603,21 @@
     </ClInclude>
     <ClInclude Include="Gacha.h">
       <Filter>Header Files\Scene\Gacha</Filter>
+    </ClInclude>
+    <ClInclude Include="MyImageEffect.h">
+      <Filter>Header Files\MyLib\Effect\EffectnterFace</Filter>
+    </ClInclude>
+    <ClInclude Include="MyEffects.h">
+      <Filter>Header Files\MyLib\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectInterFace.h">
+      <Filter>Header Files\MyLib\Effect\EffectnterFace</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleLoadEffect.h">
+      <Filter>Header Files\MyLib</Filter>
+    </ClInclude>
+    <ClInclude Include="MyToast.h">
+      <Filter>Header Files\MyLib\Effect\EffectnterFace</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -13,6 +13,8 @@ void Main()
 	MySqlite3::DBCREATE();//データベースの作成→既にテーブルがある時は行われない
 	Profiler::EnableAssetCreationWarning(false);	//アセットの警告オフ
 	Window::Resize(1920, 1080);						//画面サイズを1920/1080に固定	
+	//Window::SetFullscreen(true);					//フルスクリーンに設定
+	
 	Graphics::SetTargetFrameRateHz(60);				//FPSを60に固定
 	MySceneManager::initialize();					//シーンの初期化処理
 	Sensor::initialize(true);						//センサーデータの初期化
