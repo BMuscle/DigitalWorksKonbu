@@ -55,10 +55,24 @@ void SimpleLoadEffect::draw() {
 	}
 }
 
+void SimpleLoadEffect::nextState() {
+	if (loadState == SIMPLE_LOAD_STATE::NONE &&
+		loadState == SIMPLE_LOAD_STATE::END) {
+		return;
+	}
+	loadState = (SIMPLE_LOAD_STATE)((int)loadState + 1);
+}
+
 //真っ暗の状態になっているかどうかTRUEの場合その次フレームから明るくなり始める。
 bool SimpleLoadEffect::isDark() {
 	if (loadState == SIMPLE_LOAD_STATE::DARK) {
-		loadState = SIMPLE_LOAD_STATE::BRIGHTING;
+		return true;
+	}
+	return false;
+}
+
+bool SimpleLoadEffect::isDarkWait() {
+	if (loadState == SIMPLE_LOAD_STATE::DARK_WAIT) {
 		return true;
 	}
 	return false;
@@ -74,7 +88,7 @@ bool SimpleLoadEffect::isEnd() {
 }
 
 bool SimpleLoadEffect::isLoad() {
-	if (loadState == SIMPLE_LOAD_STATE::NONE || loadState == SIMPLE_LOAD_STATE::END) {
+	if (loadState == SIMPLE_LOAD_STATE::NONE) {
 		return false;
 	}
 	return true;

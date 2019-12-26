@@ -62,6 +62,10 @@
 "foreign key (game_id) references Games(id)"
 ");"
 
+
+
+
+
 //データ投入
 
 //ユーザーデータ投入

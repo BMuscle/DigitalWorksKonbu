@@ -1,14 +1,13 @@
 #pragma once
 #include <Siv3D.hpp>
 
-
-
 class SimpleLoadEffect {
 private:
 	enum class SIMPLE_LOAD_STATE {
 		NONE,
 		DARKING,
 		DARK,
+		DARK_WAIT,
 		BRIGHTING,
 		END,
 	};
@@ -29,8 +28,12 @@ public:
 	//描画処理
 	void draw();
 
-	//真っ暗の状態になっているかどうかTRUEの場合その次フレームから明るくなり始める。
+	void nextState();//状態を次の状態へ移行する DARKから抜ける等
+
+	//真っ暗の状態になっているかどうか
 	bool isDark();
+	//真っ暗から暗転明け待機(ロード完了待ち)
+	bool isDarkWait();
 	//明るくなっているかどうかTRUEの場合終了する
 	bool isEnd();
 	//現在がロード状態ならtrueを返す

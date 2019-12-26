@@ -258,6 +258,12 @@
     <ClCompile Include="MyToast.cpp">
       <Filter>Source Files\MyLib\Effect\EffectInterFace</Filter>
     </ClCompile>
+    <ClCompile Include="MyRoomAvatar.cpp">
+      <Filter>Source Files\Scene\MyRoom</Filter>
+    </ClCompile>
+    <ClCompile Include="MyRoomTItle.cpp">
+      <Filter>Source Files\Scene\MyRoom</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -618,6 +624,15 @@
     </ClInclude>
     <ClInclude Include="MyToast.h">
       <Filter>Header Files\MyLib\Effect\EffectnterFace</Filter>
+    </ClInclude>
+    <ClInclude Include="MyRoomAvatar.h">
+      <Filter>Header Files\Scene\MyRoom</Filter>
+    </ClInclude>
+    <ClInclude Include="MyRoomTItle.h">
+      <Filter>Header Files\Scene\MyRoom</Filter>
+    </ClInclude>
+    <ClInclude Include="MyRoomSceneBase.h">
+      <Filter>Header Files\Scene\MyRoom</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

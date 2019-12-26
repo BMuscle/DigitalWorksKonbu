@@ -65,6 +65,8 @@ void Gacha::update(void) {
 	simpleLoadEffect->update();
 	if (simpleLoadEffect->isLoad()) {
 		if (simpleLoadEffect->isDark()) {
+			simpleLoadEffect->nextState();//状態移行 DARK→DARK_WAIT
+			simpleLoadEffect->nextState();//状態移行 DARK_WAIT → BRIGHTING
 			changeNextGachaState();//シーン移行
 		}
 		else if(simpleLoadEffect->isEnd()){

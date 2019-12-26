@@ -121,6 +121,8 @@
     <ClCompile Include="MyImageEffect.cpp" />
     <ClCompile Include="MyKey.cpp" />
     <ClCompile Include="MyRoom.cpp" />
+    <ClCompile Include="MyRoomAvatar.cpp" />
+    <ClCompile Include="MyRoomTItle.cpp" />
     <ClCompile Include="MySceneManager.cpp" />
     <ClCompile Include="MySocketServer.cpp" />
     <ClCompile Include="MySqlite3.cpp" />
@@ -274,6 +276,9 @@
     <ClInclude Include="MyImageEffect.h" />
     <ClInclude Include="MyKey.h" />
     <ClInclude Include="MyRoom.h" />
+    <ClInclude Include="MyRoomAvatar.h" />
+    <ClInclude Include="MyRoomSceneBase.h" />
+    <ClInclude Include="MyRoomTItle.h" />
     <ClInclude Include="MyScene.h" />
     <ClInclude Include="MySceneManager.h" />
     <ClInclude Include="MySocketServer.h" />
