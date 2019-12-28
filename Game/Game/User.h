@@ -5,6 +5,7 @@
 #include <map>
 #include <vector>
 #include <random>
+#include "TotalPlayTimeTimer.h"
 
 enum class GAME_TYPE {//データベースに入ってる値は＋１
 	SOCCER = 0,
@@ -74,4 +75,6 @@ public:
 	static bool subUserPoint(int subPoint);
 	//ポイントの取得
 	static int getUserPoint();
+
+	static bool setTotalPlayTime();
 };

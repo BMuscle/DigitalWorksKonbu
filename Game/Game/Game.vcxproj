@@ -136,6 +136,7 @@
     <ClCompile Include="Gacha.cpp" />
     <ClCompile Include="sqlite3.c" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="TotalPlayTimeTImer.cpp" />
     <ClCompile Include="User.cpp" />
   </ItemGroup>
   <ItemGroup>

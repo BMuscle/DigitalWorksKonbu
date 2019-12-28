@@ -6,6 +6,7 @@
 #include "User.h"
 #include "MySqlite3.h"
 #include "MyImageButton.h"
+#include "TotalPlayTimeTimer.h"
 
 constexpr int USER_SIZE = 3;//ƒ†[ƒU‚ÌÅ‘å” 3
 

@@ -32,9 +32,11 @@ void Main()
 
 		//ClearPrint();//簡易文字列の消去　リリース時ONにする
 	}
+	//ユーザーのプレイ時間を保存する
+	User::setTotalPlayTime();
 	MySocketServer::finalize();					//ソケット通信終了処理
 	Sensor::finalize();							//センサーデータの終了処理
-	MySceneManager::finalize();						//シーンの終了処理
+	MySceneManager::finalize();					//シーンの終了処理
 
 	if (!MySqlite3::finalize()) {
 		return;	//データベースの終了処理失敗

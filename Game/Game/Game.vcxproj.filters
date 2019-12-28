@@ -264,6 +264,9 @@
     <ClCompile Include="MyRoomTItle.cpp">
       <Filter>Source Files\Scene\MyRoom</Filter>
     </ClCompile>
+    <ClCompile Include="TotalPlayTimeTImer.cpp">
+      <Filter>Source Files\MyLib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">

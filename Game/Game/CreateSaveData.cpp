@@ -110,20 +110,20 @@ void CreateSaveData::selectUpdate() {//現在の移動状態に対応する計算処理
 	{
 	case CreateSaveData::SELECT_STATE::RETURN:
 		if (MyKey::getDecisionKey()) {//決定キーが押された時
-			selectState = SELECT_STATE::POPUP;
-			popUpState = POPUP::RETURN;//ポップアップ表示
+			selectState = SELECT_STATE::POPUP;								//現在の選択状態をポップアップへ
+			popUpState = POPUP::RETURN;										//ポップアップ表示
 		}
 		return;
 	case CreateSaveData::SELECT_STATE::TEXT:
 		if (MyKey::getDecisionKey()) {//決定キーが押された時
-			selectState = SELECT_STATE::RETURN;//テキストボックスでエンター押したときYESを選択させる
+			selectState = SELECT_STATE::RETURN;								//テキストボックスでエンター押したときYESを選択させる
 			button[(int)BUTTON::DECISION]->setSelect(true);
 			namebox.setActive(false);
 		}
 		return;
 	case CreateSaveData::SELECT_STATE::DECISION:
 		if (MyKey::getDecisionKey()) {//決定キーが押された時
-			MySceneManager::setNextScene(SCENE::SELECT_SAVEDATA);//セーブデータ選択画面へ戻る
+			MySceneManager::setNextScene(SCENE::SELECT_SAVEDATA);			//セーブデータ選択画面へ戻る
 		}
 		return;
 	case CreateSaveData::SELECT_STATE::POPUP://現在ポップアップ表示中
@@ -131,12 +131,13 @@ void CreateSaveData::selectUpdate() {//現在の移動状態に対応する計算処理
 			switch (popUpState)
 			{
 			case CreateSaveData::POPUP::RETURN://モード選択へ移動
-				MySceneManager::setNextScene(SCENE::SELECT_MODE);
+				MySceneManager::setNextScene(SCENE::SELECT_MODE);			//モード選択へシーン移行要求
+				TotalPlayTimeTimer::start();								//プレイ時間計測開始
 				break;
 			case CreateSaveData::POPUP::DECISION://テキスト選択状態へ戻る
-				selectState = SELECT_STATE::TEXT;
-				namebox.setActive(true);
-				button[(int)BUTTON::DECISION]->setSelect(false);
+				selectState = SELECT_STATE::TEXT;							//現在の選択状態をテキストボックスへ
+				namebox.setActive(true);									//テキストボックスをアクティブに
+				button[(int)BUTTON::DECISION]->setSelect(false);			//ボタンを両方とも非アクティブ化
 				button[(int)BUTTON::RETURN]->setSelect(false);
 				break;
 			}

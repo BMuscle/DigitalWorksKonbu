@@ -377,3 +377,28 @@ bool User::subUserPoint(int subPoint) {
 int User::getUserPoint() {
 	return user_point;
 }
+
+
+bool User::setTotalPlayTime() {
+	//変数宣言
+	int err;
+	sqlite3_stmt* stmt = NULL;//ステートメントハンドル
+	const char* pzTest;
+	std::string sql = "UPDATE Users SET total_play_time = ? WHERE id = ?";
+
+	//ステートメント作成
+	err = sqlite3_prepare_v2(MySqlite3::getDB(), sql.c_str(), (int)sql.size(), &stmt, &pzTest);
+	sqlite3_bind_int64(stmt, 1, user_total_play_time + TotalPlayTimeTimer::getSecond());//1つ目の？をpointにする
+	sqlite3_bind_int(stmt, 2, user_id);//2つ目の？をuser_idにする
+	if (err != SQLITE_OK) {
+		//エラー処理
+		return false;
+	}
+	else {
+		sqlite3_step(stmt);
+	}
+
+	//ステートメントの解放
+	sqlite3_finalize(stmt);
+	return true;
+}
