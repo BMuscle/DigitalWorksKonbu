@@ -35,4 +35,7 @@ private:
 
 	//描画
 	void scenedraw(void);
+
+	//距離の変数
+	int distance, x;
 };
