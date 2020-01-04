@@ -37,7 +37,7 @@ CreateSaveData::CreateSaveData(void) {
 
 	//変数の初期化
 	nameFont = Font(50);//テキストボックスのフォント
-	namebox = TextBox(nameFont, Vec2(100, 100), NAMEBOX_W, 15, U"");
+	namebox = TextBox(nameFont, Vec2(100, 100), NAMEBOX_W, 8, U"");
 	namebox.setCenter(Vec2(NAMEBOX_X, NAMEBOX_Y));
 	namebox.setActive(false);//初期状態でテキストボックスを非アクティブに
 	selectState = SELECT_STATE::TEXT;//初期状態の選択状態はテキストボックスに

@@ -15,6 +15,7 @@ Gacha::Gacha(void) {
 	//背景ロード
 	TextureAsset::Register(U"gachaback", U"resources/images/backs/gacha/gacha.png", AssetParameter::LoadAsync());
 	TextureAsset::Register(U"gachabackeffect", U"resources/images/backs/gacha/effect.png", AssetParameter::LoadAsync());
+	TextureAsset::Register(U"gachabackresult", U"resources/images/backs/gacha/result.png", AssetParameter::LoadAsync());
 
 	AudioAsset::Register(U"gachahandl", U"resources/musics/items/gacha/gacha.wav", AssetParameter::LoadAsync());
 	//エフェクト管理用の初期化
@@ -26,12 +27,18 @@ Gacha::Gacha(void) {
 	gachaEffect = new MyImageEffect(U"resources/images/items/gacha/gachaeffect1.png", 10, 4, (const float)0.05);
 	TextureAsset::Register(U"gachaeffectback2", U"resources/images/items/gacha/gacha.png");
 
+	//ガチャタイトルのポイント表示の背景
 	TextureAsset::Register(U"gachapointframe", U"resources/images/items/gacha/frame.png");
+
+	//リザルト画面用画像
+
 	//変数の初期化
 	button[(int)BUTTON::GACHA] = new MyImageButton(U"resources/images/items/gacha/gachabutton", U"", 10, Window::ClientWidth() / 2 + 450, Window::ClientHeight() * 0.8);
 	button[(int)BUTTON::EXIT] = new MyImageButton(U"resources/images/items/gacha/exitbutton", U"", 10, Window::ClientWidth() / 2 - 450, Window::ClientHeight() * 0.8);
 	selectedButton = BUTTON::GACHA;		//初期のボタン選択状態をガチャに
 	nowGachaState = GACHA_STATE::TITLE;	//ガチャの状態を何もない状態に
+
+
 }
 
 Gacha::~Gacha(void) {//終了処理
@@ -39,8 +46,13 @@ Gacha::~Gacha(void) {//終了処理
 	FontAsset::Unregister(U"gachasmallfont");
 	TextureAsset::Unregister(U"gachaback");
 	TextureAsset::Unregister(U"gachabackeffect");
+	TextureAsset::Unregister(U"gachabackresult");
 	TextureAsset::Unregister(U"gachaeffectback2");
 	TextureAsset::Unregister(U"gachapointframe");
+
+	TextureAsset::Unregister(U"gachaitem");
+	TextureAsset::Unregister(U"gachatext");
+
 	AudioAsset::Unregister(U"gachahandl");
 	for (int i = 0; i < (int)BUTTON::SIZE; i++) {
 		delete button[i];
@@ -53,6 +65,7 @@ bool Gacha::isReady(void) {//同期処理
 		FontAsset::IsReady(U"gachasmallfont")&&
 		TextureAsset::IsReady(U"gachaback") &&
 		TextureAsset::IsReady(U"gachabackeffect") &&
+		TextureAsset::IsReady(U"gachabackresult") &&
 		TextureAsset::IsReady(U"gachaeffectback2") &&
 		TextureAsset::IsReady(U"gachapointframe") &&
 		AudioAsset::IsReady(U"gachahandl")) {
@@ -137,9 +150,9 @@ void Gacha::draw(void) {
 		}
 		break;
 	case Gacha::GACHA_STATE::RESULT:
-		TextureAsset(U"gachaback").draw();
+		TextureAsset(U"gachabackresult").draw();
 		resultDraw();
-		FontAsset(U"gachafont")(U"～Press Enter～").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() - 150);
+		FontAsset(U"gachafont")(U"～Press to Enter～").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() - 150, ColorF(0,0,0));
 		break;
 	case Gacha::GACHA_STATE::END:
 		break;
@@ -271,12 +284,20 @@ bool Gacha::isPlayGacha() {
 
 //ガチャを行う
 void Gacha::randomGacha() {
-	User::getRandomGacha(itemName);
+	int key;
+	GAME_TYPE type;
+	CSVData csv;
+
+	User::getRandomGacha(itemName, key, type);
 	TextureAsset::Unregister(U"gachaitem");
 	TextureAsset::Register(U"gachaitem", U"resources/images/gachaitems/"+ itemName + U".png");
+	
+	TextureAsset::Unregister(U"gachatext");
+	TextureAsset::Register(U"gachatext", U"resources/images/gachaitems/description/" + itemName + U".png");
 }
 
 //ガチャ結果の描画
 void Gacha::resultDraw() {
-	TextureAsset(U"gachaitem").drawAt(Window::ClientCenter());
+	TextureAsset(U"gachaitem").drawAt(Window::ClientWidth() * 0.3, Window::ClientHeight() * 0.6 - 30);
+	TextureAsset(U"gachatext").drawAt(Window::ClientWidth() * 0.7, Window::ClientHeight() * 0.5 );
 }

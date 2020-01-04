@@ -187,7 +187,7 @@ String User::getUser_Name() {
 }
 //ユーザーがアイテムを持っているかどうかtrue falseで返す
 bool User::getHasItems(GAME_TYPE type, int key) {
-	return Items[((int)type) + 1][key];
+	return Items[((int)type)][key];
 }
 
 //ガチャ用 取得できるアイテムが存在するかどうか
@@ -203,7 +203,7 @@ bool User::hasAllItem() {
 }
 
 //ガチャ
-bool User::getRandomGacha(String& itemName) {
+bool User::getRandomGacha(String& itemName, int& key, GAME_TYPE& type) {
 	if (hasAllItem()) { return false; }//アイテムを全て持っているのでガチャ出来ない
 	struct ItemPack {
 		GAME_TYPE type;
@@ -227,7 +227,9 @@ bool User::getRandomGacha(String& itemName) {
 	std::mt19937_64 get_rand_mt;
 	std::shuffle(possible.begin(), possible.end(), get_rand_mt);
 
-	// 
+	// アイテム格納
+	type = possible.begin()->type;
+	key = possible.begin()->key;
 	itemName = getItemName((int)possible.begin()->type + 1, possible.begin()->key);
 	setUserItem((int)possible.begin()->type + 1, possible.begin()->key);
 	Items[(int)possible.begin()->type].at(possible.begin()->key) = true;

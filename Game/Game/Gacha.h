@@ -8,6 +8,7 @@
 #include "MyEffects.h"
 #include "MyToast.h"
 #include "SimpleLoadEffect.h"
+#include "GachaItemDescription.h"
 
 //時間があればリファクタリング（クラス分け）
 
@@ -40,6 +41,8 @@ private:
 
 	MyEffects* gachaEffects;	//ガチャエフェクト管理用
 	MyImageEffect* gachaEffect;	//ガチャを回している画像エフェクト 画像が大きいので２枚に分割
+
+
 
 	enum class BUTTON {//ボタンの種類
 		GACHA,

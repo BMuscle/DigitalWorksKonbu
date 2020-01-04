@@ -67,7 +67,7 @@ public:
 	static bool hasAllItem();
 
 	//ガチャをして１つアイテムを取得する 取得できたか真偽値で返す
-	static bool getRandomGacha(String& itemName);
+	static bool getRandomGacha(String& itemName, int& key, GAME_TYPE& type);
 
 	//ポイントの加算
 	static bool addUserPoint(int addPoint);

@@ -59,11 +59,11 @@ void MyRoom::changeScene() {
 		break;
 	case MYROOM_SCENE::AVATAR:
 		delete scene;
-		scene = new MyRoomAvatar(&nextScene);
+		scene = new MyRoomCollection(&nextScene);
 		break;
 	case MYROOM_SCENE::COLLECTION:
 		delete scene;
-		scene = new MyRoomTitle(&nextScene);
+		scene = new MyRoomCollection(&nextScene);
 		break;
 	default:
 		break;

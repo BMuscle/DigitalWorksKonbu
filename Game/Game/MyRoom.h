@@ -4,7 +4,7 @@
 #include "MyKey.h"
 #include "MySceneManager.h"
 #include "MyRoomTitle.h"
-#include "MyRoomAvatar.h"
+#include "MyRoomCollection.h"
 #include "MyRoomSceneBase.h"
 #include "SimpleLoadEffect.h"
 

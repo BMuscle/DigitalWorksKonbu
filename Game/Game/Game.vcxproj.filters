@@ -258,14 +258,17 @@
     <ClCompile Include="MyToast.cpp">
       <Filter>Source Files\MyLib\Effect\EffectInterFace</Filter>
     </ClCompile>
-    <ClCompile Include="MyRoomAvatar.cpp">
-      <Filter>Source Files\Scene\MyRoom</Filter>
-    </ClCompile>
     <ClCompile Include="MyRoomTItle.cpp">
       <Filter>Source Files\Scene\MyRoom</Filter>
     </ClCompile>
     <ClCompile Include="TotalPlayTimeTImer.cpp">
       <Filter>Source Files\MyLib</Filter>
+    </ClCompile>
+    <ClCompile Include="MyRoomCollection.cpp">
+      <Filter>Source Files\Scene\MyRoom</Filter>
+    </ClCompile>
+    <ClCompile Include="GachaItemDescription.cpp">
+      <Filter>Source Files\Scene\Gacha</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -628,14 +631,17 @@
     <ClInclude Include="MyToast.h">
       <Filter>Header Files\MyLib\Effect\EffectnterFace</Filter>
     </ClInclude>
-    <ClInclude Include="MyRoomAvatar.h">
-      <Filter>Header Files\Scene\MyRoom</Filter>
-    </ClInclude>
     <ClInclude Include="MyRoomTItle.h">
       <Filter>Header Files\Scene\MyRoom</Filter>
     </ClInclude>
     <ClInclude Include="MyRoomSceneBase.h">
       <Filter>Header Files\Scene\MyRoom</Filter>
+    </ClInclude>
+    <ClInclude Include="MyRoomCollection.h">
+      <Filter>Header Files\Scene\MyRoom</Filter>
+    </ClInclude>
+    <ClInclude Include="GachaItemDescription.h">
+      <Filter>Header Files\Scene\Gacha</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

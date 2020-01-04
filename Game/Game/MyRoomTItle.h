@@ -4,6 +4,8 @@
 #include "MyRoom.h"
 #include "MyImageButton.h"
 #include "MyRoomSceneBase.h"
+#include "MySceneManager.h"
+
 
 class MyRoomTitle : public MyRoomSceneBase {
 

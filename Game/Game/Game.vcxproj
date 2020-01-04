@@ -113,6 +113,7 @@
   <ItemGroup>
     <ClCompile Include="CreateSaveData.cpp" />
     <ClCompile Include="Dodge.cpp" />
+    <ClCompile Include="GachaItemDescription.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="LoadEffect.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -121,7 +122,7 @@
     <ClCompile Include="MyImageEffect.cpp" />
     <ClCompile Include="MyKey.cpp" />
     <ClCompile Include="MyRoom.cpp" />
-    <ClCompile Include="MyRoomAvatar.cpp" />
+    <ClCompile Include="MyRoomCollection.cpp" />
     <ClCompile Include="MyRoomTItle.cpp" />
     <ClCompile Include="MySceneManager.cpp" />
     <ClCompile Include="MySocketServer.cpp" />
@@ -268,6 +269,7 @@
     <ClInclude Include="Dodge.h" />
     <ClInclude Include="EffectInterFace.h" />
     <ClInclude Include="Gacha.h" />
+    <ClInclude Include="GachaItemDescription.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="LoadEffect.h" />
     <ClInclude Include="MiniGameBase.h" />
@@ -277,7 +279,7 @@
     <ClInclude Include="MyImageEffect.h" />
     <ClInclude Include="MyKey.h" />
     <ClInclude Include="MyRoom.h" />
-    <ClInclude Include="MyRoomAvatar.h" />
+    <ClInclude Include="MyRoomCollection.h" />
     <ClInclude Include="MyRoomSceneBase.h" />
     <ClInclude Include="MyRoomTItle.h" />
     <ClInclude Include="MyScene.h" />
