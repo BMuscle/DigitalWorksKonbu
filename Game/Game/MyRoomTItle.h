@@ -21,10 +21,9 @@ public:
 private:
 	Audio* backAudio;//BGM
 	enum MODE {
-		COLLECTION,	//collection要素を作成する
-		AVATAR,		//アバターを変更する
-		NEXTMAP,	//マップへ移動する
 		EXIT,		//ゲームを終了する
+		COLLECTION,	//collection要素を作成する
+		NEXTMAP,	//マップへ移動する
 		SIZE,
 	};
 

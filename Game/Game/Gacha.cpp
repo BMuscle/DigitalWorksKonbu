@@ -151,6 +151,7 @@ void Gacha::draw(void) {
 		break;
 	case Gacha::GACHA_STATE::RESULT:
 		TextureAsset(U"gachabackresult").draw();
+		Rect(0, 0, Window::ClientWidth(), Window::ClientHeight()).draw(ColorF(1, 1, 1, 0.5));
 		resultDraw();
 		FontAsset(U"gachafont")(U"Å`Press to EnterÅ`").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() - 150, ColorF(0,0,0));
 		break;

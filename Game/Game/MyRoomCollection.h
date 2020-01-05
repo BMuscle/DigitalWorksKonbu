@@ -53,7 +53,6 @@ private:
 	//棚の行を移動する 移動できる時0以上の値の列が返る。　移動できない時 -1が返る
 	int selectedMoveRow(int row);
 
-	void moveSelected();
 public:
 	MyRoomCollection(MYROOM_SCENE* scenep);
 	~MyRoomCollection();

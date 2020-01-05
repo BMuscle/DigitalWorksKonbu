@@ -7,13 +7,12 @@ MyRoomTitle::MyRoomTitle(MYROOM_SCENE* scenep):MyRoomSceneBase(scenep) {
 	FontAsset::Preload(U"myroomfont");
 	//背景
 	TextureAsset::Register(U"myroomback", U"resources/images/backs/myroom/title.png", AssetParameter::LoadAsync());
-
 	//それぞれボタンON　OFFのロード
-	button[MODE::AVATAR] = new MyImageButton(U"resources/images/items/myroom/title/avatar", U"", 10, 100, 100, false);
-	button[MODE::COLLECTION] = new MyImageButton(U"resources/images/items/myroom/title/collection", U"", 10, 1000, 100, false);
-	button[MODE::NEXTMAP] = new MyImageButton(U"resources/images/items/myroom/title/nextmap", U"", 10, 1000, 900, false);
-	button[MODE::EXIT] = new MyImageButton(U"resources/images/items/myroom/title/exit", U"", 10, 100, 900, true);
+	button[MODE::COLLECTION] = new MyImageButton(U"resources/images/items/myroom/title/button/collection", U"", 10, Window::ClientWidth() * 0.684, 650, false);
+	button[MODE::NEXTMAP] = new MyImageButton(U"resources/images/items/myroom/title/button/nextmap", U"", 10, Window::ClientWidth() - 195, 500, false);
+	button[MODE::EXIT] = new MyImageButton(U"resources/images/items/myroom/title/button/exit", U"", 10, 300, 800, true);
 
+	//効果音ロード
 	//変数の初期化
 	selectedMode = NEXTMAP;
 }
@@ -55,9 +54,6 @@ void MyRoomTitle::update(void) {
 		case MyRoomTitle::COLLECTION:
 			setNextScene(MYROOM_SCENE::COLLECTION);
 			break;
-		case MyRoomTitle::AVATAR:
-			setNextScene(MYROOM_SCENE::AVATAR);
-			break;
 		case MyRoomTitle::NEXTMAP:
 			MySceneManager::setNextScene(SCENE::SELECT_MODE);
 			break;
@@ -82,15 +78,20 @@ void MyRoomTitle::draw(void) {
 
 
 void MyRoomTitle::moveSelectMode() {
+	int tmp = selectedMode;
 	if (MyKey::getLeftKeyDown()) {
-		selectedMode = EXIT;
+		tmp--;
+		if (tmp < 0) {
+			tmp = 0;
+		}
 	}
 	if (MyKey::getRightKeyDown()) {
-		selectedMode = COLLECTION;
+		tmp++;
+		if (tmp >= MODE::SIZE) {
+			tmp = MODE::NEXTMAP;
+		}
 	}
-	if (MyKey::getDownKeyDown()) {
-		selectedMode = NEXTMAP;
-	}
+	selectedMode = (MODE)tmp;
 }
 
 //それぞれのボタンを全て描画する

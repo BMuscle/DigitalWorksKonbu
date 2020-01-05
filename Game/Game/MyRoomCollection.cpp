@@ -160,7 +160,7 @@ void MyRoomCollection::draw() {
 		545,
 		890
 	};
-	constexpr float ITEM_ALPHA = 0.5;
+	constexpr float ITEM_ALPHA = 0.6;
 
 	//サッカーのガチャアイテム描画
 	for (int row = 0; row < csvItem[(int)GAME_TYPE::SOCCER].rows(); row++) {
@@ -198,7 +198,9 @@ void MyRoomCollection::draw() {
 
 	//詳細説明表示
 	if (isCollectionSelected) {
-		TextureAsset(U"gachatext").drawAt(Window::ClientCenter());
+		Rect(0, 0, Window::ClientWidth(), Window::ClientHeight()).draw(ColorF(1, 1, 1, 0.5));
+		TextureAsset(csvItem[selectedItem.row].get<String>(selectedItem.column, 1)).scaled(0.8).drawAt(Window::ClientWidth() * 0.25, Window::ClientHeight() / 2);
+		TextureAsset(U"gachatext").drawAt(Window::ClientWidth() * 0.65, Window::ClientHeight() / 2);
 	}
 }
 
