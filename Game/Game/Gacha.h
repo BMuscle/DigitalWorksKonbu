@@ -9,6 +9,7 @@
 #include "MyToast.h"
 #include "SimpleLoadEffect.h"
 #include "GachaItemDescription.h"
+#include "GeneralSoundEffects.h"
 
 //時間があればリファクタリング（クラス分け）
 

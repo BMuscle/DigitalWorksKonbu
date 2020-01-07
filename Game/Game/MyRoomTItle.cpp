@@ -12,7 +12,6 @@ MyRoomTitle::MyRoomTitle(MYROOM_SCENE* scenep):MyRoomSceneBase(scenep) {
 	button[MODE::NEXTMAP] = new MyImageButton(U"resources/images/items/myroom/title/button/nextmap", U"", 10, Window::ClientWidth() - 195, 500, false);
 	button[MODE::EXIT] = new MyImageButton(U"resources/images/items/myroom/title/button/exit", U"", 10, 300, 800, true);
 
-	//効果音ロード
 	//変数の初期化
 	selectedMode = NEXTMAP;
 }
@@ -42,6 +41,7 @@ bool MyRoomTitle::isReady(void) {
 void MyRoomTitle::start(void) {
 	delete backAudio;
 	backAudio = new Audio(U"resources/musics/backs/myroom.wav");
+	backAudio->setVolume(0.1);
 	backAudio->setLoop(true);
 	backAudio->play();
 }
@@ -63,6 +63,7 @@ void MyRoomTitle::update(void) {
 		default:
 			break;
 		}
+		GeneralSoundEffects::play(SE_NAME::DECISION);
 	}
 
 	moveSelectMode();
@@ -91,7 +92,10 @@ void MyRoomTitle::moveSelectMode() {
 			tmp = MODE::NEXTMAP;
 		}
 	}
-	selectedMode = (MODE)tmp;
+	if (selectedMode != tmp) {
+		selectedMode = (MODE)tmp;
+		GeneralSoundEffects::play(SE_NAME::CURSOR);
+	}
 }
 
 //それぞれのボタンを全て描画する

@@ -16,6 +16,10 @@ SelectSaveData::SelectSaveData(void) {
 	TextureAsset::Register(U"selectSDframe", U"resources/images/items/selectsavedata/frame.png", AssetParameter::LoadAsync());
 	TextureAsset::Register(U"selectSDframeon", U"resources/images/items/selectsavedata/frameon.png", AssetParameter::LoadAsync());
 
+	//効果音ロード
+
+
+	//セーブデータ取得等
 	MySqlite3::getDB();//これを使用してSQL文を実行してデータの取得が必要になる。
 
 	for (int i = 0; i < USER_SIZE; i++) {	//セーブデータフレームの初期化
@@ -49,6 +53,8 @@ SelectSaveData::~SelectSaveData(void) {
 	TextureAsset::Unregister(U"selectSDback");
 	TextureAsset::Unregister(U"selectSDframe");
 	TextureAsset::Unregister(U"selectSDframeon");
+	AudioAsset::Unregister(U"selectSDdecision");
+	AudioAsset::Unregister(U"selectSDcursor");
 }
 bool SelectSaveData::isReady(void) {
 	if (TextureAsset::IsReady(U"selectSDback")&&
@@ -62,6 +68,7 @@ void SelectSaveData::start(void) {
 	//BGM再生開始
 	backAudio = new Audio(U"resources/musics/backs/selectSD.wav");
 	backAudio->setLoop(true);
+	backAudio->setVolume(0.1);
 	backAudio->play();
 }
 void SelectSaveData::update(void) {
@@ -74,6 +81,7 @@ void SelectSaveData::update(void) {
 		else {
 			MySceneManager::setNextScene(SCENE::CREATE_SAVEDATA);
 		}
+		GeneralSoundEffects::play(SE_NAME::DECISION);
 	}
 	updateFrameCount();//フレーム数をカウントアップする
 	if (!(MyKey::getUpKeyPressed() == true && MyKey::getDownKeyPressed() == true)) {
@@ -133,5 +141,7 @@ void SelectSaveData::rotateSelectedUser(bool isUp) {
 				selectedUser = 0;
 			}
 		}
+		//効果音を鳴らす
+		GeneralSoundEffects::play(SE_NAME::CURSOR);
 	}
 }

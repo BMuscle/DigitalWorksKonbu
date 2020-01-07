@@ -17,6 +17,7 @@ Gacha::Gacha(void) {
 	TextureAsset::Register(U"gachabackeffect", U"resources/images/backs/gacha/effect.png", AssetParameter::LoadAsync());
 	TextureAsset::Register(U"gachabackresult", U"resources/images/backs/gacha/result.png", AssetParameter::LoadAsync());
 
+	//オーディオアセット
 	AudioAsset::Register(U"gachahandl", U"resources/musics/items/gacha/gacha.wav", AssetParameter::LoadAsync());
 	//エフェクト管理用の初期化
 	effects = new MyEffects();
@@ -54,6 +55,7 @@ Gacha::~Gacha(void) {//終了処理
 	TextureAsset::Unregister(U"gachatext");
 
 	AudioAsset::Unregister(U"gachahandl");
+
 	for (int i = 0; i < (int)BUTTON::SIZE; i++) {
 		delete button[i];
 	}
@@ -82,6 +84,7 @@ bool Gacha::isReady(void) {//同期処理
 void Gacha::start(void) {
 	delete backAudio;
 	backAudio = new Audio(U"resources/musics/backs/gacha.wav");
+	backAudio->setVolume(0.1);
 	backAudio->setLoop(true);
 	backAudio->play();
 }
@@ -118,6 +121,7 @@ void Gacha::update(void) {
 	case Gacha::GACHA_STATE::RESULT://リザルト画面
 		Print(U"リザルト画面です");
 		if (MyKey::getDecisionKey()) {
+			GeneralSoundEffects::play(SE_NAME::DECISION);
 			setNextGachaState(GACHA_STATE::TITLE);//ガチャ状態をエフェクト１へ
 		}
 		break;
@@ -170,10 +174,15 @@ void Gacha::draw(void) {
 
 void Gacha::selectedMove() {//現在選択されているものの更新処理
 	if (MyKey::getRightKeyDown()) {
+		//効果音再生
+		GeneralSoundEffects::play(SE_NAME::CURSOR);
 		selectedButton = BUTTON::GACHA;
 	}
 	if (MyKey::getLeftKeyDown()) {
+		//効果音再生
+		GeneralSoundEffects::play(SE_NAME::CURSOR);
 		selectedButton = BUTTON::EXIT;
+
 	}
 }
 
@@ -263,6 +272,7 @@ void Gacha::updateTitle() {
 			MySceneManager::setNextScene(SCENE::SELECT_MODE);
 			break;
 		}
+		GeneralSoundEffects::play(SE_NAME::DECISION);
 	}
 	selectedMove();//選択の移動処理,
 }

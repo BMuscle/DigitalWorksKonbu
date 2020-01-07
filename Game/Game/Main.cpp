@@ -4,6 +4,7 @@
 #include "Sensor.h"
 #include "MySocketServer.h"
 #include "User.h"
+#include "GeneralSoundEffects.h"
 
 void Main()
 {
@@ -19,6 +20,7 @@ void Main()
 	MySceneManager::initialize();					//シーンの初期化処理
 	Sensor::initialize(true);						//センサーデータの初期化
 	MySocketServer::initialize();					//ソケット通信の初期化
+	GeneralSoundEffects::initialize();
 
 	while (System::Update())//ゲームループ
 	{
@@ -32,6 +34,9 @@ void Main()
 
 		//ClearPrint();//簡易文字列の消去　リリース時ONにする
 	}
+
+	GeneralSoundEffects::finalize();
+
 	//ユーザーのプレイ時間を保存する
 	User::setTotalPlayTime();
 	MySocketServer::finalize();					//ソケット通信終了処理

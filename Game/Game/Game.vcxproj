@@ -115,6 +115,7 @@
     <ClCompile Include="Dodge.cpp" />
     <ClCompile Include="GachaItemDescription.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GeneralSoundEffects.cpp" />
     <ClCompile Include="LoadEffect.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MyEffects.cpp" />
@@ -271,6 +272,7 @@
     <ClInclude Include="Gacha.h" />
     <ClInclude Include="GachaItemDescription.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GeneralSoundEffects.h" />
     <ClInclude Include="LoadEffect.h" />
     <ClInclude Include="MiniGameBase.h" />
     <ClInclude Include="Mode.h" />

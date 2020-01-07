@@ -27,6 +27,9 @@ SelectMode::SelectMode(void) {
 	TextureAsset::Register(textureName[(int)MODE::GACHA] + U"txt", U"resources/images/items/selectmode/gachatxt.png", AssetParameter::LoadAsync());
 	TextureAsset::Register(textureName[(int)MODE::MYROOM] + U"txt", U"resources/images/items/selectmode/myroomtxt.png", AssetParameter::LoadAsync());
 	
+	//オーディオアセット
+	AudioAsset::Register(U"selectmodemove", U"resources/musics/items/selectmode/move.wav");
+
 	//変数の初期化
 	selectedMode = MODE::MYROOM;//初期の選択状態をマイルームにする。
 
@@ -34,12 +37,13 @@ SelectMode::SelectMode(void) {
 SelectMode::~SelectMode(void) {
 	FontAsset::Unregister(U"selectmodefont");
 	TextureAsset::Unregister(U"selectmodeback");
-	delete backAudio;
 	for (int i = 0; i < (int)MODE::SIZE; i++) {
 		delete button[i];
 		TextureAsset::Unregister(textureName[i] + U"txt");
 	}
 
+	delete backAudio;
+	AudioAsset::Unregister(U"selectmodemove");
 }
 bool SelectMode::isReady(void) {
 	if (TextureAsset::IsReady(U"selectmodeback")) {
@@ -51,13 +55,13 @@ bool SelectMode::isReady(void) {
 		}
 		return true;
 	}
-		
 	return false;
 }
 void SelectMode::start(void) {
 	//BGM再生開始
 	backAudio = new Audio(U"resources/musics/backs/selectmode.wav");
 	backAudio->setLoop(true);
+	backAudio->setVolume(0.1);
 	backAudio->play();
 }
 void SelectMode::update(void) {
@@ -94,6 +98,7 @@ MODE SelectMode::getSelectedMode() {//選択されているモードを返す。シーン移行時に
 
 
 void SelectMode::moveSelectMode() {
+	bool moveFlag = false;
 	if (MyKey::getUpKeyDown()) {//上キー入力
 		switch (selectedMode) {
 		case MODE::SOCCER:
@@ -103,6 +108,7 @@ void SelectMode::moveSelectMode() {
 			selectedMode = MODE::MYROOM;
 			break;
 		}
+		moveFlag = true;
 	}
 	else if (MyKey::getDownKeyDown()) {//下キー入力
 		switch (selectedMode) {
@@ -116,6 +122,7 @@ void SelectMode::moveSelectMode() {
 			selectedMode = MODE::SOCCER;
 			break;
 		}
+		moveFlag = true;
 	}
 	else if (MyKey::getLeftKeyDown()) {//左キー入力
 		switch (selectedMode) {
@@ -129,6 +136,7 @@ void SelectMode::moveSelectMode() {
 			selectedMode = MODE::GACHA;
 			break;
 		}
+		moveFlag = true;
 	}
 	else if (MyKey::getRightKeyDown()) {//右キー入力
 		switch (selectedMode) {
@@ -142,6 +150,13 @@ void SelectMode::moveSelectMode() {
 			selectedMode = MODE::SOCCER;
 			break;
 		}
+		moveFlag = true;
+	}
+
+	if (moveFlag) {
+		AudioAsset(U"selectmodemove").setPosSec(0);
+		AudioAsset(U"selectmodemove").setVolume(0.2);
+		AudioAsset(U"selectmodemove").play();
 	}
 	
 }

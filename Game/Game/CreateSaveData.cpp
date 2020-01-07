@@ -65,6 +65,7 @@ void CreateSaveData::start(void) {
 	//BGM再生開始
 	backAudio = new Audio(U"resources/musics/backs/selectSD.wav");
 	backAudio->setLoop(true);
+	backAudio->setVolume(0.1);
 	backAudio->play();
 	namebox.setActive(true);//ロード終了後でテキストボックスをアクティブに
 }
@@ -111,12 +112,14 @@ void CreateSaveData::selectUpdate() {//現在の移動状態に対応する計算処理
 		if (MyKey::getDecisionKey()) {//決定キーが押された時
 			selectState = SELECT_STATE::POPUP;								//現在の選択状態をポップアップへ
 			popUpState = POPUP::DECISION;										//ポップアップ表示
+			GeneralSoundEffects::play(SE_NAME::DECISION);
 		}
 		return;
 	case CreateSaveData::SELECT_STATE::TEXT:
 		if (MyKey::getDecisionKey()) {//決定キーが押された時
 			selectState = SELECT_STATE::DECISION;								//テキストボックスでエンター押したときYESを選択させる
 			namebox.setActive(false);
+			GeneralSoundEffects::play(SE_NAME::CURSOR);
 		}
 		return;
 	case CreateSaveData::SELECT_STATE::RETURN:
@@ -142,6 +145,7 @@ void CreateSaveData::selectMove() {//選択状態の遷移
 			selectState = SELECT_STATE::TEXT;
 			break;
 		}
+		GeneralSoundEffects::play(SE_NAME::CURSOR);
 	}
 	if (MyKey::getLeftKeyDown()) {//左キー入力
 		switch (selectState)
@@ -155,6 +159,7 @@ void CreateSaveData::selectMove() {//選択状態の遷移
 			selectState = SELECT_STATE::RETURN;
 			break;
 		}
+		GeneralSoundEffects::play(SE_NAME::CURSOR);
 	}
 }
 
@@ -166,6 +171,7 @@ void CreateSaveData::popUpUpdate() {//ポップアップの計算処理
 			MySceneManager::setNextScene(SCENE::SELECT_MODE);			//モード選択へシーン移行要求
 			createData();												//セーブデータ作成
 			TotalPlayTimeTimer::start();								//プレイ時間計測開始
+			GeneralSoundEffects::play(SE_NAME::DECISION);				//決定音
 			break;
 		case CreateSaveData::POPUP::RETURN://テキスト選択状態へ戻る
 			selectState = SELECT_STATE::TEXT;							//現在の選択状態をテキストボックスへ
@@ -180,9 +186,11 @@ void CreateSaveData::popUpUpdate() {//ポップアップの計算処理
 void CreateSaveData::popUpMove() {//ポップアップの移動チェック移動処理
 	if (MyKey::getLeftKeyDown()) {
 		popUpState = POPUP::RETURN;
+		GeneralSoundEffects::play(SE_NAME::CURSOR);
 	}
 	if (MyKey::getRightKeyDown()) {
 		popUpState = POPUP::DECISION;
+		GeneralSoundEffects::play(SE_NAME::CURSOR);
 	}
 }
 

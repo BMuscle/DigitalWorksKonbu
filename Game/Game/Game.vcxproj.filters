@@ -270,6 +270,9 @@
     <ClCompile Include="GachaItemDescription.cpp">
       <Filter>Source Files\Scene\Gacha</Filter>
     </ClCompile>
+    <ClCompile Include="GeneralSoundEffects.cpp">
+      <Filter>Source Files\MyLib\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -642,6 +645,9 @@
     </ClInclude>
     <ClInclude Include="GachaItemDescription.h">
       <Filter>Header Files\Scene\Gacha</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneralSoundEffects.h">
+      <Filter>Header Files\MyLib\Effect</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

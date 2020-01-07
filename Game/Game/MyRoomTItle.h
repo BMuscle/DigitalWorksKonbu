@@ -5,7 +5,7 @@
 #include "MyImageButton.h"
 #include "MyRoomSceneBase.h"
 #include "MySceneManager.h"
-
+#include "GeneralSoundEffects.h"
 
 class MyRoomTitle : public MyRoomSceneBase {
 

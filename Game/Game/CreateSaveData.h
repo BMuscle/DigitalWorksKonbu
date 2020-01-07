@@ -7,6 +7,7 @@
 #include "MySqlite3.h"
 #include "MyImageButton.h"
 #include "TotalPlayTimeTimer.h"
+#include "CreateSaveData.h"
 
 class CreateSaveData : public MyScene {
 public:
