@@ -5,6 +5,9 @@ MyRoomCollection::MyRoomCollection(MYROOM_SCENE* scenep) :MyRoomSceneBase(scenep
 
 	button = new MyImageButton(U"resources/images/items/myroom/collection/return", U"", 0, Window::ClientWidth() - 120, Window::ClientHeight() / 2);
 
+	FontAsset::Register(U"myroomsmallfont", 50, AssetParameter::LoadAsync());
+	FontAsset::Preload(U"myroomsmallfont");
+
 	csvItem[(int)GAME_TYPE::DODGE].load(U"resources/gamedata/dodge.csv");
 	csvItem[(int)GAME_TYPE::SHOEKICK].load(U"resources/gamedata/shoekick.csv");
 	csvItem[(int)GAME_TYPE::SOCCER].load(U"resources/gamedata/soccer.csv");
@@ -26,9 +29,12 @@ MyRoomCollection::MyRoomCollection(MYROOM_SCENE* scenep) :MyRoomSceneBase(scenep
 	isCollectionSelected = false;
 	//テーブルの初期化
 	initializeCollectionTable();
+
+	alpha = 0;
 }
 MyRoomCollection::~MyRoomCollection() {
 	TextureAsset::Unregister(U"myroomback");
+	FontAsset::Unregister(U"myroomsmallfont");
 
 	//ドッジボールのガチャアイテムアンロード
 	for (int row = 0; row < csvItem[(int)GAME_TYPE::DODGE].rows(); row++) {
@@ -44,7 +50,8 @@ MyRoomCollection::~MyRoomCollection() {
 	}
 }
 bool MyRoomCollection::isReady() {
-	if (TextureAsset::IsReady(U"myroomback")) {
+	if (TextureAsset::IsReady(U"myroomback") &&
+		FontAsset::IsReady(U"myroomsmallfont")) {
 
 		//ドッジボールのガチャアイテムチェック
 		for (int row = 0; row < csvItem[(int)GAME_TYPE::DODGE].rows(); row++) {
@@ -73,6 +80,8 @@ void MyRoomCollection::start() {
 
 }
 void MyRoomCollection::update() {
+	changeAlpha();
+
 	if (isCollectionSelected) {
 		if (MyKey::getDecisionKey()) {
 			isCollectionSelected = false;
@@ -201,6 +210,7 @@ void MyRoomCollection::draw() {
 		Rect(0, 0, Window::ClientWidth(), Window::ClientHeight()).draw(ColorF(1, 1, 1, 0.5));
 		TextureAsset(csvItem[selectedItem.row].get<String>(selectedItem.column, 1)).scaled(0.8).drawAt(Window::ClientWidth() * 0.25, Window::ClientHeight() / 2);
 		TextureAsset(U"gachatext").drawAt(Window::ClientWidth() * 0.65, Window::ClientHeight() / 2);
+		FontAsset(U"myroomsmallfont")(U"～Press to Enter～").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() - 100, ColorF(0, 0, 0, alpha));
 	}
 }
 
@@ -276,4 +286,10 @@ int MyRoomCollection::selectedMoveRow(int row) {
 		}
 	}
 	return column;
+}
+
+void MyRoomCollection::changeAlpha(void) {
+	constexpr int CYCLE = 3000;//透過が変わる周期
+	const uint64 t = Time::GetMillisec();
+	alpha = Sin(t % CYCLE / static_cast<double>(CYCLE)* s3d::Math::Constants::TwoPi) * 0.42 + 0.58;
 }

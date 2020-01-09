@@ -43,7 +43,7 @@ private:
 	MyEffects* gachaEffects;	//ガチャエフェクト管理用
 	MyImageEffect* gachaEffect;	//ガチャを回している画像エフェクト 画像が大きいので２枚に分割
 
-
+	float alpha;
 
 	enum class BUTTON {//ボタンの種類
 		GACHA,
@@ -84,4 +84,6 @@ private:
 
 	//ガチャ結果の描画
 	void resultDraw();
+
+	void changeAlpha(void);//アルファ値変動
 };

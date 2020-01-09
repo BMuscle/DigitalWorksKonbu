@@ -20,6 +20,8 @@ private:
 
 	std::vector<int> itemVec[(int)GAME_TYPE::SIZE];//アイテムの座標を保持
 
+	float alpha;
+
 	//棚の行列を保持
 	struct CollectionTable {
 		int row;		
@@ -34,6 +36,7 @@ private:
 	//棚の行を移動する 移動できる時0以上の値の列が返る。　移動できない時 -1が返る
 	int selectedMoveRow(int row);
 
+	void changeAlpha(void);//アルファ値変動
 public:
 	MyRoomCollection(MYROOM_SCENE* scenep);
 	~MyRoomCollection();

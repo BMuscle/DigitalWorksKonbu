@@ -39,6 +39,7 @@ Gacha::Gacha(void) {
 	selectedButton = BUTTON::GACHA;		//‰Šú‚Ìƒ{ƒ^ƒ“‘I‘ğó‘Ô‚ğƒKƒ`ƒƒ‚É
 	nowGachaState = GACHA_STATE::TITLE;	//ƒKƒ`ƒƒ‚Ìó‘Ô‚ğ‰½‚à‚È‚¢ó‘Ô‚É
 
+	alpha = 0;
 
 }
 
@@ -124,6 +125,7 @@ void Gacha::update(void) {
 			GeneralSoundEffects::play(SE_NAME::DECISION);
 			setNextGachaState(GACHA_STATE::TITLE);//ƒKƒ`ƒƒó‘Ô‚ğƒGƒtƒFƒNƒg‚P‚Ö
 		}
+		changeAlpha();
 		break;
 	case Gacha::GACHA_STATE::END:
 		break;
@@ -157,7 +159,8 @@ void Gacha::draw(void) {
 		TextureAsset(U"gachabackresult").draw();
 		Rect(0, 0, Window::ClientWidth(), Window::ClientHeight()).draw(ColorF(1, 1, 1, 0.5));
 		resultDraw();
-		FontAsset(U"gachafont")(U"`Press to Enter`").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() - 150, ColorF(0,0,0));
+		FontAsset(U"gachasmallfont")(U"`Press to Enter`").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() - 100, ColorF(0,0,0, alpha));
+
 		break;
 	case Gacha::GACHA_STATE::END:
 		break;
@@ -311,4 +314,10 @@ void Gacha::randomGacha() {
 void Gacha::resultDraw() {
 	TextureAsset(U"gachaitem").drawAt(Window::ClientWidth() * 0.3, Window::ClientHeight() * 0.6 - 30);
 	TextureAsset(U"gachatext").drawAt(Window::ClientWidth() * 0.7, Window::ClientHeight() * 0.5 );
+}
+
+void Gacha::changeAlpha(void) {
+	constexpr int CYCLE = 3000;//“§‰ß‚ª•Ï‚í‚éüŠú
+	const uint64 t = Time::GetMillisec();
+	alpha = Sin(t % CYCLE / static_cast<double>(CYCLE)* s3d::Math::Constants::TwoPi) * 0.42 + 0.58;
 }
