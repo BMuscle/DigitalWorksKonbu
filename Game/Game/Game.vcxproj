@@ -124,6 +124,7 @@
     <ClCompile Include="MyKey.cpp" />
     <ClCompile Include="MyRoom.cpp" />
     <ClCompile Include="MyRoomCollection.cpp" />
+    <ClCompile Include="MyRoomReport.cpp" />
     <ClCompile Include="MyRoomTItle.cpp" />
     <ClCompile Include="MySceneManager.cpp" />
     <ClCompile Include="MySocketServer.cpp" />
@@ -282,6 +283,7 @@
     <ClInclude Include="MyKey.h" />
     <ClInclude Include="MyRoom.h" />
     <ClInclude Include="MyRoomCollection.h" />
+    <ClInclude Include="MyRoomReport.h" />
     <ClInclude Include="MyRoomSceneBase.h" />
     <ClInclude Include="MyRoomTItle.h" />
     <ClInclude Include="MyScene.h" />

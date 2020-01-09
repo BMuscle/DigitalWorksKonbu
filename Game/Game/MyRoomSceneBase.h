@@ -3,7 +3,7 @@
 
 enum class MYROOM_SCENE {
 	TITLE,
-	AVATAR,
+	REPORT,
 	COLLECTION,
 	NONE,
 };

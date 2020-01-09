@@ -8,6 +8,7 @@ MyRoomTitle::MyRoomTitle(MYROOM_SCENE* scenep):MyRoomSceneBase(scenep) {
 	//背景
 	TextureAsset::Register(U"myroomback", U"resources/images/backs/myroom/title.png", AssetParameter::LoadAsync());
 	//それぞれボタンON　OFFのロード
+	button[MODE::REPORT] = new MyImageButton(U"resources/images/items/myroom/title/button/report", U"", 10, Window::ClientWidth() * 0.443, 650, false);
 	button[MODE::COLLECTION] = new MyImageButton(U"resources/images/items/myroom/title/button/collection", U"", 10, Window::ClientWidth() * 0.684, 650, false);
 	button[MODE::NEXTMAP] = new MyImageButton(U"resources/images/items/myroom/title/button/nextmap", U"", 10, Window::ClientWidth() - 195, 500, false);
 	button[MODE::EXIT] = new MyImageButton(U"resources/images/items/myroom/title/button/exit", U"", 10, 300, 800, true);
@@ -51,6 +52,9 @@ void MyRoomTitle::update(void) {
 	if (MyKey::getDecisionKey()) {
 		switch (selectedMode)
 		{
+		case MyRoomTitle::REPORT:
+			setNextScene(MYROOM_SCENE::REPORT);
+			break;
 		case MyRoomTitle::COLLECTION:
 			setNextScene(MYROOM_SCENE::COLLECTION);
 			break;

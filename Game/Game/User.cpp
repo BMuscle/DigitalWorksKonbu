@@ -404,3 +404,185 @@ bool User::setTotalPlayTime() {
 	sqlite3_finalize(stmt);
 	return true;
 }
+
+bool User::addGameScore(GAME_TYPE type, int score) {
+	if (score < 0 || score > 100) { return false; }
+	//変数宣言
+	int err;
+	sqlite3_stmt* stmt = NULL;//ステートメントハンドル
+	const char* pzTest;
+	std::string sql = "INSERT INTO GameScores(user_id, game_id, score1, play_date) VALUES(?, ?, ?, date('now'));";
+
+	//ステートメント作成
+	err = sqlite3_prepare_v2(MySqlite3::getDB(), sql.c_str(), (int)sql.size(), &stmt, &pzTest);
+	sqlite3_bind_int(stmt, 1, getUser_Id());//1つ目の？をuser_idにする
+	sqlite3_bind_int(stmt, 2, (int)type + 1);//2つ目の？をgame_idにする
+	sqlite3_bind_int(stmt, 3, (int)type + 1);//3つ目の？をscoreにする
+	if (err != SQLITE_OK) {
+		//エラー処理
+		return false;
+	}
+	else {
+		sqlite3_step(stmt);
+	}
+
+	//ステートメントの解放
+	sqlite3_finalize(stmt);
+	return true;
+}
+
+int User::getGameHighScore(GAME_TYPE type) {
+	//変数宣言
+	int err;
+	sqlite3_stmt* stmt = NULL;//ステートメントハンドル
+	const char* pzTest;
+	std::string sql = "SELECT MAX(score1) FROM GameScores WHERE user_id = ? AND game_id = ?;";
+	int highScore = 0;
+
+	//ステートメント作成
+	err = sqlite3_prepare_v2(MySqlite3::getDB(), sql.c_str(), (int)sql.size(), &stmt, &pzTest);
+	sqlite3_bind_int(stmt, 1, getUser_Id());//1つ目の？をidにする
+	sqlite3_bind_int(stmt, 2, (int)type + 1);//2つ目の？をgame_idにする
+	if (err != SQLITE_OK) {
+		//エラー処理
+		return 0;
+	}
+	else {
+		//データの抽出
+		while (SQLITE_ROW == (err = sqlite3_step(stmt))) {
+			highScore = sqlite3_column_int(stmt, 0);
+		}
+	}
+
+	//ステートメントの解放
+	sqlite3_finalize(stmt);
+
+	return highScore;
+}
+
+
+int User::getGamePlayCount(GAME_TYPE type) {
+	//変数宣言
+	int err;
+	sqlite3_stmt* stmt = NULL;//ステートメントハンドル
+	const char* pzTest;
+	std::string sql = "SELECT COUNT(*) FROM GameScores WHERE user_id = ? AND game_id = ?;";
+	int playCount = 0;
+
+	//ステートメント作成
+	err = sqlite3_prepare_v2(MySqlite3::getDB(), sql.c_str(), (int)sql.size(), &stmt, &pzTest);
+	sqlite3_bind_int(stmt, 1, getUser_Id());//1つ目の？をidにする
+	sqlite3_bind_int(stmt, 2, (int)type + 1);//2つ目の？をgame_idにする
+	if (err != SQLITE_OK) {
+		//エラー処理
+		return 0;
+	}
+	else {
+		//データの抽出
+		while (SQLITE_ROW == (err = sqlite3_step(stmt))) {
+			playCount = sqlite3_column_int(stmt, 0);
+		}
+	}
+
+	//ステートメントの解放
+	sqlite3_finalize(stmt);
+
+	return playCount;
+}
+
+float User::getItemAcquisitionRate() {
+	//変数宣言
+	int err;
+	sqlite3_stmt* stmt = NULL;//ステートメントハンドル
+	const char* pzTest;
+	std::string sql = "SELECT COUNT(*) FROM UserItems WHERE user_id = ?;";
+	int allRows = 0;
+
+	//ステートメント作成
+	err = sqlite3_prepare_v2(MySqlite3::getDB(), sql.c_str(), (int)sql.size(), &stmt, &pzTest);
+	sqlite3_bind_int(stmt, 1, getUser_Id());//1つ目の？をidにする
+	if (err != SQLITE_OK) {
+		//エラー処理
+		return false;
+	}
+	else {
+		//データの抽出
+		while (SQLITE_ROW == (err = sqlite3_step(stmt))) {
+			allRows = sqlite3_column_int(stmt, 0);
+		}
+	}
+	//ステートメントの解放
+	sqlite3_finalize(stmt);
+
+
+	//変数初期化
+	err = 0;
+	stmt = NULL;//ステートメントハンドル
+	pzTest = NULL;
+	sql = "SELECT COUNT(*) FROM UserItems WHERE user_id = ? AND flag = 1;";
+	int trueRows = 0;
+
+	//ステートメント作成
+	err = sqlite3_prepare_v2(MySqlite3::getDB(), sql.c_str(), (int)sql.size(), &stmt, &pzTest);
+	sqlite3_bind_int(stmt, 1, getUser_Id());//1つ目の？をidにする
+	if (err != SQLITE_OK) {
+		//エラー処理
+		return false;
+	}
+	else {
+		//データの抽出
+		while (SQLITE_ROW == (err = sqlite3_step(stmt))) {
+			trueRows = sqlite3_column_int(stmt, 0);
+		}
+	}
+	//ステートメントの解放
+	sqlite3_finalize(stmt);
+	if (allRows == 0) {
+		return 0;
+	}
+	return (float)trueRows / allRows;
+}
+
+String User::getTotalPlayTime() {
+	//変数宣言
+	int err;
+	sqlite3_stmt* stmt = NULL;//ステートメントハンドル
+	const char* pzTest;
+	std::string sql = "SELECT total_play_time FROM Users WHERE id = ?;";
+
+	int64 total_play_time = 0;
+
+	//ステートメント作成
+	err = sqlite3_prepare_v2(MySqlite3::getDB(), sql.c_str(), (int)sql.size(), &stmt, &pzTest);
+	sqlite3_bind_int(stmt, 1, getUser_Id());//1つ目の？をidにする
+	if (err != SQLITE_OK) {
+		//エラー処理
+		return false;
+	}
+	else {
+		//データの抽出
+		while (SQLITE_ROW == (err = sqlite3_step(stmt))) {
+			total_play_time = sqlite3_column_int64(stmt, 0);
+		}
+	}
+	//ステートメントの解放
+	sqlite3_finalize(stmt);
+
+	//現在のプレイ時間を足す
+	total_play_time += TotalPlayTimeTimer::getSecond();
+
+	String playTimeStr = U"";
+	if (total_play_time / 3600 > 0) {
+		playTimeStr = playTimeStr + Format((int)total_play_time / 3600) + U"時間";
+		total_play_time %= 3600;
+	}
+	
+	if (total_play_time / 60 > 0) {
+		playTimeStr = playTimeStr + Format((int)total_play_time / 60) + U"分";
+		total_play_time %= 60;
+	}
+	else {
+		playTimeStr = playTimeStr + U"0分";
+	}
+	return playTimeStr;
+}

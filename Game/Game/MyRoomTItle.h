@@ -22,6 +22,7 @@ private:
 	Audio* backAudio;//BGM
 	enum MODE {
 		EXIT,		//ゲームを終了する
+		REPORT,		//記録へ移動する
 		COLLECTION,	//collection要素を作成する
 		NEXTMAP,	//マップへ移動する
 		SIZE,

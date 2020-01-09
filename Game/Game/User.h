@@ -75,6 +75,23 @@ public:
 	static bool subUserPoint(int subPoint);
 	//ポイントの取得
 	static int getUserPoint();
-
+	
+	//プレイ時間を更新する
 	static bool setTotalPlayTime();
+	
+	//ゲームスコアを登録する 0 ~ 100の範囲で
+	static bool addGameScore(GAME_TYPE type, int score);
+
+	//ゲームのハイスコアを取得する
+	static int getGameHighScore(GAME_TYPE type);
+
+	//ゲームのプレイ回数を取得する
+	static int getGamePlayCount(GAME_TYPE type);
+
+	//アイテム取得率を取得する
+	static float getItemAcquisitionRate();
+
+	//プレイ時間返す 〇時〇分
+	static String getTotalPlayTime();
+
 };

@@ -57,9 +57,9 @@ void MyRoom::changeScene() {
 		delete scene;
 		scene = new MyRoomTitle(&nextScene);
 		break;
-	case MYROOM_SCENE::AVATAR:
+	case MYROOM_SCENE::REPORT:
 		delete scene;
-		scene = new MyRoomCollection(&nextScene);
+		scene = new MyRoomReport(&nextScene);
 		break;
 	case MYROOM_SCENE::COLLECTION:
 		delete scene;

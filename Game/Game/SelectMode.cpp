@@ -89,7 +89,7 @@ void SelectMode::draw(void) {
 	}
 
 	//現在選択されているものの内容画像を表示する
-	TextureAsset(textureName[(int)getSelectedMode()] + U"txt").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() * 0.65, AlphaF(0.8));
+	TextureAsset(textureName[(int)getSelectedMode()] + U"txt").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() * 0.62, AlphaF(1));
 }
 
 MODE SelectMode::getSelectedMode() {//選択されているモードを返す。シーン移行時に受け渡す

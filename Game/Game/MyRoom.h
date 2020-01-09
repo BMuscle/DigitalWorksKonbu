@@ -5,6 +5,7 @@
 #include "MySceneManager.h"
 #include "MyRoomTitle.h"
 #include "MyRoomCollection.h"
+#include "MyRoomReport.h"
 #include "MyRoomSceneBase.h"
 #include "SimpleLoadEffect.h"
 

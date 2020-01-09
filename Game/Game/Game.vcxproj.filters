@@ -273,6 +273,9 @@
     <ClCompile Include="GeneralSoundEffects.cpp">
       <Filter>Source Files\MyLib\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="MyRoomReport.cpp">
+      <Filter>Source Files\Scene\MyRoom</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -648,6 +651,9 @@
     </ClInclude>
     <ClInclude Include="GeneralSoundEffects.h">
       <Filter>Header Files\MyLib\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="MyRoomReport.h">
+      <Filter>Header Files\Scene\MyRoom</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
