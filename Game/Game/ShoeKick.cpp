@@ -1,6 +1,8 @@
 #include "ShoeKick.h"
 #include <Siv3D.hpp>
 #include "MyKey.h"
+#include <windows.h>
+#include "MySocketServer.h"
 
 
 ShoeKick::ShoeKick(void) {
@@ -15,9 +17,14 @@ ShoeKick::ShoeKick(void) {
 	TextureAsset::Register(U"shoekick_sunny", U"resources/images/items/game/shoekick/sunny.png", AssetParameter::LoadAsync());
 	TextureAsset::Register(U"shoekick_rain", U"resources/images/items/game/shoekick/rain.png", AssetParameter::LoadAsync());
 	TextureAsset::Register(U"shoekick_cloudy", U"resources/images/items/game/shoekick/cloudy.png", AssetParameter::LoadAsync());
+	TextureAsset::Register(U"shoekick_count3", U"resources/images/items/game/shoekick/count3.png", AssetParameter::LoadAsync());
+	TextureAsset::Register(U"shoekick_count2", U"resources/images/items/game/shoekick/count2.png", AssetParameter::LoadAsync());
+	TextureAsset::Register(U"shoekick_count1", U"resources/images/items/game/shoekick/count1.png", AssetParameter::LoadAsync());
+	TextureAsset::Register(U"shoekick_start", U"resources/images/items/game/shoekick/start.png", AssetParameter::LoadAsync());
 
 	nowScene = TITLE;//初期シーンセット
 	nextScene = TITLE;
+
 }
 ShoeKick::~ShoeKick(void) {
 	FontAsset::Unregister(U"shoekickfont");
@@ -40,7 +47,7 @@ void ShoeKick::update(void) {	//計算処理
 	if (nowScene != nextScene) {
 		changeScene();
 	}
-	switch (nowScene) { 
+	switch (nowScene) {
 	case TITLE:/*タイトル*/
 
 		if (MyKey::getDecisionKey()) { //エンター押されたらける画面に移行する
@@ -49,29 +56,39 @@ void ShoeKick::update(void) {	//計算処理
 		break;
 
 	case KICK: /*足を振って速さを取ってきて飛ばすまでの画面*/
-		
-	
-		
-		while (countDown<0) {
 
-			countDown = countDown - 1;
+		if (countDownFunc()) {
+			setNextScene(FLY);
+		}
 
-		};
-
-		setNextScene(FLY);
 		break;
 	case FLY:/*出た速さから距離を取って靴を飛ばす画面*/
 		//出た速さに何かしらをかけて距離を出す
+		distance = 300;
+
+		while (distance == x) {
+
+			x++;
+		}
+
+		if (MyKey::getDecisionKey()) { //エンター押されたらける画面に移行する
+			setNextScene(FALL);
+		}
 		break;
+
+
+
 	case FALL:/*靴を落下させる画面*/
 
-		if (MyKey::getDecisionKey()) { //エンター押されたら天気の画面に移行する
-			setNextScene (RESULT);
+		if (countDownFunc()) {
+			setNextScene(RESULT);
 		}
 		break;
 
 	case RESULT:/*距離によって表示する天気を変える・もう一度ゲームをするかマップに戻るかを確認する画面*/
 		//もう一度ゲームをプレイするかマップに戻るか方向キーで選択してエンターで決定 
+
+
 		break;
 
 	}
@@ -79,14 +96,22 @@ void ShoeKick::update(void) {	//計算処理
 }
 void ShoeKick::draw(void) {	//描画処理
 
-	switch (nowScene) { //画面切り替えのフラグ
+	switch (nowScene) { //画面切り替えのフラグです
 
 	case TITLE://home
 		TextureAsset(U"shoekick_title").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
 		break;
 	case KICK://keru
 		TextureAsset(U"shoekick_kick").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
-		FontAsset(U"shoekickfont")(U"カウントダウン" + Format(countDown)).drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2, ColorF(0,0,0));
+		if (((int)countDown / 60) == 3) {
+			TextureAsset(U"shoekick_count3").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+		}else if (((int)countDown / 60) == 2) {
+			TextureAsset(U"shoekick_count2").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+		}else if (((int)countDown / 60) == 1) {
+			TextureAsset(U"shoekick_count1").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+		}else if (((int)countDown / 60) == 0) {
+			TextureAsset(U"shoekick_start").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+		}
 		break;
 	case FLY://tonnderu
 		TextureAsset(U"shoekick_fly").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
@@ -95,9 +120,17 @@ void ShoeKick::draw(void) {	//描画処理
 		TextureAsset(U"shoekick_fall").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
 		break;
 	case RESULT:
-		TextureAsset(U"shoekick_sunny").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
-		TextureAsset(U"shoekick_rain").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
-		TextureAsset(U"shoekick_cloudy").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+		if (distance % 3 == 0) {
+			TextureAsset(U"shoekick_sunny").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+
+		}
+		else if (distance % 3 == 1) {
+			TextureAsset(U"shoekick_rain").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+
+		}
+		else{
+			TextureAsset(U"shoekick_cloudy").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+		}
 		break;
 	}
 }
@@ -127,11 +160,14 @@ void ShoeKick::changeScene() {
 	case ShoeKick::TITLE:
 		break;
 	case ShoeKick::KICK:
-		countDown = 3;
+		countDown = 4 * 60;
 		break;
 	case ShoeKick::FLY:
+		distance = 0;
+		x = 0;
 		break;
 	case ShoeKick::FALL:
+		countDown = 2 * 60;
 		break;
 	case ShoeKick::RESULT:
 		break;
@@ -141,6 +177,19 @@ void ShoeKick::changeScene() {
 void ShoeKick::setNextScene(SCENE next) {
 	nextScene = next;
 }
+
+bool ShoeKick::countDownFunc() {
+	if (countDown > 0) {
+		countDown--;
+		return false;//カウントダウン中
+	}
+	else {
+
+	}
+	return true;//カウントダウン終了
+}
+
+
 
 
 

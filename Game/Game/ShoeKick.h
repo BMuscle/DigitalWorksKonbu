@@ -31,8 +31,13 @@ private:
 	void setNextScene(SCENE next);
 
 	//蹴るシーンの変数
+	bool countDownFunc();
 	int countDown;
+	bool isNext;
 
 	//描画
-	void scenedraw(void);
+	void scenedraw();
+
+	//距離の変数
+	int distance, x;
 };
