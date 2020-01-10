@@ -345,3 +345,5 @@ Game/Game/App/*.html
 Game/Game/App/resources/*
 !FantaRhythm_v2/App/resources/.gitkeep
 /FantaRhythm_v2/App
+/Game/Game/App/resources/savedata.db
+Game/Game/App/resources/savedata.db
