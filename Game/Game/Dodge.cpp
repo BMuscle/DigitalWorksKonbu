@@ -1,33 +1,28 @@
 #include "Dodge.h"
+#include"MyKey.h"
 
 Dodge::Dodge(void) {
-	//アセットへロード
-	FontAsset::Register(U"dodgefont", 70);
-	FontAsset::Preload(U"dodgefont");
-	TextureAsset::Register(U"dodgeback", U"resources/images/backs/dodge.png", AssetParameter::LoadAsync());
+	scene =new DodgeTitle(&nextscene);
+	nowscene = nextscene = DODGE_SCENE::TITLE;
 }
 Dodge::~Dodge(void) {
-	FontAsset::Unregister(U"dodgefont");
-	TextureAsset::Unregister(U"dodgeback");
-	delete backAudio;
+
 }
 bool Dodge::isReady(void) {	//ロード終了してもいいかどうか
-	if (TextureAsset::IsReady(U"dodgeback")) {
-		return true;
-	}
-	return false;
+	return true;
 }
 void Dodge::start(void) {	//ロード空けた後に実行されるもの
 	//BGM再生開始
-	backAudio = new Audio(U"resources/musics/backs/dodge.wav");
-	backAudio->setLoop(true);
-	backAudio->play();
-}
-void Dodge::update(void) {	//計算処理
 
 }
+void Dodge::update(void) {	//計算処理
+	if (nowscene != nextscene) {
+		changeScene();
+	}
+	scene->update();
+}
 void Dodge::draw(void) {	//描画処理
-	TextureAsset(U"dodgeback").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+	scene->draw();
 }
 void Dodge::outputResult(void) {//結果をDBへ出力する
 
@@ -35,3 +30,22 @@ void Dodge::outputResult(void) {//結果をDBへ出力する
 void Dodge::stopGame() {	//ゲームを一時中断する
 
 }
+void Dodge::changeScene() {
+	switch (nextscene)
+	{
+	case DODGE_SCENE::TITLE:
+		delete scene;
+		scene = new DodgeTitle(&nextscene);
+		break;
+	case DODGE_SCENE::GAME:
+		delete scene;
+		scene = new DodgeGame(&nextscene);
+		break;
+	case DODGE_SCENE::RESULT:
+		break;
+	default:
+		break;
+	}
+	nowscene = nextscene;
+}
+

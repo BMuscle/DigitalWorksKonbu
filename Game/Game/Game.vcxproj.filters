@@ -279,6 +279,12 @@
     <ClCompile Include="DodgeGame.cpp">
       <Filter>Source Files\Scene\Game\Dodge</Filter>
     </ClCompile>
+    <ClCompile Include="DodgeTitle.cpp">
+      <Filter>Source Files\Scene\Game\Dodge</Filter>
+    </ClCompile>
+    <ClCompile Include="DodgeResult.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -657,6 +663,15 @@
     </ClInclude>
     <ClInclude Include="MyRoomReport.h">
       <Filter>Header Files\Scene\MyRoom</Filter>
+    </ClInclude>
+    <ClInclude Include="DodgeGame.h">
+      <Filter>Header Files\Scene\Game\Dodge</Filter>
+    </ClInclude>
+    <ClInclude Include="DodgeTitle.h">
+      <Filter>Header Files\Scene\Game\Dodge</Filter>
+    </ClInclude>
+    <ClInclude Include="DodgeSceneBase.h">
+      <Filter>Header Files\Scene\Game\Dodge</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

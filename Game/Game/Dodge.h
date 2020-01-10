@@ -1,5 +1,10 @@
 #pragma once
 #include "MiniGameBase.h"
+#include"DodgeSceneBase.h"
+#include"DodgeTitle.h"
+#include"DodgeGame.h"
+
+
 
 class Dodge : public MiniGame {
 public:
@@ -12,5 +17,8 @@ public:
 	void outputResult(void);//Œ‹‰Ê‚ğDB‚Öo—Í‚·‚é
 	void stopGame();	//ƒQ[ƒ€‚ğˆê’†’f‚·‚é
 private:
-	Audio* backAudio;
+	DODGE_SCENE nowscene;
+	DODGE_SCENE nextscene;
+	class DodgeSceneBase* scene;
+	void changeScene();
 };
