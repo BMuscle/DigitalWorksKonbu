@@ -4,6 +4,7 @@
 #include "Sensor.h"
 #include "MySocketServer.h"
 #include "User.h"
+#include "GeneralSoundEffects.h"
 
 void Main()
 {
@@ -13,10 +14,13 @@ void Main()
 	MySqlite3::DBCREATE();//データベースの作成→既にテーブルがある時は行われない
 	Profiler::EnableAssetCreationWarning(false);	//アセットの警告オフ
 	Window::Resize(1920, 1080);						//画面サイズを1920/1080に固定	
+	//Window::SetFullscreen(true);					//フルスクリーンに設定
+	
 	Graphics::SetTargetFrameRateHz(60);				//FPSを60に固定
 	MySceneManager::initialize();					//シーンの初期化処理
 	Sensor::initialize(true);						//センサーデータの初期化
 	MySocketServer::initialize();					//ソケット通信の初期化
+	GeneralSoundEffects::initialize();
 
 	while (System::Update())//ゲームループ
 	{
@@ -30,9 +34,14 @@ void Main()
 
 		//ClearPrint();//簡易文字列の消去　リリース時ONにする
 	}
+
+	GeneralSoundEffects::finalize();
+
+	//ユーザーのプレイ時間を保存する
+	User::setTotalPlayTime();
 	MySocketServer::finalize();					//ソケット通信終了処理
 	Sensor::finalize();							//センサーデータの終了処理
-	MySceneManager::finalize();						//シーンの終了処理
+	MySceneManager::finalize();					//シーンの終了処理
 
 	if (!MySqlite3::finalize()) {
 		return;	//データベースの終了処理失敗

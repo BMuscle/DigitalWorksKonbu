@@ -5,6 +5,7 @@
 #include "MySceneManager.h"
 #include "User.h"
 #include "Mode.h"
+#include "MyImageButton.h"
 
 class SelectMode : public MyScene {
 public:
@@ -21,6 +22,8 @@ private:
 	MODE selectedMode;	//現在選択されているモード
 	int frameCount;		//フレーム数をカウントする
 	int selectCountPrev;//選択された時のフレーム数
+
+	MyImageButton* button[(int)MODE::SIZE];
 
 	String textureName[(int)MODE::SIZE];
 

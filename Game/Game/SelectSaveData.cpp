@@ -1,8 +1,8 @@
 #include "SelectSaveData.h"
 
 #define FRAME_CENTER_X (Window::ClientWidth() / 2)		//真ん中のフレームの位置X
-#define FRAME_CENTER_Y (Window::ClientHeight() / 2)		//真ん中のフレームの位置Y
-#define FRAME_INTERVAL (Window::ClientHeight() * 0.2)	//フレームの間隔
+#define FRAME_CENTER_Y (Window::ClientHeight() / 2 + 150)		//真ん中のフレームの位置Y
+#define FRAME_INTERVAL (Window::ClientHeight() * 0.23)	//フレームの間隔
 
 #define SELECT_INTERVAL_COUNT (60 * 0.2)
 
@@ -16,6 +16,10 @@ SelectSaveData::SelectSaveData(void) {
 	TextureAsset::Register(U"selectSDframe", U"resources/images/items/selectsavedata/frame.png", AssetParameter::LoadAsync());
 	TextureAsset::Register(U"selectSDframeon", U"resources/images/items/selectsavedata/frameon.png", AssetParameter::LoadAsync());
 
+	//効果音ロード
+
+
+	//セーブデータ取得等
 	MySqlite3::getDB();//これを使用してSQL文を実行してデータの取得が必要になる。
 
 	for (int i = 0; i < USER_SIZE; i++) {	//セーブデータフレームの初期化
@@ -34,7 +38,7 @@ SelectSaveData::SelectSaveData(void) {
 	for (int i = 0; i < currentUserSize; i++) {//ユーザーが存在するものを更新する
 		int64 totalplaytime = 0;
 		User::simpleSaveDataAccess(i+1, user_frame[i].user_name, totalplaytime);
-		if ((int)(totalplaytime / 3600) >= 0) {//プレイ時間が１時間を超えている場合
+		if ((int)(totalplaytime / 3600) > 0) {//プレイ時間が１時間を超えている場合
 			user_frame[i].total_play_time = U"プレイ時間" + Format(totalplaytime / 3600) + U" 時間";
 		}
 		else {//１時間超えていないので分数
@@ -49,6 +53,8 @@ SelectSaveData::~SelectSaveData(void) {
 	TextureAsset::Unregister(U"selectSDback");
 	TextureAsset::Unregister(U"selectSDframe");
 	TextureAsset::Unregister(U"selectSDframeon");
+	AudioAsset::Unregister(U"selectSDdecision");
+	AudioAsset::Unregister(U"selectSDcursor");
 }
 bool SelectSaveData::isReady(void) {
 	if (TextureAsset::IsReady(U"selectSDback")&&
@@ -62,17 +68,20 @@ void SelectSaveData::start(void) {
 	//BGM再生開始
 	backAudio = new Audio(U"resources/musics/backs/selectSD.wav");
 	backAudio->setLoop(true);
+	backAudio->setVolume(0.1);
 	backAudio->play();
 }
 void SelectSaveData::update(void) {
 	if (MyKey::getDecisionKey()) {//選択されているセーブデータにより分岐、シーン移行処理
 		if (selectedUser < currentUserSize){//ユーザー数より小さい場所（既にユーザーが存在するところを選択している場合)
-			MySceneManager::setNextScene(SCENE::SELECT_MODE);
-			User::saveDataAccess(selectedUser + 1);
+			MySceneManager::setNextScene(SCENE::SELECT_MODE);	//モード選択へ移行
+			User::saveDataAccess(selectedUser + 1);				//セーブデータへアクセスしデータを保持
+			TotalPlayTimeTimer::start();						//プレイ時間カウント開始
 		}
 		else {
 			MySceneManager::setNextScene(SCENE::CREATE_SAVEDATA);
 		}
+		GeneralSoundEffects::play(SE_NAME::DECISION);
 	}
 	updateFrameCount();//フレーム数をカウントアップする
 	if (!(MyKey::getUpKeyPressed() == true && MyKey::getDownKeyPressed() == true)) {
@@ -90,8 +99,6 @@ void SelectSaveData::draw(void) {
 	//背景描画
 	TextureAsset(U"selectSDback").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
 
-	//セーブデータ選択
-	FontAsset(U"selectSDfont")(U"～セーブデータの選択～").drawAt(Window::ClientWidth() / 2, user_frame[0].y - FRAME_INTERVAL, ColorF(0, 0, 0));
 
 	//セーブデータのフレーム画像描画
 	for (int i = 0; i < USER_SIZE; i++) {
@@ -134,5 +141,7 @@ void SelectSaveData::rotateSelectedUser(bool isUp) {
 				selectedUser = 0;
 			}
 		}
+		//効果音を鳴らす
+		GeneralSoundEffects::play(SE_NAME::CURSOR);
 	}
 }

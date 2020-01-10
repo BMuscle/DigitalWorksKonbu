@@ -7,19 +7,11 @@ private:
 public:
 	TotalPlayTimeTimer() = delete;
 	//ストップウォッチを開始・再開する
-	static void start() {
-		stopwatch.start();
-	}
+	static void start();
 	//ストップウォッチを開始する
-	static void restart() {
-		stopwatch.restart();
-	}
+	static void restart();
 	//ストップウォッチを一時停止する
-	static void pause() {
-		stopwatch.pause();
-	}
+	static void pause();
 	//秒数を64bit整数で返す
-	static int64 getSecond() {
-		return stopwatch.s64();
-	}
+	static int64 getSecond();
 };

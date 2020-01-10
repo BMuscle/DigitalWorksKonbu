@@ -4,11 +4,13 @@ Title::Title(void) {
 	FontAsset::Register(U"titlefont", 70);
 	FontAsset::Preload(U"titlefont");
 	TextureAsset::Register(U"titleback", U"resources/images/backs/title.jpg", AssetParameter::LoadAsync());
+	AudioAsset::Register(U"titledecision", U"resources/musics/items/title/decision.wav");
 }
 
 Title::~Title(void) {
 	FontAsset::Unregister(U"titlefont");
 	TextureAsset::Unregister(U"titleback");
+
 	delete backAudio;
 }
 
@@ -23,6 +25,7 @@ void Title::start(void) {
 	delete backAudio;
 	backAudio = new Audio(U"resources/musics/backs/title.wav");
 	backAudio->setLoop(true);
+	backAudio->setVolume(0.1);
 	backAudio->play();
 }
 
@@ -30,6 +33,8 @@ void Title::start(void) {
 void Title::update(void) {
 	if (MyKey::getDecisionKey()) {//決定キーで次のシーンへ移行
 		MySceneManager::setNextScene(SCENE::SELECT_SAVEDATA);
+		AudioAsset(U"titledecision").setVolume(0.3);
+		AudioAsset(U"titledecision").play();
 	}
 	else {
 		changeAlpha();

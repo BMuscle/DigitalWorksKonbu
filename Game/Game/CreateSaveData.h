@@ -6,6 +6,8 @@
 #include "User.h"
 #include "MySqlite3.h"
 #include "MyImageButton.h"
+#include "TotalPlayTimeTimer.h"
+#include "CreateSaveData.h"
 
 class CreateSaveData : public MyScene {
 public:
@@ -38,8 +40,8 @@ private:
 	MyImageButton* button[(int)BUTTON::SIZE];//左右の戻るボタン決定ボタン
 
 	enum class POPUP {//ポップアップの状態
-		RETURN,
 		DECISION,
+		RETURN,
 		SIZE,
 		NONE,
 	};
@@ -47,6 +49,11 @@ private:
 	MyImageButton* popUpButton[(int)POPUP::SIZE];//左右の戻るボタン決定ボタン
 	void selectUpdate();//現在の移動状態に対応する計算処理
 	void selectMove();//選択状態の移動チェック＆移動処理
+
+	void popUpUpdate();//ポップアップの計算処理
+	void popUpMove();//ポップアップの移動チェック移動処理
 	void popUpDraw();//ポップアップの描画
+
+	void createData();//セーブデータを実際に作成
 	
 };
