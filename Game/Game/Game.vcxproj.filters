@@ -234,6 +234,9 @@
     <ClCompile Include="Gacha.cpp">
       <Filter>Source Files\Scene\Gacha</Filter>
     </ClCompile>
+    <ClCompile Include="DodgeGame.cpp">
+      <Filter>Source Files\Scene\Game\Dodge</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
