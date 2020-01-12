@@ -583,9 +583,6 @@
     <ClInclude Include="sqlite3ext.h">
       <Filter>Header Files\MyLib</Filter>
     </ClInclude>
-    <ClInclude Include="MiniGameBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SelectMode.h">
       <Filter>Header Files\Scene\SelectMode</Filter>
     </ClInclude>
@@ -657,6 +654,9 @@
     </ClInclude>
     <ClInclude Include="MyRoomReport.h">
       <Filter>Header Files\Scene\MyRoom</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGameBase.h">
+      <Filter>Header Files\Scene\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

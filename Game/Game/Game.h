@@ -9,6 +9,7 @@
 #include "Soccer.h"
 #include "ShoeKick.h"
 #include "Dodge.h"
+#include "MySocketServer.h"
 
 class Game : public MyScene {
 public:
@@ -19,6 +20,6 @@ public:
 	void update(void);
 	void draw(void);
 private:
-	Audio* backAudio;
 	MiniGame* minigame;
+	bool isStop;
 };

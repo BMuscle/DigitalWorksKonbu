@@ -12,4 +12,5 @@ public:
 	virtual void draw(void) = 0;	//•`‰æˆ—
 	virtual void outputResult(void) = 0;//Œ‹‰Ê‚ğDB‚Öo—Í‚·‚é
 	virtual void stopGame() = 0;	//ƒQ[ƒ€‚ğˆê’†’f‚·‚é
+	//virtual void restartGame() = 0;
 };
