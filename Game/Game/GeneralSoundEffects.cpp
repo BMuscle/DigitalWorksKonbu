@@ -3,8 +3,8 @@
 std::vector<Audio*> GeneralSoundEffects::audios;
 
 constexpr float soundVolumes[(int)SE_NAME::SIZE] = {
-	0.3,//DECISION
-	0.3 //CURSOR
+	0.1,//DECISION
+	0.5 //CURSOR
 };
 
 /*

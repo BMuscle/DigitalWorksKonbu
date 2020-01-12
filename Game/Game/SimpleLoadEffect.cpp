@@ -12,7 +12,7 @@ void SimpleLoadEffect::start(float second) {
 	loadSecond = second;
 	stopwatch.restart();
 	loadState = SIMPLE_LOAD_STATE::DARKING;
-	//入れるならキーロック
+	MyKey::setKeyLock(true);
 }
 //計算処理
 void SimpleLoadEffect::update() {
@@ -22,7 +22,6 @@ void SimpleLoadEffect::update() {
 	case SimpleLoadEffect::SIMPLE_LOAD_STATE::NONE:
 		break;
 	case SimpleLoadEffect::SIMPLE_LOAD_STATE::DARKING:
-
 		if (endSecond <= stopwatch.sF()) {
 			loadState = SIMPLE_LOAD_STATE::DARK;
 			alpha = 1;
@@ -81,7 +80,7 @@ bool SimpleLoadEffect::isDarkWait() {
 bool SimpleLoadEffect::isEnd() {
 	if (loadState == SIMPLE_LOAD_STATE::END) {
 		loadState = SIMPLE_LOAD_STATE::NONE;
-		//入れるならキーロック解除
+		MyKey::setKeyLock(false);
 		return true;
 	}
 	return false;

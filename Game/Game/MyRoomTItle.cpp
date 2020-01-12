@@ -41,7 +41,7 @@ bool MyRoomTitle::isReady(void) {
 
 void MyRoomTitle::start(void) {
 	delete backAudio;
-	backAudio = new Audio(U"resources/musics/backs/myroom.wav");
+	backAudio = new Audio(U"resources/musics/backs/myroomtitle.wav");
 	backAudio->setVolume(0.1);
 	backAudio->setLoop(true);
 	backAudio->play();

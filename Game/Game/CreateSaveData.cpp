@@ -48,6 +48,7 @@ CreateSaveData::~CreateSaveData(void) {
 	TextureAsset::Unregister(U"createSDback");
 	delete button[(int)BUTTON::DECISION];
 	delete button[(int)BUTTON::RETURN];
+	delete backAudio;
 }
 bool CreateSaveData::isReady(void) {
 	if (TextureAsset::IsReady(U"createSDback")&&
@@ -63,7 +64,7 @@ bool CreateSaveData::isReady(void) {
 void CreateSaveData::start(void) {
 	isStart = true;
 	//BGMÄ¶ŠJŽn
-	backAudio = new Audio(U"resources/musics/backs/selectSD.wav");
+	backAudio = new Audio(U"resources/musics/backs/createSD.wav");
 	backAudio->setLoop(true);
 	backAudio->setVolume(0.1);
 	backAudio->play();
