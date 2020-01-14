@@ -54,7 +54,7 @@ void MySceneManager::setNextScene(SCENE next) {
 }
 
 void MySceneManager::changeScene() {
-
+	int user_id = 0;
 	switch (NEXTSCENE) {//nextsceneがNONE以外の時シーン移行する
 	case SCENE::TITLE:
 		delete scene;
@@ -65,8 +65,9 @@ void MySceneManager::changeScene() {
 		scene = new SelectSaveData();
 		break;
 	case SCENE::CREATE_SAVEDATA:
+		user_id = ((SelectSaveData*)scene)->getSelectUser_Id();
 		delete scene;
-		scene = new CreateSaveData();
+		scene = new CreateSaveData(user_id);
 		break;
 	case SCENE::SELECT_MODE:
 		delete scene;

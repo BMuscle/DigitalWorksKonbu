@@ -11,7 +11,7 @@
 
 class CreateSaveData : public MyScene {
 public:
-	CreateSaveData(void);
+	CreateSaveData(int user_id);
 	~CreateSaveData(void);
 	bool isReady(void);
 	void start(void);
@@ -21,6 +21,7 @@ public:
 private:
 	Audio* backAudio;//BGM
 	bool isStart;//ロードが終わっているかどうかのフラグ
+	int createUser_Id;//ユーザーを作成する対象ID
 
 	Font nameFont;//名前入力欄用フォント
 	TextBox namebox;//名前入力欄

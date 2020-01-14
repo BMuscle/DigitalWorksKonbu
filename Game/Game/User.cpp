@@ -586,3 +586,94 @@ String User::getTotalPlayTime() {
 	}
 	return playTimeStr;
 }
+
+bool User::deleteUserData(int id) {
+	//変数宣言
+	int err;
+	sqlite3_stmt* stmt = NULL;//ステートメントハンドル
+	const char* pzTest;
+	std::string sql = "UPDATE Users SET name = '', point = 0, total_play_time = 0, play_start_date = '' WHERE id = ?;";
+
+	//ステートメント作成
+	err = sqlite3_prepare_v2(MySqlite3::getDB(), sql.c_str(), (int)sql.size(), &stmt, &pzTest);
+	sqlite3_bind_int(stmt, 1, id);//1つ目の？をpointにする
+	if (err != SQLITE_OK) {
+		//エラー処理
+		return false;
+	}
+	else {
+		sqlite3_step(stmt);
+	}
+	//ステートメントの解放
+	sqlite3_finalize(stmt);
+
+	err = 0;
+	stmt = NULL;
+	pzTest = NULL;
+	sql = "UPDATE UserItems SET flag = 0 WHERE user_id = ?;";
+
+	//ステートメント作成
+	err = sqlite3_prepare_v2(MySqlite3::getDB(), sql.c_str(), (int)sql.size(), &stmt, &pzTest);
+	sqlite3_bind_int(stmt, 1, id);//1つ目の？をpointにする
+	if (err != SQLITE_OK) {
+		//エラー処理
+		return false;
+	}
+	else {
+		sqlite3_step(stmt);
+	}
+	//ステートメントの解放
+	sqlite3_finalize(stmt);
+
+	err = 0;
+	stmt = NULL;
+	pzTest = NULL;
+	sql = "DELETE FROM GameScores WHERE user_id = ?;";
+
+	//ステートメント作成
+	err = sqlite3_prepare_v2(MySqlite3::getDB(), sql.c_str(), (int)sql.size(), &stmt, &pzTest);
+	sqlite3_bind_int(stmt, 1, id);//1つ目の？をpointにする
+	if (err != SQLITE_OK) {
+		//エラー処理
+		return false;
+	}
+	else {
+		sqlite3_step(stmt);
+	}
+	//ステートメントの解放
+	sqlite3_finalize(stmt);
+
+	return true;
+}
+
+bool User::isUser(int id) {
+	//変数宣言
+	int err;
+	sqlite3_stmt* stmt = NULL;//ステートメントハンドル
+	const char* pzTest;
+	std::string sql = "SELECT COUNT(*) FROM Users WHERE id = ? AND name != '' AND play_start_date != '';";
+
+	int count = 0;
+
+	//ステートメント作成
+	err = sqlite3_prepare_v2(MySqlite3::getDB(), sql.c_str(), (int)sql.size(), &stmt, &pzTest);
+	sqlite3_bind_int(stmt, 1, id);//1つ目の？をidにする
+
+	if (err != SQLITE_OK) {
+		//エラー処理
+		return false;
+	}
+	else {
+		//データの抽出
+		while (SQLITE_ROW == (err = sqlite3_step(stmt))) {
+			count = sqlite3_column_int(stmt, 0);
+		}
+	}
+	//ステートメントの解放
+	sqlite3_finalize(stmt);
+
+	if (count > 0) {
+		return true;
+	}
+	return false;
+}

@@ -94,4 +94,9 @@ public:
 	//プレイ時間返す 〇時〇分
 	static String getTotalPlayTime();
 
+	//ユーザーデータ削除
+	static bool deleteUserData(int id);
+	//ユーザーデータが存在するかどうか
+	static bool isUser(int id);
+
 };

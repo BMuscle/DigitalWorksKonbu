@@ -20,7 +20,7 @@ public:
 	void update(void);
 	void draw(void);
 
-	
+	int getSelectUser_Id();
 private:
 	Audio* backAudio;//BGM
 	struct Frame{				//セーブデータのフレーム画像
@@ -30,8 +30,18 @@ private:
 		int x;					//描画座標X
 		int y;					//描画座標Y
 	};
-	int currentUserSize;		//セーブデータが存在するユーザー数
 	int frameCount;				//フレーム数をカウントする
+	bool selectDeleteButton;	//削除ボタンを選択しているかどうか
+	bool isPopUp;				//ポップアップ表示状態かどうか
+	enum POPUP {
+		RETURN,
+		DECISION,
+		SIZE,
+		NONE,
+	};
+	POPUP popUpState;
+	MyImageButton* popUpButton[(int)POPUP::SIZE];//左右の戻るボタン決定ボタン
+
 	Frame user_frame[USER_SIZE];//セーブデータのフレーム画像３種
 	int selectedUser;			//現在選択されているユーザー(上から0,1,2)
 	int selectCountPrev;		//選択された時のフレーム数
@@ -40,5 +50,7 @@ private:
 	void updateFrameCount();
 	//ユーザーの選択状態を更新する(true = 上方向 false = 下方向)
 	void rotateSelectedUser(bool isUp = true);
+	//セーブデータを削除し、現在の表示をリセットする
+	void deleteSaveData();
 };
 
