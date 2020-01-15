@@ -49,8 +49,8 @@ SelectSaveData::SelectSaveData(void) {
 	}
 
 	//ポップアップのボタン初期化
-	popUpButton[(int)POPUP::DECISION] = new MyImageButton(U"resources/images/items/selectsavedata/popupdeci", U"", 10, (int)(Window::ClientWidth() / 2) + (int)POPUP_INTERVAL, (int)Window::ClientHeight() * 0.70, true);
-	popUpButton[(int)POPUP::RETURN] = new MyImageButton(U"resources/images/items/selectsavedata/popupretu", U"", 10, (int)(Window::ClientWidth() / 2) - (int)POPUP_INTERVAL, (int)Window::ClientHeight() * 0.70, false);
+	popUpButton[(int)POPUP::DECISION] = new MyImageButton(U"resources/images/items/selectsavedata/popupdeci", U"", 0, (int)(Window::ClientWidth() / 2) + (int)POPUP_INTERVAL, (int)Window::ClientHeight() * 0.70, true);
+	popUpButton[(int)POPUP::RETURN] = new MyImageButton(U"resources/images/items/selectsavedata/popupretu", U"", 0, (int)(Window::ClientWidth() / 2) - (int)POPUP_INTERVAL, (int)Window::ClientHeight() * 0.70, false);
 
 
 	//変数の初期化
@@ -67,13 +67,21 @@ SelectSaveData::~SelectSaveData(void) {
 	TextureAsset::Unregister(U"selectSDback");
 	TextureAsset::Unregister(U"selectSDframe");
 	TextureAsset::Unregister(U"selectSDframeon");
+	TextureAsset::Unregister(U"selectSDdeleteon");
+	TextureAsset::Unregister(U"selectSDdeleteoff");
+	TextureAsset::Unregister(U"selectSDpopup");
 	AudioAsset::Unregister(U"selectSDdecision");
 	AudioAsset::Unregister(U"selectSDcursor");
+
+	delete popUpButton[(int)POPUP::DECISION];
+	delete popUpButton[(int)POPUP::RETURN];
 }
 bool SelectSaveData::isReady(void) {
 	if (TextureAsset::IsReady(U"selectSDback")&&
 		TextureAsset::IsReady(U"selectSDframe")&&
-		TextureAsset::IsReady(U"selectSDframeon")) {
+		TextureAsset::IsReady(U"selectSDframeon")&&
+		popUpButton[(int)POPUP::DECISION]->isReady() &&
+		popUpButton[(int)POPUP::RETURN]->isReady()) {
 		return true;
 	}
 	return false;
@@ -90,11 +98,15 @@ void SelectSaveData::update(void) {
 		if (MyKey::getDecisionKey()) {
 			if (popUpState == POPUP::DECISION) {
 				deleteSaveData();
+				GeneralSoundEffects::play(SE_NAME::DECISION);
+			}
+			else if (popUpState == POPUP::RETURN) {
+				GeneralSoundEffects::play(SE_NAME::BACK);
+
 			}
 			isPopUp = false;
 			selectDeleteButton = false;
 			popUpState = POPUP::NONE;
-			GeneralSoundEffects::play(SE_NAME::DECISION);
 		}
 		else if (MyKey::getRightKeyDown()) {
 			popUpState = POPUP::DECISION;
@@ -130,10 +142,12 @@ void SelectSaveData::update(void) {
 	else if (MyKey::getRightKeyDown()) {//ユーザー存在するなら削除ボタンを選択させる
 		if (!selectDeleteButton && User::isUser(getSelectUser_Id())) {
 			selectDeleteButton = true;
+			GeneralSoundEffects::play(SE_NAME::CURSOR);
 		}
 	}
-	else if (MyKey::getLeftKeyDown()) {
+	else if (MyKey::getLeftKeyDown() && selectDeleteButton) {
 		selectDeleteButton = false;
+		GeneralSoundEffects::play(SE_NAME::CURSOR);
 	}
 
 
@@ -168,10 +182,10 @@ void SelectSaveData::draw(void) {
 		//削除ボタン描画
 		if (User::isUser(i + 1)) {
 			if (selectDeleteButton && i == selectedUser) {
-				TextureAsset(U"selectSDdeleteon").drawAt(user_frame[i].x + 600, user_frame[i].y);
+				TextureAsset(U"selectSDdeleteon").drawAt(user_frame[i].x + 570, user_frame[i].y - 10);
 			}
 			else {
-				TextureAsset(U"selectSDdeleteoff").drawAt(user_frame[i].x + 600, user_frame[i].y);
+				TextureAsset(U"selectSDdeleteoff").drawAt(user_frame[i].x + 570, user_frame[i].y - 10);
 			}
 		}
 	}

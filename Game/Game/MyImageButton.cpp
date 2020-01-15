@@ -4,7 +4,9 @@ MyImageButton::MyImageButton(String path, String word, int fontsize, int x, int 
 	folderpath = path;
 	TextureAsset::Register(path + U"/on.png", path + U"/on.png", AssetParameter::LoadAsync());
 	TextureAsset::Register(path + U"/off.png", path + U"/off.png", AssetParameter::LoadAsync());
-	font = Font(fontsize);
+	if (fontsize > 0) {
+		font = Font(fontsize);
+	}
 	drawWord = word;
 	buttonX = x;
 	buttonY = y;
@@ -14,7 +16,9 @@ MyImageButton::MyImageButton(String path, String word, int fontsize, int x, int 
 MyImageButton::~MyImageButton() {
 	TextureAsset::Unregister(folderpath + U"/off.png");
 	TextureAsset::Unregister(folderpath + U"/on.png");
-	font.release();
+	if (!font.isEmpty()) {
+		font.release();
+	}
 }
 bool MyImageButton::isReady() {
 	if (TextureAsset::IsReady(folderpath + U"/off.png") &&

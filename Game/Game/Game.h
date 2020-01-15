@@ -10,6 +10,8 @@
 #include "ShoeKick.h"
 #include "Dodge.h"
 #include "MySocketServer.h"
+#include "MyImageButton.h"
+#include "GeneralSoundEffects.h"
 
 class Game : public MyScene {
 public:
@@ -21,5 +23,13 @@ public:
 	void draw(void);
 private:
 	MiniGame* minigame;
-	bool isStop;
+	bool isStop;//ゲームが停止状態かどうか
+	enum class POPUP {//ポップアップの状態
+		RESTART,
+		NEXTMAP,
+		SIZE,
+		NONE,
+	};
+	POPUP popUpState;//ポップアップの選択状態
+	MyImageButton* popUpButton[(int)POPUP::SIZE];//左右の戻るボタン決定ボタン
 };

@@ -10,6 +10,8 @@
 enum class SE_NAME {
 	DECISION,
 	CURSOR,
+	CANCEL,
+	BACK,
 	SIZE,
 };
 
