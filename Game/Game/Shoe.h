@@ -14,15 +14,19 @@ private:
 	float angleSpeed;	//回転スピード
 	Texture* texture;
 
+	Vec2 shoeVecInit;	//靴飛ばしベクトル初期値
 	Vec2 shoeVec;		//靴飛ばしベクトル
 	Vec2 totalShoeVec;	//総移動距離
 	float gravity;		//重力
 
 	MyEffects* effects;
 	MyImageEffect* rocketEffect;
+	MyImageEffect* angelEffect;
 
 	int rocketCnt;
+	int angelCnt;
 	void updateRocket();
+	void updateAngel();
 
 	Vec2 getShoePos();
 

@@ -1,11 +1,12 @@
 #include "Shoe.h"
 
+#define SHOE_INIT_Y GROUND - 80
 Shoe::Shoe(Array<bool>* hasItems) {
 	this->hasItems = hasItems;
 	isRotation = false;
 	angle = 0;
 	angleSpeed = 4;
-	totalShoeVec = Vec2(0, GROUND - 80);
+	totalShoeVec = Vec2(0, SHOE_INIT_Y);
 	gravity = 0.7;
 	isFly = false;
 
@@ -21,7 +22,8 @@ Shoe::Shoe(Array<bool>* hasItems) {
 	effects = new MyEffects();
 	rocketEffect = new MyImageEffect(U"resources/images/items/game/shoekick/game/effects/rocket.png", 5, 4, 0.01);
 	rocketCnt = 0;
-
+	angelEffect = new MyImageEffect(U"resources/images/items/game/shoekick/game/effects/angel.png", 5, 3, 0.01);
+	angelCnt = 0;
 
 }
 Shoe::~Shoe() {
@@ -49,6 +51,7 @@ bool Shoe::update() {
 	}
 	else {//飛んでいる最中
 		updateRocket();
+		updateAngel();
 		setAngle(true);//回転開始
 		totalShoeVec += shoeVec;//座標移動
 		shoeVec.y += gravity / 2.0;
@@ -76,7 +79,7 @@ void Shoe::setShoeVector(float kickPower) {
 	if (hasItems->at((int)GACHA_ITEM::SPORTS_SHOE)) {
 		shoeVec *= SPORTS_SHOE_WEIGHT;
 	}
-
+	shoeVecInit = shoeVec;
 }
 void Shoe::setGround() {
 	totalShoeVec.y = GROUND;
@@ -96,7 +99,7 @@ Vec2 Shoe::getShoePos() {
 void Shoe::updateRocket() {
 	constexpr Vec2 rocketVec(0.3, -2);
 	rocketCnt++;
-	if (hasItems->at((int)GACHA_ITEM::SPORTS_SHOE)) {
+	if (hasItems->at((int)GACHA_ITEM::ROCKET_BOOSTER)) {
 
 		if (rocketCnt >= 10 && rocketCnt <= 60 * 1.5) {
 			if (rocketCnt <= 30) {
@@ -106,4 +109,21 @@ void Shoe::updateRocket() {
 		}
 		
 	}
+}
+
+void Shoe::updateAngel() {
+
+	if (hasItems->at((int)GACHA_ITEM::WING)) {
+		if (angelCnt == 0) {
+			if (SHOE_INIT_Y < totalShoeVec.y) {
+				angelCnt++;//２段ジャンプ開始
+				shoeVec = shoeVecInit / 1.5;
+			}
+		}
+		else if(angelCnt <= 20){
+			angelCnt++;
+		}
+
+	}
+
 }
