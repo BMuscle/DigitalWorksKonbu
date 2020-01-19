@@ -417,7 +417,7 @@ bool User::addGameScore(GAME_TYPE type, int score) {
 	err = sqlite3_prepare_v2(MySqlite3::getDB(), sql.c_str(), (int)sql.size(), &stmt, &pzTest);
 	sqlite3_bind_int(stmt, 1, getUser_Id());//1つ目の？をuser_idにする
 	sqlite3_bind_int(stmt, 2, (int)type + 1);//2つ目の？をgame_idにする
-	sqlite3_bind_int(stmt, 3, (int)type + 1);//3つ目の？をscoreにする
+	sqlite3_bind_int(stmt, 3, score);//3つ目の？をscoreにする
 	if (err != SQLITE_OK) {
 		//エラー処理
 		return false;

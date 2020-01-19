@@ -20,16 +20,16 @@ void Sensor::update() {
 	direction = Vec3(0, 0, 0);		//•ûŒü
 	//‰Á‘¬“x‚Ì‘ã“ü
 	if (MyKey::getUpKeyPressed()) {
-		acceleration.y = 50;
+		acceleration.y = 100;
 	}
 	if (MyKey::getDownKeyPressed()) {
-		acceleration.y = -50;
+		acceleration.y = -100;
 	}
 	if (MyKey::getLeftKeyPressed()) {
-		acceleration.x = -50;
+		acceleration.x = -100;
 	}
 	if (MyKey::getRightKeyPressed()) {
-		acceleration.x = +50;
+		acceleration.x = +100;
 	}
 	//•ûŒü‚Ì‘ã“ü
 	if (KeyW.pressed()) {

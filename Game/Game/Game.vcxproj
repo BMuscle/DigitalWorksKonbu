@@ -111,6 +111,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Shoe.cpp" />
+    <ClCompile Include="ShoeCharacter.cpp" />
     <ClCompile Include="CreateSaveData.cpp" />
     <ClCompile Include="Dodge.cpp" />
     <ClCompile Include="DodgeGame.cpp" />
@@ -135,6 +137,9 @@
     <ClCompile Include="SelectSaveData.cpp" />
     <ClCompile Include="Sensor.cpp" />
     <ClCompile Include="ShoeKick.cpp" />
+    <ClCompile Include="ShoeKickGame.cpp" />
+    <ClCompile Include="ShoeKickResult.cpp" />
+    <ClCompile Include="ShoeKickTitle.cpp" />
     <ClCompile Include="SimpleLoadEffect.cpp" />
     <ClCompile Include="Soccer.cpp" />
     <ClCompile Include="Gacha.cpp" />
@@ -268,6 +273,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Shoe.h" />
+    <ClInclude Include="ShoeCharacter.h" />
     <ClInclude Include="CreateSaveData.h" />
     <ClInclude Include="Dodge.h" />
     <ClInclude Include="EffectInterFace.h" />
@@ -296,6 +303,10 @@
     <ClInclude Include="SelectSaveData.h" />
     <ClInclude Include="Sensor.h" />
     <ClInclude Include="ShoeKick.h" />
+    <ClInclude Include="ShoeKickSceneBase.h" />
+    <ClInclude Include="ShoeKickGame.h" />
+    <ClInclude Include="ShoeKickResult.h" />
+    <ClInclude Include="ShoeKickTitle.h" />
     <ClInclude Include="SimpleLoadEffect.h" />
     <ClInclude Include="Soccer.h" />
     <ClInclude Include="sqlite3.h" />

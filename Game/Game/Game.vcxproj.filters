@@ -279,6 +279,21 @@
     <ClCompile Include="DodgeGame.cpp">
       <Filter>Source Files\Scene\Game\Dodge</Filter>
     </ClCompile>
+    <ClCompile Include="ShoeKickTitle.cpp">
+      <Filter>Source Files\Scene\Game\ShoeKick</Filter>
+    </ClCompile>
+    <ClCompile Include="ShoeKickResult.cpp">
+      <Filter>Source Files\Scene\Game\ShoeKick</Filter>
+    </ClCompile>
+    <ClCompile Include="ShoeKickGame.cpp">
+      <Filter>Source Files\Scene\Game\ShoeKick</Filter>
+    </ClCompile>
+    <ClCompile Include="ShoeCharacter.cpp">
+      <Filter>Source Files\Scene\Game\ShoeKick</Filter>
+    </ClCompile>
+    <ClCompile Include="Shoe.cpp">
+      <Filter>Source Files\Scene\Game\ShoeKick</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -657,6 +672,24 @@
     </ClInclude>
     <ClInclude Include="MyRoomReport.h">
       <Filter>Header Files\Scene\MyRoom</Filter>
+    </ClInclude>
+    <ClInclude Include="ShoeKickTitle.h">
+      <Filter>Header Files\Scene\Game\ShoeKick</Filter>
+    </ClInclude>
+    <ClInclude Include="ShoeKickGame.h">
+      <Filter>Header Files\Scene\Game\ShoeKick</Filter>
+    </ClInclude>
+    <ClInclude Include="ShoeKickResult.h">
+      <Filter>Header Files\Scene\Game\ShoeKick</Filter>
+    </ClInclude>
+    <ClInclude Include="ShoeKickSceneBase.h">
+      <Filter>Header Files\Scene\Game\ShoeKick</Filter>
+    </ClInclude>
+    <ClInclude Include="ShoeCharacter.h">
+      <Filter>Header Files\Scene\Game\ShoeKick</Filter>
+    </ClInclude>
+    <ClInclude Include="Shoe.h">
+      <Filter>Header Files\Scene\Game\ShoeKick</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
