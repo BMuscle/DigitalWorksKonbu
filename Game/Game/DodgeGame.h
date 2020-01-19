@@ -54,16 +54,20 @@ public:
 				
 	void setPlace(Vec2 p) { place = p; }
 
-	Vec2 Getmovement(Vec2 p, int M) {
-		P = p;
-		deg = Random(0, 360) * Math::Pi / 180.0;
-		p.x = M * cos(deg);
-		p.y = M * sin(deg);
-		place = P + p;
-		return Vec2(place);
+	Vec2 getMovement(int M) {
+		P = place;
+		do {
+			place = P;
+			deg = Random(0, 360) * Math::Pi / 180.0;
+			place.x = M * cos(deg);
+			place.y = M * sin(deg);
+			place = P + place;
+		} while (place.x <= 280 || place.x >= 1600 || place.y <= 50 || place.y >= 900);
+			return Vec2(place);
 	}
 	Vec2 getPlace(void) { return place; }
 	bool deleteCheck(void) { return((place.x < 20) || (place.x > 660) || (place.y > 500)); }//後々変える
+
 private:
 	int radius;
 	Vec2 place;
@@ -81,13 +85,17 @@ public:
 	void setRadius(int r) { radius = r; }
 	void setPlace(Vec2 p) { place = p; }
 
-	Vec2 Getmovement(Vec2 p, int M) {
-		P = p;
-		deg = Random(0, 360) * Math::Pi / 180.0;
-		p.x = M * cos(deg);
-		p.y = M * sin(deg);
-		place = P + p;
-		return Vec2 (place);
+
+	Vec2 getMovement(int M) {
+		P = place;
+		do {
+			place = P;
+			deg = Random(0, 360) * Math::Pi / 180.0;
+			place.x = M * cos(deg);
+			place.y = M * sin(deg);
+			place = P + place;
+		} while (place.x <= 280 || place.x>=1600 || place.y <=50 || place.y>=900);
+		return Vec2(place);
 	}
 	int getRadius(void) { return radius; }
 	Vec2 getPlace(void) { return place; }
@@ -97,8 +105,6 @@ private:
 	Vec2 place;
 	Vec2 P;
 	float deg;
-
-
 };
 //Vec2って何？
 //座標感覚

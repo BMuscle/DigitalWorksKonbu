@@ -4,11 +4,8 @@
 
 
 DodgeGame::DodgeGame(DODGE_SCENE* nextScene) :DodgeSceneBase(nextScene) {
-	TextureAsset::Register(U"gameback",U"resources/images/backs/10278318_p0_master1200.jpg");
 	TextureAsset::Register(U"rule",U"resources/images/backs/rule.jpg");
 	TextureAsset::Register(U"landscape",U"resources/images/backs/landscape.jpg");
-
-	//TextureAsset::Register(U"Scopeimage", U"resource/images/backs/landscape.jpg");
 	nowselect = START;
 }
 
@@ -41,7 +38,7 @@ void DodgeGame::draw()
 			TextureAsset(U"rule").draw();
 			break;
 		case GAME:
-			
+			TextureAsset(U"landscape").draw();
 			Match();
 			
 		default:
@@ -68,17 +65,17 @@ void DodgeGame::Match()
 
 	//コンストラクタ
 	int radius = 20;
-	float movement = 0.001;
+	float movement = 0.1;
 	//int count = 0;
 	Vec2 initial(480, 450);
 	Target target(50,initial);	//{x,y}を原点とした半径rの円
 	Vec2 spawn(340,60);
 	Scope scope(40, spawn);
-	Vec2 random1(Random(0,1900),Random(0,1000));
-	Vec2 random2(Random(0, 1900), Random(0, 1000));
-	Vec2 random3(Random(0, 1900), Random(0, 1000));
-	Vec2 random4(Random(0, 1900), Random(0, 1000));
-	Vec2 random5(Random(0, 1900), Random(0, 1000));
+	Vec2 random1(Random(280,1600),Random(50,900));
+	Vec2 random2(Random(280, 1600), Random(50, 900));
+	Vec2 random3(Random(280, 1600), Random(50, 900));
+	Vec2 random4(Random(280, 1600), Random(50, 900));
+	Vec2 random5(Random(280, 1600), Random(50, 900));
 	Mob Mob1(random1);
 	Mob Mob2(random2);
 	Mob Mob3(random3);
@@ -99,12 +96,12 @@ void DodgeGame::Match()
 	while(System::Update())
 	{
 		//場所のセット 
-		target.setPlace(target.getPlace() + target.Getmovement(target.getPlace(), movement));	
-		Mob1.setPlace(Mob1.getPlace() + Mob1.Getmovement(Mob1.getPlace(),movement));
-		Mob2.setPlace(Mob2.getPlace() + Mob2.Getmovement(Mob2.getPlace(), movement));
-		Mob3.setPlace(Mob3.getPlace() + Mob3.Getmovement(Mob3.getPlace(), movement));
-		Mob4.setPlace(Mob4.getPlace() + Mob4.Getmovement(Mob4.getPlace(), movement));
-		Mob5.setPlace(Mob5.getPlace() + Mob5.Getmovement(Mob5.getPlace(), movement));
+		target.setPlace(target.getMovement(movement));	
+		Mob1.setPlace( Mob1.getMovement(movement));
+		Mob2.setPlace( Mob2.getMovement(movement));
+		Mob3.setPlace( Mob3.getMovement(movement));
+		Mob4.setPlace( Mob4.getMovement(movement));
+		Mob5.setPlace( Mob5.getMovement(movement));
 		scope.setPlace(scope.getPlace() + Vec2(0, 5));//更新処理update
 
 
