@@ -12,6 +12,16 @@
 
 class ShoeKickGame : public ShoeKickSceneBase {
 private:
+	//ガチャアイテム用 キー値は＋1
+	enum class GACHA_ITEM{
+		SPORTS_SHOE,	
+		ROCKET_BOOSTER,
+		WING,
+		ROLLER,
+		SIZE,
+	};
+
+	Array<bool> hasItems;
 
 	//共通部分ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
@@ -19,6 +29,8 @@ private:
 	bool isStart;
 
 	Audio* backAudio;
+
+	bool isDescription;//説明表示フラグ
 
 	class ShoeCharacter* character;
 	class Shoe* shoe;

@@ -4,13 +4,21 @@
 
 #define METER_WEIGHT 0.01
 
+#define KICK_COUNT 3
+
 //何メートル置きに表示するか
 #define SIGNBOARD_INTERVAL 100
 
 ShoeKickGame::ShoeKickGame(SHOEKICK_SCENE* scenep) : ShoeKickSceneBase(scenep) {
+	//持っているアイテムを格納
+	for (int i = 0; i < (int)GACHA_ITEM::SIZE; i++) {
+		hasItems.push_back(User::getHasItems(GAME_TYPE::SHOEKICK, i + 1));
+	}
+	//画像のロード
 	TextureAsset::Register(U"shoekick_game", U"resources/images/backs/game/shoekick/game.png", AssetParameter::LoadAsync());
 	TextureAsset::Register(U"shoekick_frame", U"resources/images/items/game/shoekick/game/frame.png", AssetParameter::LoadAsync());
 	TextureAsset::Register(U"shoekick_signboard", U"resources/images/items/game/shoekick/game/signboard.png", AssetParameter::LoadAsync());
+	TextureAsset::Register(U"shoekick_description", U"resources/images/items/game/shoekick/game/description.png", AssetParameter::LoadAsync());
 
 	FontAsset::Register(U"shoekick_font", 70);
 	FontAsset::Preload(U"shoekick_font");
@@ -49,6 +57,8 @@ ShoeKickGame::ShoeKickGame(SHOEKICK_SCENE* scenep) : ShoeKickSceneBase(scenep) {
 
 	frameCnt = 0;
 
+	isDescription = true;
+
 }
 ShoeKickGame::~ShoeKickGame() {
 	delete backAudio;
@@ -56,6 +66,7 @@ ShoeKickGame::~ShoeKickGame() {
 	TextureAsset::Unregister(U"shoekick_game");
 	TextureAsset::Unregister(U"shoekick_frame");
 	TextureAsset::Unregister(U"shoekick_signboard");
+	TextureAsset::Unregister(U"shoekick_description");
 
 	FontAsset::Unregister(U"shoekick_font");
 	FontAsset::Unregister(U"shoekick_boardfont");
@@ -68,7 +79,10 @@ ShoeKickGame::~ShoeKickGame() {
 }
 
 bool ShoeKickGame::isReady(void) {
-	return true;
+	if (TextureAsset::IsReady(U"shoekick_description")) {
+		return true;
+	}
+	return false;
 }
 
 void ShoeKickGame::start(void) {
@@ -79,11 +93,19 @@ void ShoeKickGame::start(void) {
 	backAudio->setLoop(true);
 	backAudio->play();
 
-	//キックから始まるのでタイマーstart
-	setKickTimer(FPS * 3);
+	//キックから始まるのでタイマーstart余白１秒
+	setKickTimer(FPS * (KICK_COUNT + 1.5));
 }
 
 void ShoeKickGame::update(void) {
+	if (isDescription) {//初回説明
+		if (MyKey::getDecisionKey()) {
+			isDescription = false;
+			GeneralSoundEffects::play(SE_NAME::DECISION);
+		}
+		return;
+	}
+
 	if (nowGameState != nextGameState) {
 		changeState();
 	}
@@ -92,7 +114,9 @@ void ShoeKickGame::update(void) {
 	{
 	case ShoeKickGame::KICK:
 		updateKick();
-		character->setMoveRight();
+		if (kickCount / FPS < KICK_COUNT) {
+			character->setMoveRight();
+		}
 		break;
 	case ShoeKickGame::FLY:
 		updateFly();
@@ -142,6 +166,11 @@ void ShoeKickGame::draw(void) {
 		break;
 	case ShoeKickGame::END:
 		drawFly();
+	}
+
+	if (isDescription) {//初回説明描画
+		Rect(0, 0, Window::ClientWidth(), Window::ClientHeight()).draw(ColorF(1, 1, 1, 0.8));
+		TextureAsset(U"shoekick_description").drawAt(Window::ClientCenter());
 	}
 }
 
@@ -230,7 +259,9 @@ void ShoeKickGame::updateKickTimer() {
 //蹴る時のカウントダウン描画
 void ShoeKickGame::drawKickTimer() {
 	int cnt = kickCount / FPS + 1;
-
+	if (cnt > 3) {
+		return;
+	}
 	if (kickCount > 0) {
 		//数字描画
 		countTexture[cnt]->drawAt(Window::ClientWidth() / 2, Window::ClientHeight() * 0.4);

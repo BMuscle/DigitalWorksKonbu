@@ -7,7 +7,7 @@
 
 ShoeKick::ShoeKick(void) {
 
-	scene = new ShoeKickTitle(&nextScene, true);
+	scene = new ShoeKickTitle(&nextScene);
 	loadEffect = new SimpleLoadEffect();
 	isStop = false;
 }

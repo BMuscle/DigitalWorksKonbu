@@ -10,8 +10,6 @@ class ShoeKickTitle : public ShoeKickSceneBase{
 private:
 	Audio* backAudio;
 
-	bool isDescription;//ê‡ñæï\é¶ÉtÉâÉO
-
 	enum BUTTON {
 		MAP,
 		GAME,
@@ -22,7 +20,7 @@ private:
 	MyImageButton* button[BUTTON::SIZE];
 
 public:
-	ShoeKickTitle(SHOEKICK_SCENE* scenep, bool isDescription = false);
+	ShoeKickTitle(SHOEKICK_SCENE* scenep);
 	~ShoeKickTitle();
 
 	bool isReady(void);
