@@ -1,16 +1,43 @@
 #pragma once
 #include <Siv3D.hpp>
-
+#include "ShoeKickGame.h"
+#include "MyImageEffect.h"
+#include "MyEffects.h"
 class Shoe {
 private:
-	bool isRotation;
-	float angle;
-	float angleSpeed;
+	
+	Array<bool> *hasItems;//取得しているアイテム
+
+	bool isFly;			//飛んでいるかフラグ
+	bool isRotation;	//回転フラグ
+	float angle;		//回転量
+	float angleSpeed;	//回転スピード
 	Texture* texture;
+
+	Vec2 shoeVec;		//靴飛ばしベクトル
+	Vec2 totalShoeVec;	//総移動距離
+	float gravity;		//重力
+
+	MyEffects* effects;
+	MyImageEffect* rocketEffect;
+
+	int rocketCnt;
+
+	Vec2 getShoePos();
+
 public:
-	Shoe();
+	Shoe(Array<bool> *hasItems);
 	~Shoe();
 	void setAngle(bool rotate);
-	void update();
-	void draw(Vec2 pos);
+	bool update();
+	void draw();
+
+	Vec2 getTotalVec();
+
+	void setShoeVector(float kickPower);
+
+	void setGround();
+
+	void setFly(bool fly);
+	bool isFlying();
 };

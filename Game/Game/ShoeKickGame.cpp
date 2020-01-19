@@ -39,8 +39,7 @@ ShoeKickGame::ShoeKickGame(SHOEKICK_SCENE* scenep) : ShoeKickSceneBase(scenep) {
 
 	isStart = false;
 
-	totalShoeVec = Vec2(0, GROUND - 80);
-	gravity = 0.7;
+
 
 	boardVec.push_back(createSignBoard(0));
 	boardVec.push_back(createSignBoard(50));
@@ -53,7 +52,7 @@ ShoeKickGame::ShoeKickGame(SHOEKICK_SCENE* scenep) : ShoeKickSceneBase(scenep) {
 	boardVec.push_back(createSignBoard(400));
 
 	character = new ShoeCharacter(Vec2(0,GROUND));
-	shoe = new Shoe();
+	shoe = new Shoe(&hasItems);
 
 	frameCnt = 0;
 
@@ -120,11 +119,11 @@ void ShoeKickGame::update(void) {
 		break;
 	case ShoeKickGame::FLY:
 		updateFly();
-		character->setVecMoveLeft(Window::ClientWidth() / 2 - totalShoeVec.x);
+		character->setVecMoveLeft(Window::ClientWidth() / 2 - shoe->getTotalVec().x);
 		break;
 	case ShoeKickGame::END:
 		frameCnt--;
-		character->setVecMoveLeft(Window::ClientWidth() / 2 - totalShoeVec.x);
+		character->setVecMoveLeft(Window::ClientWidth() / 2 - shoe->getTotalVec().x);
 		if (frameCnt < 0) {
 			setNextScene(SHOEKICK_SCENE::RESULT);
 		}
@@ -132,25 +131,25 @@ void ShoeKickGame::update(void) {
 	}
 
 	character->update();
-	shoe->update();
+
 }
 
 void ShoeKickGame::draw(void) {
-	int x = Window::ClientWidth() / 2 - ((int)totalShoeVec.x % Window::ClientWidth());
+	int x = Window::ClientWidth() / 2 - ((int)shoe->getTotalVec().x % Window::ClientWidth());
 	//背景描画
 	TextureAsset(U"shoekick_game").drawAt(x, Window::ClientHeight() / 2);
 	TextureAsset(U"shoekick_game").drawAt(x + Window::ClientWidth(), Window::ClientHeight() / 2);
 
 
 	//METER描画
-	int meter = (int)(totalShoeVec.x * METER_WEIGHT);
+	int meter = (int)(shoe->getTotalVec().x * METER_WEIGHT);
 	Rect tmp = FontAsset(U"shoekick_font")(Format(meter) + U"M").boundingRect();			//座標系さん
 	TextureAsset(U"shoekick_frame").draw(500 - 450, 100 + 0);	//フレーム描画
 	FontAsset(U"shoekick_font")(Format(meter) + U"m").draw(500 - tmp.w,100,ColorF(0,0,0,1));//文字描画
 	//看板描画
 	for (auto vec : boardVec) {
-		TextureAsset(U"shoekick_signboard").drawAt(vec.vec.x - totalShoeVec.x, vec.vec.y);
-		FontAsset(U"shoekick_boardfont")(Format(vec.meter)).drawAt(vec.vec.x - totalShoeVec.x, vec.vec.y, ColorF(0, 0, 0));
+		TextureAsset(U"shoekick_signboard").drawAt(vec.vec.x - shoe->getTotalVec().x, vec.vec.y);
+		FontAsset(U"shoekick_boardfont")(Format(vec.meter)).drawAt(vec.vec.x - shoe->getTotalVec().x, vec.vec.y, ColorF(0, 0, 0));
 	}
 	//Character描画
 	character->draw();
@@ -167,8 +166,8 @@ void ShoeKickGame::draw(void) {
 	case ShoeKickGame::END:
 		drawFly();
 	}
-
-	if (isDescription) {//初回説明描画
+	//初回説明描画
+	if (isDescription) {
 		Rect(0, 0, Window::ClientWidth(), Window::ClientHeight()).draw(ColorF(1, 1, 1, 0.8));
 		TextureAsset(U"shoekick_description").drawAt(Window::ClientCenter());
 	}
@@ -193,7 +192,6 @@ void ShoeKickGame::updateKick() {
 		}
 	}
 	else if (kickCount == -54) {
-	//else if (kickCount == -34) {
 		character->setMoveJump();
 	}
 	else if (kickCount > -KICKINTERVAL) {//カウントダウンが終了したのでキック時間
@@ -209,7 +207,7 @@ void ShoeKickGame::updateKick() {
 		if (kickPower <= 0) {
 			kickPower = 20.0;
 		}
-		shoeVec = Vec2(kickPower / 2, -(kickPower / 4.0));//靴飛ばしのパワーを求める。
+		shoe->setShoeVector(kickPower);//靴飛ばしのパワーを求める。
 	}
 }
 
@@ -220,35 +218,15 @@ void ShoeKickGame::drawKick() {
 }
 
 void ShoeKickGame::updateFly() {
-	if (totalShoeVec.y >= GROUND) {//もし地面に着いているならば
-		shoe->setAngle(false);//回転停止
-		totalShoeVec.y = GROUND;//座標を地面に修正
-		if (shoeVec.x > 0) {//少し右に惰性で動かす
-			shoeVec.x -= 5;
-			totalShoeVec.x += shoeVec.x;
-		}
-		else {
-			shoeVec.x = 0;
-			setNextState(GAME_STATE::END);
-			frameCnt = 100;
-		}
-	}
-	else {//飛んでいる最中
-		shoe->setAngle(true);//回転開始
-		totalShoeVec += shoeVec;//座標移動
-		shoeVec.y += gravity / 2.0;
-		if (shoeVec.y < 0) {//上昇中
-			shoeVec.x -= 0.1;
-		}
-		else {//下降中
-			shoeVec.x += 0.1;
-		}
+	if (!shoe->update()) {
+		setNextState(GAME_STATE::END);
+		frameCnt = 100;
 	}
 }
 
 void ShoeKickGame::drawFly() {
 	//靴描画
-	shoe->draw(Vec2(Window::ClientWidth() / 2, totalShoeVec.y));
+	shoe->draw();
 }
 
 //蹴る時のカウントダウン
@@ -290,5 +268,5 @@ ShoeKickGame::SignBoard ShoeKickGame::createSignBoard(int meter) {
 }
 
 int ShoeKickGame::getMeter() {
-	return totalShoeVec.x * METER_WEIGHT;
+	return shoe->getTotalVec().x * METER_WEIGHT;
 }

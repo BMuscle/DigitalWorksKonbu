@@ -328,7 +328,7 @@ bool User::addUserPoint(int addPoint) {
 	const char* pzTest;
 	std::string sql = "UPDATE Users SET point = ? WHERE id = ?";
 
-	user_point -= addPoint;
+	user_point += addPoint;
 	if (user_point >= 100000) {
 		user_point = 99999;
 	}

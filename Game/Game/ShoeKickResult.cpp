@@ -57,6 +57,7 @@ void ShoeKickResult::update(void) {
 	changeAlpha();
 	if (MyKey::getDecisionKey()) {
 		setNextScene(SHOEKICK_SCENE::TITLE);
+		GeneralSoundEffects::play(SE_NAME::DECISION);
 	}
 }
 void ShoeKickResult::draw(void) {

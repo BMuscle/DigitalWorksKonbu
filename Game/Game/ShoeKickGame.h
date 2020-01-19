@@ -8,19 +8,20 @@
 #include "ShoeCharacter.h"
 #include "Shoe.h"
 
+//ガチャアイテム用 キー値は＋1
+enum class GACHA_ITEM {
+	SPORTS_SHOE,
+	ROCKET_BOOSTER,
+	WING,
+	ROLLER,
+	SIZE,
+};
 #define GROUND Window::ClientHeight() * 0.8
 
 class ShoeKickGame : public ShoeKickSceneBase {
 private:
-	//ガチャアイテム用 キー値は＋1
-	enum class GACHA_ITEM{
-		SPORTS_SHOE,	
-		ROCKET_BOOSTER,
-		WING,
-		ROLLER,
-		SIZE,
-	};
 
+	//取得しているアイテム
 	Array<bool> hasItems;
 
 	//共通部分ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
@@ -87,9 +88,7 @@ private:
 
 	//FLYの処理ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 	//座標は中心から動かさず、移動距離に応じて背景を動かす
-	Vec2 shoeVec;		//靴飛ばしベクトル
-	Vec2 totalShoeVec;	//総移動距離
-	float gravity;	//重力
+
 
 public:
 	ShoeKickGame(SHOEKICK_SCENE* scenep);
