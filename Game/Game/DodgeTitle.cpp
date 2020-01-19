@@ -40,6 +40,7 @@ void DodgeTitle::update() {
 	}
 }
 void DodgeTitle::draw() {
+	
 	TextureAsset(U"dodgeback").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
 
 }
