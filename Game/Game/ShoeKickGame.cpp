@@ -50,6 +50,12 @@ ShoeKickGame::ShoeKickGame(SHOEKICK_SCENE* scenep) : ShoeKickSceneBase(scenep) {
 	boardVec.push_back(createSignBoard(300));
 	boardVec.push_back(createSignBoard(350));
 	boardVec.push_back(createSignBoard(400));
+	boardVec.push_back(createSignBoard(450));
+	boardVec.push_back(createSignBoard(500));
+	boardVec.push_back(createSignBoard(550));
+	boardVec.push_back(createSignBoard(600));
+	boardVec.push_back(createSignBoard(650));
+	boardVec.push_back(createSignBoard(700));
 
 	character = new ShoeCharacter(Vec2(0,GROUND));
 	shoe = new Shoe(&hasItems);

@@ -22,6 +22,7 @@ private:
 	MyImageEffect* rocketEffect;
 
 	int rocketCnt;
+	void updateRocket();
 
 	Vec2 getShoePos();
 

@@ -48,11 +48,7 @@ bool Shoe::update() {
 		}
 	}
 	else {//”ò‚ñ‚Å‚¢‚éÅ’†
-		rocketCnt++;
-		if (hasItems->at((int)GACHA_ITEM::SPORTS_SHOE) &&
-			rocketCnt == 30) {
-			effects->add(rocketEffect, getShoePos());
-		}
+		updateRocket();
 		setAngle(true);//‰ñ“]ŠJŽn
 		totalShoeVec += shoeVec;//À•WˆÚ“®
 		shoeVec.y += gravity / 2.0;
@@ -95,4 +91,19 @@ bool Shoe::isFlying() {
 
 Vec2 Shoe::getShoePos() {
 	return Vec2(Window::ClientWidth() / 2, totalShoeVec.y + 20);
+}
+
+void Shoe::updateRocket() {
+	constexpr Vec2 rocketVec(0.3, -2);
+	rocketCnt++;
+	if (hasItems->at((int)GACHA_ITEM::SPORTS_SHOE)) {
+
+		if (rocketCnt >= 10 && rocketCnt <= 60 * 1.5) {
+			if (rocketCnt <= 30) {
+				shoeVec += rocketVec;
+			}
+			effects->add(rocketEffect, getShoePos());
+		}
+		
+	}
 }
