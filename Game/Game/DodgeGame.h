@@ -54,16 +54,14 @@ public:
 				
 	void setPlace(Vec2 p) { place = p; }
 
-	Vec2 getMovement(int M) {
-		P = place;
+	void Move(int M) {	//ˆÚ“®‚ğŠ®—¹‚·‚é
+		Vec2 vec;	//ˆÚ“®—ÊŠi”[—p
 		do {
-			place = P;
 			deg = Random(0, 360) * Math::Pi / 180.0;
-			place.x = M * cos(deg);
-			place.y = M * sin(deg);
-			place = P + place;
-		} while (place.x <= 280 || place.x >= 1600 || place.y <= 50 || place.y >= 900);
-			return Vec2(place);
+			vec.x = M * cos(deg);
+			vec.y = M * sin(deg);
+		} while (place.x+vec.x <= 280 || place.x + vec.x >= 1600 || place.y + vec.y <= 50 || place.y + vec.y >= 900);
+		place += vec;
 	}
 	Vec2 getPlace(void) { return place; }
 	bool deleteCheck(void) { return((place.x < 20) || (place.x > 660) || (place.y > 500)); }//ŒãX•Ï‚¦‚é
@@ -85,18 +83,16 @@ public:
 	void setRadius(int r) { radius = r; }
 	void setPlace(Vec2 p) { place = p; }
 
-
-	Vec2 getMovement(int M) {
-		P = place;
+	void Move(int M) {	//ˆÚ“®‚ğŠ®—¹‚·‚é
+		Vec2 vec;	//ˆÚ“®—ÊŠi”[—p
 		do {
-			place = P;
 			deg = Random(0, 360) * Math::Pi / 180.0;
-			place.x = M * cos(deg);
-			place.y = M * sin(deg);
-			place = P + place;
-		} while (place.x <= 280 || place.x>=1600 || place.y <=50 || place.y>=900);
-		return Vec2(place);
+			vec.x = M * cos(deg);
+			vec.y = M * sin(deg);
+		} while (place.x + vec.x <= 280 || place.x + vec.x >= 1600 || place.y + vec.y <= 50 || place.y + vec.y >= 900);
+		place += vec;
 	}
+
 	int getRadius(void) { return radius; }
 	Vec2 getPlace(void) { return place; }
 	bool deleteCheck(void) { return((place.x < 20) || (place.x > 660) || (place.y > 500)); }//ŒãX•Ï‚¦‚é
