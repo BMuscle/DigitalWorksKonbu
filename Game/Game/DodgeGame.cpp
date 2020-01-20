@@ -65,7 +65,7 @@ void DodgeGame::Match()
 
 	//コンストラクタ
 	int radius = 20;
-	float movement = 0.1;
+	float movement = 10;
 	//int count = 0;
 	Vec2 initial(480, 450);
 	Target target(50,initial);	//{x,y}を原点とした半径rの円
@@ -122,7 +122,7 @@ void DodgeGame::Match()
 			
 		Circle scopeimage(scope.getPlace(), scope.getRadius());
 		//当たり判定チェック　当たったとき、消えるように仕向ける
-		if (HitCheck(scope.getRadius(),scope.getPlace(),target.getRadius()-20,target.getPlace())==true){//スコープ、ターゲット
+		if (HitCheck(scope.getRadius(),scope.getPlace(),target.getRadius()-25,target.getPlace())==true){//スコープ、ターゲット
 			scope.setPlace(scope.getPlace() + Vec2(0, -5));//更新処理update 当たったら止まる
 			
 		}
