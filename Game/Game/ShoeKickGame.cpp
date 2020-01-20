@@ -204,8 +204,8 @@ void ShoeKickGame::updateKick() {
 		Vec3 acc = Sensor::getAcceleration();
 	
 		//瞬間加速度最大値を取得
-		if (kickPower < abs(acc.x)) {
-			kickPower = abs(acc.x);
+		if (kickPower < abs(acc.z)) {
+			kickPower = abs(acc.z);
 		}
 	}
 	else {//キック時間下限
