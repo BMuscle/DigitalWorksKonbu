@@ -16,6 +16,7 @@ public:
 	void draw(void);	//描画処理
 	void outputResult(void);//結果をDBへ出力する
 	void stopGame();	//ゲームを一時中断する
+	void restartGame();//ゲーム再開
 private:
 	DODGE_SCENE nowscene;
 	DODGE_SCENE nextscene;

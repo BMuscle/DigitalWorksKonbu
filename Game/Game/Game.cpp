@@ -48,7 +48,8 @@ void Game::start(void) {
 	minigame->start();
 }
 void Game::update(void) {
-	if (MySocketServer::isConnection()) {//コントローラーコネクション確立時
+	//if (MySocketServer::isConnection()) {//コントローラーコネクション確立時
+	if (!MySocketServer::isConnection()) {//デバッグ用
 		if (isStop) {
 			if (MyKey::getRightKeyDown()) {
 				popUpState = POPUP::RESTART;//ポップアップをマップへに

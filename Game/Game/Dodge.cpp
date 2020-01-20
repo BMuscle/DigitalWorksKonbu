@@ -30,6 +30,10 @@ void Dodge::outputResult(void) {//Œ‹‰Ê‚ğDB‚Öo—Í‚·‚é
 void Dodge::stopGame() {	//ƒQ[ƒ€‚ğˆê’†’f‚·‚é
 
 }
+void Dodge::restartGame() {
+	
+}
+
 void Dodge::changeScene() {
 	switch (nextscene)
 	{

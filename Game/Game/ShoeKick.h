@@ -19,7 +19,7 @@ public:
 	void outputResult(void);//結果をDBへ出力する
 
 	void stopGame();	//ゲームを一時中断する
-	void restartGame();
+	void restartGame();//ゲーム再開
 
 private:
 	SHOEKICK_SCENE nowScene;

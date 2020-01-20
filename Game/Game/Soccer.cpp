@@ -399,6 +399,10 @@ void Soccer::stopGame() {	//ゲームを一時中断する
 	TextureAsset(U"inter").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
 
 }
+void Soccer::restartGame() {
+	
+}
+
 
 //フレーム管理～～～～
 

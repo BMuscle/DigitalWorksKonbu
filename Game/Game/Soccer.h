@@ -12,6 +12,7 @@ public:
 	void update(void);	//計算処理
 	void draw(void);	//描画処理
 	void outputResult(void);//結果をDBへ出力する
+	void restartGame();//ゲーム再開
 
 private:
 	enum SOCCER_SCENE {
@@ -53,7 +54,6 @@ private:
 	void frameCount();//フレームカウント
 	void soccerGachaPoint();//がちゃぽいんとかさん
 	void soccerHighScore(int);//最高得点
-	void restartGame();//一時停止のゲームをはじめる
 	void itemCheck();//ガチャアイテムチェック
 
 	SimpleLoadEffect* loadEffect;

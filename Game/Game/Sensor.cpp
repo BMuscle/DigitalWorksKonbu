@@ -59,7 +59,7 @@ void Sensor::debugPrint() {
 	Print(U"ç≈ëÂâ¡ë¨ìxXYZ" + Format(maxAccX,U" ",maxAccY, U" ", maxAccZ));
 
 
-	Circle(Window::ClientWidth() / 2 + acceleration.x * 2, Window::ClientHeight() / 2 + acceleration.y * 2, 40).draw();
+	//Circle(Window::ClientWidth() / 2 + acceleration.x * 2, Window::ClientHeight() / 2 + acceleration.y * 2, 40).draw();
 }
 
 Vec3 Sensor::getAcceleration() {
