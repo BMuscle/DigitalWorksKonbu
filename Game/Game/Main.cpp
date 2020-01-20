@@ -18,7 +18,7 @@ void Main()
 	
 	Graphics::SetTargetFrameRateHz(60);				//FPSを60に固定
 	MySceneManager::initialize();					//シーンの初期化処理
-	Sensor::initialize(true);						//センサーデータの初期化
+	Sensor::initialize(false);						//センサーデータの初期化
 	MySocketServer::initialize();					//ソケット通信の初期化
 	GeneralSoundEffects::initialize();
 
