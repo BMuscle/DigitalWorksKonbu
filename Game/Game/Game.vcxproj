@@ -116,6 +116,8 @@
     <ClCompile Include="CreateSaveData.cpp" />
     <ClCompile Include="Dodge.cpp" />
     <ClCompile Include="DodgeGame.cpp" />
+    <ClCompile Include="DodgeResult.cpp" />
+    <ClCompile Include="DodgeTitle.cpp" />
     <ClCompile Include="GachaItemDescription.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GeneralSoundEffects.cpp" />
@@ -277,6 +279,9 @@
     <ClInclude Include="ShoeCharacter.h" />
     <ClInclude Include="CreateSaveData.h" />
     <ClInclude Include="Dodge.h" />
+    <ClInclude Include="DodgeGame.h" />
+    <ClInclude Include="DodgeSceneBase.h" />
+    <ClInclude Include="DodgeTitle.h" />
     <ClInclude Include="EffectInterFace.h" />
     <ClInclude Include="Gacha.h" />
     <ClInclude Include="GachaItemDescription.h" />
