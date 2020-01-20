@@ -19,6 +19,7 @@ Gacha::Gacha(void) {
 
 	//オーディオアセット
 	AudioAsset::Register(U"gachahandl", U"resources/musics/items/gacha/gacha.wav", AssetParameter::LoadAsync());
+	AudioAsset::Register(U"gacharesult", U"resources/musics/items/gacha/result.wav", AssetParameter::LoadAsync());
 	//エフェクト管理用の初期化
 	effects = new MyEffects();
 	toast = new MyToast(U"初期メッセージですこれが表示されれば初期化されていない");
@@ -56,6 +57,7 @@ Gacha::~Gacha(void) {//終了処理
 	TextureAsset::Unregister(U"gachatext");
 
 	AudioAsset::Unregister(U"gachahandl");
+	AudioAsset::Unregister(U"gacharesult");
 
 	for (int i = 0; i < (int)BUTTON::SIZE; i++) {
 		delete button[i];
@@ -71,7 +73,8 @@ bool Gacha::isReady(void) {//同期処理
 		TextureAsset::IsReady(U"gachabackresult") &&
 		TextureAsset::IsReady(U"gachaeffectback2") &&
 		TextureAsset::IsReady(U"gachapointframe") &&
-		AudioAsset::IsReady(U"gachahandl")) {
+		AudioAsset::IsReady(U"gachahandl") &&
+		AudioAsset::IsReady(U"gacharesult")) {
 		for (int i = 0; i < (int)BUTTON::SIZE; i++) {
 			if (!button[i]->isReady()) {
 				return false;
@@ -223,6 +226,7 @@ void Gacha::loadBrightingFunc() {
 	case Gacha::GACHA_STATE::TITLE:
 		break;
 	case Gacha::GACHA_STATE::EFFECT:
+		backAudio->pause();//BGM一時停止
 		//エフェクトを追加する
 		gachaEffects->add(gachaEffect, Vec2(Window::ClientWidth() / 2, Window::ClientHeight() / 2));
 		//効果音再生
@@ -230,7 +234,7 @@ void Gacha::loadBrightingFunc() {
 		AudioAsset(U"gachahandl").play();
 		break;
 	case Gacha::GACHA_STATE::RESULT:
-		
+		backAudio->play();
 		break;
 	case Gacha::GACHA_STATE::END:
 		break;
@@ -250,7 +254,9 @@ void Gacha::loadEndFunc() {
 
 		break;
 	case Gacha::GACHA_STATE::RESULT:
-
+		//効果音再生
+		AudioAsset(U"gacharesult").setVolume(0.1);
+		AudioAsset(U"gacharesult").play();
 		break;
 	case Gacha::GACHA_STATE::END:
 		break;

@@ -1,26 +1,26 @@
 #include "CreateSaveData.h"
 
 //テキストボックスの座標 幅 定義
-#define NAMEBOX_X (Window::ClientWidth() * 0.6)
-#define NAMEBOX_Y (Window::ClientHeight() * 0.6)
-#define NAMEBOX_W (Window::ClientWidth() * 0.3)
+#define NAMEBOX_X (Window::ClientWidth() * 0.5)
+#define NAMEBOX_Y (Window::ClientHeight() * 0.55)
+#define NAMEBOX_W (Window::ClientWidth() * 0.18)
 //アイテムの位置の間隔を定義
 #define ITEM_INTERVAL (Window::ClientHeight() * 0.2)
 //ポップアップのボタンの離れている間隔を定義
 #define POPUP_INTERVAL (Window::ClientWidth() * 0.07)
 
 //ボタンの画面端から離れている距離
-#define BUTTON_OFFSET_X (200)
+#define BUTTON_OFFSET_X (600)
 
 #define BUTTON_RETURN_X (BUTTON_OFFSET_X)
 #define BUTTON_DECISION_X (Window::ClientWidth() - BUTTON_OFFSET_X)
 
 #define BUTTON_Y NAMEBOX_Y
 
-CreateSaveData::CreateSaveData(void) {
+CreateSaveData::CreateSaveData(int user_id) {
 	isStart = false;
 	//アセットへロード
-	FontAsset::Register(U"createSDfont", 70);
+	FontAsset::Register(U"createSDfont", 40);
 	FontAsset::Preload(U"createSDfont");
 	TextureAsset::Register(U"createSDback", U"resources/images/backs/createsavedata.png", AssetParameter::LoadAsync());
 
@@ -28,15 +28,17 @@ CreateSaveData::CreateSaveData(void) {
 	TextureAsset::Register(U"createSDpopup", U"resources/images/items/createsavedata/popup.png", AssetParameter::LoadAsync());	//決定、戻るボタンの初期化
 
 	//戻るボタン決定ボタン初期化
-	button[(int)BUTTON::RETURN] = new MyImageButton(U"resources/images/items/createsavedata/return", U"", 50, BUTTON_RETURN_X, BUTTON_Y, false);
-	button[(int)BUTTON::DECISION] = new MyImageButton(U"resources/images/items/createsavedata/decision", U"", 50, BUTTON_DECISION_X, BUTTON_Y, false);
+	button[(int)BUTTON::RETURN] = new MyImageButton(U"resources/images/items/createsavedata/return", U"", 0, BUTTON_RETURN_X, BUTTON_Y, false);
+	button[(int)BUTTON::DECISION] = new MyImageButton(U"resources/images/items/createsavedata/decision", U"", 0, BUTTON_DECISION_X, BUTTON_Y, false);
 	
 	//ポップアップのボタン初期化
-	popUpButton[(int)POPUP::DECISION] = new MyImageButton(U"resources/images/items/createsavedata/popup", U"決定", 50, (int)(Window::ClientWidth() / 2) + (int)POPUP_INTERVAL, (int)Window::ClientHeight() * 0.6, true);
-	popUpButton[(int)POPUP::RETURN] = new MyImageButton(U"resources/images/items/createsavedata/popup", U"やめる", 40, (int)(Window::ClientWidth() / 2) - (int)POPUP_INTERVAL, (int)Window::ClientHeight() * 0.6, false);
+	popUpButton[(int)POPUP::DECISION] = new MyImageButton(U"resources/images/items/createsavedata/popupdeci", U"", 0, (int)(Window::ClientWidth() / 2) + (int)POPUP_INTERVAL, (int)Window::ClientHeight() * 0.6, true);
+	popUpButton[(int)POPUP::RETURN] = new MyImageButton(U"resources/images/items/createsavedata/popupretu", U"", 0, (int)(Window::ClientWidth() / 2) - (int)POPUP_INTERVAL, (int)Window::ClientHeight() * 0.6, false);
 
 	//変数の初期化
-	nameFont = Font(50);//テキストボックスのフォント
+	createUser_Id = user_id;//ユーザーID
+
+	nameFont = Font(40);//テキストボックスのフォント
 	namebox = TextBox(nameFont, Vec2(100, 100), NAMEBOX_W, 8, U"");
 	namebox.setCenter(Vec2(NAMEBOX_X, NAMEBOX_Y));
 	namebox.setActive(false);//初期状態でテキストボックスを非アクティブに
@@ -48,12 +50,17 @@ CreateSaveData::~CreateSaveData(void) {
 	TextureAsset::Unregister(U"createSDback");
 	delete button[(int)BUTTON::DECISION];
 	delete button[(int)BUTTON::RETURN];
+
+	delete popUpButton[(int)POPUP::DECISION];
+	delete popUpButton[(int)POPUP::RETURN];
+
+	delete backAudio;
 }
 bool CreateSaveData::isReady(void) {
 	if (TextureAsset::IsReady(U"createSDback")&&
 		TextureAsset::IsReady(U"createSDpopup")&&
-		popUpButton[(int)BUTTON::DECISION]->isReady()&&
-		popUpButton[(int)BUTTON::RETURN]->isReady() &&
+		popUpButton[(int)POPUP::DECISION]->isReady() &&
+		popUpButton[(int)POPUP::RETURN]->isReady() &&
 		button[(int)BUTTON::DECISION]->isReady()&&
 		button[(int)BUTTON::RETURN]->isReady()) {
 		return true;
@@ -63,25 +70,28 @@ bool CreateSaveData::isReady(void) {
 void CreateSaveData::start(void) {
 	isStart = true;
 	//BGM再生開始
-	backAudio = new Audio(U"resources/musics/backs/selectSD.wav");
+	backAudio = new Audio(U"resources/musics/backs/createSD.wav");
 	backAudio->setLoop(true);
 	backAudio->setVolume(0.1);
 	backAudio->play();
 	namebox.setActive(true);//ロード終了後でテキストボックスをアクティブに
 }
 void CreateSaveData::update(void) {//計算処理
-	if (namebox.isActive()) {//テキストボックスがアクティブの時
-		namebox.update();
-	}
-	
+	namebox.update();
 	selectUpdate();//現在の選択状態に対応する計算処理
 	selectMove();//移動処理
 
 	//入力チェックを入れる(セレクトされているものが戻るボタンの場合例外）
-	if (namebox.getText().isEmpty() && selectState != SELECT_STATE::RETURN) {//文字列が空なら終了する
+	if (namebox.getText().isEmpty() &&
+		selectState != SELECT_STATE::RETURN &&
+		!namebox.isActive()) {//文字列が空なら終了する
 		namebox.setActive(true);
 		selectState = SELECT_STATE::TEXT;
 	}
+	if (selectState != SELECT_STATE::TEXT) {
+		namebox.setActive(false);
+	}
+	
 }
 
 
@@ -96,7 +106,8 @@ void CreateSaveData::draw(void) {//描画処理
 	//テキストボックスの描画
 	namebox.draw();
 	namebox.drawOverlay();
-	FontAsset(U"createSDfont")(U"本人氏名").drawAt(NAMEBOX_X - FontAsset(U"createSDfont").fontSize() * 3 - NAMEBOX_W / 2, NAMEBOX_Y, ColorF(0, 0, 0));
+	//FontAsset(U"createSDfont")(U"本人氏名").drawAt(NAMEBOX_X - FontAsset(U"createSDfont").fontSize() * 3 - NAMEBOX_W / 2, NAMEBOX_Y, ColorF(0, 0, 0));
+	FontAsset(U"createSDfont")(U"本人氏名").drawAt(NAMEBOX_X, NAMEBOX_Y - 70, ColorF(0, 0, 0));
 
 	//テキストボックスが非アクティブの時ポップアップを表示する
 	if (selectState == SELECT_STATE::POPUP) {
@@ -175,7 +186,8 @@ void CreateSaveData::popUpUpdate() {//ポップアップの計算処理
 			break;
 		case CreateSaveData::POPUP::RETURN://テキスト選択状態へ戻る
 			selectState = SELECT_STATE::TEXT;							//現在の選択状態をテキストボックスへ
-			namebox.setActive(true);									//テキストボックスをアクティブに
+			namebox.setActive(true);
+			GeneralSoundEffects::play(SE_NAME::BACK);//テキストボックスをアクティブに
 			break;
 		}
 	}
@@ -199,27 +211,20 @@ void CreateSaveData::popUpDraw() {//ポップアップの描画
 	TextureAsset(U"createSDpopup").drawAt(Window::ClientWidth() * 0.5, Window::ClientHeight() * 0.45);
 	switch (popUpState)
 	{
-	case CreateSaveData::POPUP::DECISION://YESが選択されているとき 選択状態を変更
-		popUpButton[(int)POPUP::DECISION]->setSelect(true);
-		popUpButton[(int)POPUP::RETURN]->setSelect(false);
+	case POPUP::DECISION://YESが選択されているとき 選択状態を変更
+		//描画処理
+		popUpButton[(int)POPUP::DECISION]->drawNotWord(true);
+		popUpButton[(int)POPUP::RETURN]->drawNotWord(false);
 		break;
-	case CreateSaveData::POPUP::RETURN://NOが選択されているとき 選択状態を変更
-		popUpButton[(int)POPUP::DECISION]->setSelect(false);
-		popUpButton[(int)POPUP::RETURN]->setSelect(true);
+	case POPUP::RETURN://NOが選択されているとき 選択状態を変更
+		//描画処理
+		popUpButton[(int)POPUP::DECISION]->drawNotWord(false);
+		popUpButton[(int)POPUP::RETURN]->drawNotWord(true);
 		break;
 	}
-	//描画処理
-	popUpButton[(int)POPUP::DECISION]->draw();
-	popUpButton[(int)POPUP::RETURN]->draw();
 }
 
 void CreateSaveData::createData() {//セーブデータを実際に作成
-	int id = User::getSaveDataSize() + 1;//現在のセーブデータ数の１つ上に新規セーブデータを作成する
-	if (id > 0) {
-		User::createSaveData(id, namebox.getText());//セーブデータ作成
-		User::saveDataAccess(id);
-	}
-	else {
-		//エラー
-	}
+	User::createSaveData(createUser_Id, namebox.getText());//セーブデータ作成
+	User::saveDataAccess(createUser_Id);
 }

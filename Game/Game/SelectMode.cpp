@@ -76,8 +76,11 @@ void SelectMode::update(void) {
 		else {//ゲームへ移行
 			MySceneManager::setNextScene(SCENE::GAME);
 		}
+		GeneralSoundEffects::play(SE_NAME::DECISION);
 	}
-	moveSelectMode();//モード切替処理
+	else {
+		moveSelectMode();//モード切替処理
+	}
 }
 void SelectMode::draw(void) {
 
@@ -154,9 +157,7 @@ void SelectMode::moveSelectMode() {
 	}
 
 	if (moveFlag) {
-		AudioAsset(U"selectmodemove").setPosSec(0);
-		AudioAsset(U"selectmodemove").setVolume(0.2);
-		AudioAsset(U"selectmodemove").play();
+		moveEffect();
 	}
 	
 }
@@ -166,4 +167,10 @@ void SelectMode::updateFrameCount(){
 	if (frameCount > 60 * 3000) {//上限値チェック
 		frameCount = 0;
 	}
+}
+
+void SelectMode::moveEffect() {
+	AudioAsset(U"selectmodemove").setPosSec(0);
+	AudioAsset(U"selectmodemove").setVolume(0.1);
+	AudioAsset(U"selectmodemove").play();
 }

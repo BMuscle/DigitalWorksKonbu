@@ -3,10 +3,10 @@
 MyRoomReport::MyRoomReport(MYROOM_SCENE* scenep) : MyRoomSceneBase(scenep){
 	TextureAsset::Register(U"myroomback", U"resources/images/backs/myroom/recode.png", AssetParameter::LoadAsync());
 	//アセットへロード
-	FontAsset::Register(U"myroomfont", 80, AssetParameter::LoadAsync());
+	FontAsset::Register(U"myroomfont", 80, Typeface::Medium, AssetParameter::LoadAsync());
 	FontAsset::Preload(U"myroomfont");
 
-	FontAsset::Register(U"myroomsmallfont", 50, AssetParameter::LoadAsync());
+	FontAsset::Register(U"myroomsmallfont", 50, Typeface::Medium, AssetParameter::LoadAsync());
 	FontAsset::Preload(U"myroomsmallfont");
 
 	//変数初期化
@@ -36,6 +36,7 @@ MyRoomReport::MyRoomReport(MYROOM_SCENE* scenep) : MyRoomSceneBase(scenep){
 MyRoomReport::~MyRoomReport() {
 	TextureAsset::Unregister(U"myroomback");
 	TextureAsset::Unregister(U"myroomword");
+	delete backAudio;
 }
 bool MyRoomReport::isReady() {
 	if (TextureAsset::IsReady(U"myroomback") &&
@@ -47,7 +48,11 @@ bool MyRoomReport::isReady() {
 	return false;
 }
 void MyRoomReport::start() {
-
+	delete backAudio;
+	backAudio = new Audio(U"resources/musics/backs/myroomreport.wav");
+	backAudio->setVolume(0.1);
+	backAudio->setLoop(true);
+	backAudio->play();
 }
 void MyRoomReport::update() {
 	if (MyKey::getDecisionKey()) {

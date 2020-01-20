@@ -8,6 +8,8 @@ MyRoomCollection::MyRoomCollection(MYROOM_SCENE* scenep) :MyRoomSceneBase(scenep
 	FontAsset::Register(U"myroomsmallfont", 50, AssetParameter::LoadAsync());
 	FontAsset::Preload(U"myroomsmallfont");
 
+	AudioAsset::Register(U"deci2", U"resources/musics/items/myroom/deci2.wav");
+
 	csvItem[(int)GAME_TYPE::DODGE].load(U"resources/gamedata/dodge.csv");
 	csvItem[(int)GAME_TYPE::SHOEKICK].load(U"resources/gamedata/shoekick.csv");
 	csvItem[(int)GAME_TYPE::SOCCER].load(U"resources/gamedata/soccer.csv");
@@ -35,6 +37,9 @@ MyRoomCollection::MyRoomCollection(MYROOM_SCENE* scenep) :MyRoomSceneBase(scenep
 MyRoomCollection::~MyRoomCollection() {
 	TextureAsset::Unregister(U"myroomback");
 	FontAsset::Unregister(U"myroomsmallfont");
+	AudioAsset::Unregister(U"deci2");
+
+	delete backAudio;
 
 	//ドッジボールのガチャアイテムアンロード
 	for (int row = 0; row < csvItem[(int)GAME_TYPE::DODGE].rows(); row++) {
@@ -77,26 +82,31 @@ bool MyRoomCollection::isReady() {
 	return false;
 }
 void MyRoomCollection::start() {
-
+	delete backAudio;
+	backAudio = new Audio(U"resources/musics/backs/myroomcollection.wav");
+	backAudio->setVolume(0.1);
+	backAudio->setLoop(true);
+	backAudio->play();
 }
 void MyRoomCollection::update() {
 	changeAlpha();
 
+	//コレクション説明表示状態
 	if (isCollectionSelected) {
 		if (MyKey::getDecisionKey()) {
 			isCollectionSelected = false;
-			return;
+			deci2Play();
 		}
-		else {
-			return;
-		}
+		return;		
 	}
+	//ボタンを選択状態
 	if (isButtonSelect) {
 		if(MyKey::getLeftKeyDown()){
 			if (hasItem) {//アイテムが存在している
 				isButtonSelect = false;
 				selectedItem.column = *itemVec[selectedItem.row].rbegin();//一番右側のアイテムを選択
 			}
+			GeneralSoundEffects::play(SE_NAME::CURSOR);
 		}
 	}
 	else {
@@ -106,6 +116,7 @@ void MyRoomCollection::update() {
 				selectedItem.row--;
 				selectedItem.column = tmp;
 			}
+			GeneralSoundEffects::play(SE_NAME::CURSOR);
 		}
 		if (MyKey::getDownKeyDown()) {
 			int tmp = selectedMoveRow(selectedItem.row + 1);
@@ -113,6 +124,7 @@ void MyRoomCollection::update() {
 				selectedItem.row++;
 				selectedItem.column = tmp;
 			}
+			GeneralSoundEffects::play(SE_NAME::CURSOR);
 		}
 		if (MyKey::getRightKeyDown()) {
 			//右端上限 
@@ -129,6 +141,7 @@ void MyRoomCollection::update() {
 					}
 				}
 			}
+			GeneralSoundEffects::play(SE_NAME::CURSOR);
 		}
 		if (MyKey::getLeftKeyDown()) {
 			//逆順でひとつ←のアイテムを選択させる
@@ -138,7 +151,7 @@ void MyRoomCollection::update() {
 					break;
 				}
 			}
-
+			GeneralSoundEffects::play(SE_NAME::CURSOR);
 		}
 	}
 	
@@ -148,10 +161,12 @@ void MyRoomCollection::update() {
 	if (MyKey::getDecisionKey()) {
 		if (isButtonSelect) {
 			setNextScene(MYROOM_SCENE::TITLE);
+			GeneralSoundEffects::play(SE_NAME::DECISION);
 		}
 		else if(!isCollectionSelected){
 			selectedItemTextLoad();
 			isCollectionSelected = true;
+			deci2Play();
 		}
 	}
 }
@@ -292,4 +307,11 @@ void MyRoomCollection::changeAlpha(void) {
 	constexpr int CYCLE = 3000;//透過が変わる周期
 	const uint64 t = Time::GetMillisec();
 	alpha = Sin(t % CYCLE / static_cast<double>(CYCLE)* s3d::Math::Constants::TwoPi) * 0.42 + 0.58;
+}
+
+void MyRoomCollection::deci2Play() {
+	AudioAsset(U"deci2").setPosSec(0);
+	AudioAsset(U"deci2").setVolume(0.2);
+	AudioAsset(U"deci2").play();
+
 }

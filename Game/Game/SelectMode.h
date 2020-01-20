@@ -6,6 +6,7 @@
 #include "User.h"
 #include "Mode.h"
 #include "MyImageButton.h"
+#include "GeneralSoundEffects.h"
 
 class SelectMode : public MyScene {
 public:
@@ -29,5 +30,7 @@ private:
 
 	void moveSelectMode();
 	void updateFrameCount();
+
+	void moveEffect();
 
 };

@@ -6,11 +6,14 @@
 #include "MyRoomSceneBase.h"
 #include <vector>
 #include <math.h>
+#include "GeneralSoundEffects.h"
 
 class MyRoomCollection : public MyRoomSceneBase{
 private:
 	CSVData csvItem[(int)GAME_TYPE::SIZE];
 	MyImageButton* button;
+
+	Audio* backAudio;	//BGM
 
 	bool isButtonSelect;		//戻るボタンの選択状態
 
@@ -37,6 +40,8 @@ private:
 	int selectedMoveRow(int row);
 
 	void changeAlpha(void);//アルファ値変動
+
+	void deci2Play();
 public:
 	MyRoomCollection(MYROOM_SCENE* scenep);
 	~MyRoomCollection();

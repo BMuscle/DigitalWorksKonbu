@@ -2,11 +2,12 @@
 
 MyRoom::MyRoom(void) {
 	scene = new MyRoomTitle(&nextScene);
+	scene->start();
 	loadEffect = new SimpleLoadEffect();
 }
 
 MyRoom::~MyRoom(void) {
-
+	delete scene;
 }
 
 bool MyRoom::isReady(void) {

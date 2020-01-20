@@ -9,6 +9,7 @@
 
 class MyRoomReport : public MyRoomSceneBase {
 private:
+	Audio* backAudio;//BGM
 	int age;					//ゲーム内年齢
 	String user_name;			//ユーザー名
 	float itemAcquisitionRate;	//アイテム取得率
