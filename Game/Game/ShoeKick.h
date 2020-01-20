@@ -1,6 +1,12 @@
 #pragma once
 #include "MiniGameBase.h"
 #include <Siv3D.hpp>
+#include "ShoeKickGame.h"
+#include "ShoeKickTitle.h"
+#include "ShoeKickResult.h"
+#include "ShoeKickSceneBase.h"
+#include "SimpleLoadEffect.h"
+#include "Sensor.h"
 
 class ShoeKick : public MiniGame {
 public:
@@ -11,33 +17,18 @@ public:
 	void update(void);	//計算処理
 	void draw(void);	//描画処理
 	void outputResult(void);//結果をDBへ出力する
+
 	void stopGame();	//ゲームを一時中断する
+	void restartGame();
 
 private:
-	Audio* backAudio;
+	SHOEKICK_SCENE nowScene;
+	SHOEKICK_SCENE nextScene;
 
+	ShoeKickSceneBase* scene;
+	SimpleLoadEffect* loadEffect;
 
+	bool isStop;
 
-	//シーン変更用
-	enum SCENE {
-		TITLE,
-		KICK,
-		FLY,
-		FALL,
-		RESULT,
-	};
-	SCENE nowScene, nextScene;
 	void changeScene();
-	void setNextScene(SCENE next);
-
-	//蹴るシーンの変数
-	bool countDownFunc();
-	int countDown;
-	bool isNext;
-
-	//描画
-	void scenedraw();
-
-	//距離の変数
-	int distance, x;
 };

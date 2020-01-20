@@ -6,190 +6,83 @@
 
 
 ShoeKick::ShoeKick(void) {
-	//アセットへロード
-	FontAsset::Register(U"shoekickfont", 70);
-	FontAsset::Preload(U"shoekickfont");
-	TextureAsset::Register(U"shoekickback", U"resources/images/backs/shoekick.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"shoekick_title", U"resources/images/items/game/shoekick/title.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"shoekick_kick", U"resources/images/items/game/shoekick/kick.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"shoekick_fly", U"resources/images/items/game/shoekick/fry.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"shoekick_fall", U"resources/images/items/game/shoekick/fall.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"shoekick_sunny", U"resources/images/items/game/shoekick/sunny.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"shoekick_rain", U"resources/images/items/game/shoekick/rain.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"shoekick_cloudy", U"resources/images/items/game/shoekick/cloudy.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"shoekick_count3", U"resources/images/items/game/shoekick/count3.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"shoekick_count2", U"resources/images/items/game/shoekick/count2.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"shoekick_count1", U"resources/images/items/game/shoekick/count1.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"shoekick_start", U"resources/images/items/game/shoekick/start.png", AssetParameter::LoadAsync());
 
-	nowScene = TITLE;//初期シーンセット
-	nextScene = TITLE;
-
+	scene = new ShoeKickTitle(&nextScene);
+	loadEffect = new SimpleLoadEffect();
+	isStop = false;
 }
 ShoeKick::~ShoeKick(void) {
-	FontAsset::Unregister(U"shoekickfont");
-	TextureAsset::Unregister(U"shoekickback");
-	delete backAudio;
+	delete scene;
+	delete loadEffect;
 }
 bool ShoeKick::isReady(void) {	//ロード終了してもいいかどうか
-	if (TextureAsset::IsReady(U"shoekickback")) {
+	if (scene->isReady()) {
 		return true;
 	}
 	return false;
 }
 void ShoeKick::start(void) {	//ロード空けた後に実行されるもの
-	//BGM再生開始
-	backAudio = new Audio(U"resources/musics/backs/shoekick.wav");
-	backAudio->setLoop(true);
-	backAudio->play();
+	scene->start();
 }
 void ShoeKick::update(void) {	//計算処理
-	if (nowScene != nextScene) {
-		changeScene();
-	}
-	switch (nowScene) {
-	case TITLE:/*タイトル*/
-
-		if (MyKey::getDecisionKey()) { //エンター押されたらける画面に移行する
-			setNextScene(KICK);
+	if (!isStop) {
+		loadEffect->update();
+		if (nowScene != nextScene) {
+			if (!loadEffect->isLoad()) {//ロード中ではないなら
+				loadEffect->start();//ロードstart
+			}
+			if (loadEffect->isDark()) {//真っ暗の画面→ロード待機
+				loadEffect->nextState();
+				changeScene();
+			}
+			else if (loadEffect->isDarkWait()) {//ロード待機→明るくなり始め
+				if (scene->isReady()) {
+					loadEffect->nextState();
+					nowScene = nextScene;
+				}
+			}
 		}
-		break;
-
-	case KICK: /*足を振って速さを取ってきて飛ばすまでの画面*/
-
-		if (countDownFunc()) {
-			setNextScene(FLY);
-		}
-
-		break;
-	case FLY:/*出た速さから距離を取って靴を飛ばす画面*/
-		//出た速さに何かしらをかけて距離を出す
-		distance = 300;
-
-		while (distance == x) {
-
-			x++;
+		if (loadEffect->isEnd()) {//完全に明るくなったのでstart
+			scene->start();
 		}
 
-		if (MyKey::getDecisionKey()) { //エンター押されたらける画面に移行する
-			setNextScene(FALL);
-		}
-		break;
-
-
-
-	case FALL:/*靴を落下させる画面*/
-
-		if (countDownFunc()) {
-			setNextScene(RESULT);
-		}
-		break;
-
-	case RESULT:/*距離によって表示する天気を変える・もう一度ゲームをするかマップに戻るかを確認する画面*/
-		//もう一度ゲームをプレイするかマップに戻るか方向キーで選択してエンターで決定 
-
-
-		break;
-
+		scene->update();
 	}
 
 }
 void ShoeKick::draw(void) {	//描画処理
+	scene->draw();
+	loadEffect->draw();
 
-	switch (nowScene) { //画面切り替えのフラグです
-
-	case TITLE://home
-		TextureAsset(U"shoekick_title").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
-		break;
-	case KICK://keru
-		TextureAsset(U"shoekick_kick").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
-		if (((int)countDown / 60) == 3) {
-			TextureAsset(U"shoekick_count3").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
-		}else if (((int)countDown / 60) == 2) {
-			TextureAsset(U"shoekick_count2").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
-		}else if (((int)countDown / 60) == 1) {
-			TextureAsset(U"shoekick_count1").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
-		}else if (((int)countDown / 60) == 0) {
-			TextureAsset(U"shoekick_start").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
-		}
-		break;
-	case FLY://tonnderu
-		TextureAsset(U"shoekick_fly").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
-		break;
-	case FALL:
-		TextureAsset(U"shoekick_fall").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
-		break;
-	case RESULT:
-		if (distance % 3 == 0) {
-			TextureAsset(U"shoekick_sunny").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
-
-		}
-		else if (distance % 3 == 1) {
-			TextureAsset(U"shoekick_rain").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
-
-		}
-		else{
-			TextureAsset(U"shoekick_cloudy").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
-		}
-		break;
-	}
 }
 void ShoeKick::outputResult(void) {//結果をDBへ出力する
-
+	//Resultで出力してるのでOK
 }
 
 void ShoeKick::stopGame() {	//ゲームを一時中断する
-
+	isStop = true;
 }
+
+void ShoeKick::restartGame() {
+	isStop = false;
+}
+
 void ShoeKick::changeScene() {
-	switch (nowScene)//終了処理
+	int meter;
+	switch (nextScene)
 	{
-	case ShoeKick::TITLE:
+	case SHOEKICK_SCENE::TITLE:
+		delete scene;
+		scene = new ShoeKickTitle(&nextScene);
 		break;
-	case ShoeKick::KICK:
+	case SHOEKICK_SCENE::GAME:
+		delete scene;
+		scene = new ShoeKickGame(&nextScene);
 		break;
-	case ShoeKick::FLY:
-		break;
-	case ShoeKick::FALL:
-		break;
-	case ShoeKick::RESULT:
-		break;
-	}
-	switch (nextScene)//初期化処理
-	{
-	case ShoeKick::TITLE:
-		break;
-	case ShoeKick::KICK:
-		countDown = 4 * 60;
-		break;
-	case ShoeKick::FLY:
-		distance = 0;
-		x = 0;
-		break;
-	case ShoeKick::FALL:
-		countDown = 2 * 60;
-		break;
-	case ShoeKick::RESULT:
+	case SHOEKICK_SCENE::RESULT:
+		meter = ((ShoeKickGame*)scene)->getMeter();
+		delete scene;
+		scene = new ShoeKickResult(&nextScene, meter);
 		break;
 	}
-	nowScene = nextScene;
 }
-void ShoeKick::setNextScene(SCENE next) {
-	nextScene = next;
-}
-
-bool ShoeKick::countDownFunc() {
-	if (countDown > 0) {
-		countDown--;
-		return false;//カウントダウン中
-	}
-	else {
-
-	}
-	return true;//カウントダウン終了
-}
-
-
-
-
-
