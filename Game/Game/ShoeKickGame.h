@@ -14,6 +14,7 @@ enum class GACHA_ITEM {
 	ROCKET_BOOSTER,
 	WING,
 	ROLLER,
+	CAT,
 	SIZE,
 };
 #define GROUND Window::ClientHeight() * 0.8

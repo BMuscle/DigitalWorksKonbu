@@ -162,7 +162,7 @@ void Gacha::draw(void) {
 		TextureAsset(U"gachabackresult").draw();
 		Rect(0, 0, Window::ClientWidth(), Window::ClientHeight()).draw(ColorF(1, 1, 1, 0.5));
 		resultDraw();
-		FontAsset(U"gachasmallfont")(U"Å`Press to EnterÅ`").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() - 100, ColorF(0,0,0, alpha));
+		FontAsset(U"gachafont")(U"Å`Press to EnterÅ`").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() - 100, ColorF(0,0,0, alpha));
 
 		break;
 	case Gacha::GACHA_STATE::END:
@@ -318,8 +318,8 @@ void Gacha::randomGacha() {
 
 //ÉKÉ`ÉÉåãâ ÇÃï`âÊ
 void Gacha::resultDraw() {
-	TextureAsset(U"gachaitem").drawAt(Window::ClientWidth() * 0.3, Window::ClientHeight() * 0.6 - 30);
-	TextureAsset(U"gachatext").drawAt(Window::ClientWidth() * 0.7, Window::ClientHeight() * 0.5 );
+	TextureAsset(U"gachaitem").scaled(1.2).drawAt(Window::ClientWidth() * 0.3, Window::ClientHeight() * 0.6 - 130);
+	TextureAsset(U"gachatext").scaled(1).drawAt(Window::ClientWidth() * 0.7, Window::ClientHeight() * 0.5 );
 }
 
 void Gacha::changeAlpha(void) {

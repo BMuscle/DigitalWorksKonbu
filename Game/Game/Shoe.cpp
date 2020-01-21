@@ -20,14 +20,21 @@ Shoe::Shoe(Array<bool>* hasItems) {
 
 	//エフェクト初期化
 	effects = new MyEffects();
-	rocketEffect = new MyImageEffect(U"resources/images/items/game/shoekick/game/effects/rocket.png", 5, 4, 0.01);
+	rocketEffect = new MyImageEffect(U"resources/images/items/game/shoekick/game/effects/rocket.png", 5, 4, 0.02);
 	rocketCnt = 0;
+
 	angelEffect = new MyImageEffect(U"resources/images/items/game/shoekick/game/effects/angel.png", 5, 3, 0.01);
 	angelCnt = 0;
+
+	AudioAsset::Register(U"explosion", U"resources/musics/items/game/shoekick/explosion.mp3");
+	AudioAsset::Register(U"pop", U"resources/musics/items/game/shoekick/pop.mp3");
 
 }
 Shoe::~Shoe() {
 	delete texture;
+	delete effects;
+	delete rocketEffect;
+	delete angelEffect;
 }
 void Shoe::setAngle(bool rotate) {
 	isRotation = rotate;
@@ -41,7 +48,13 @@ bool Shoe::update() {
 		setAngle(false);//回転停止
 		setGround();//座標を地面に修正
 		if (shoeVec.x > 0) {//少し右に惰性で動かす
-			shoeVec.x -= 5;
+			if (hasItems->at((int)GACHA_ITEM::ROLLER)) {//ローラーの場合摩擦を緩くする
+				shoeVec.x -= 0.15;
+			}
+			else {
+				shoeVec.x -= 5;
+			}
+			
 			totalShoeVec.x += shoeVec.x;
 		}
 		else {
@@ -89,6 +102,11 @@ void Shoe::setGround() {
 
 void Shoe::setFly(bool fly) {
 	isFly = fly;
+	if (fly) {
+		AudioAsset(U"pop").setPosSec(0);
+		AudioAsset(U"pop").setVolume(0.3);
+		AudioAsset(U"pop").play();
+	}
 }
 bool Shoe::isFlying() {
 	return isFly;
@@ -100,17 +118,21 @@ Vec2 Shoe::getShoePos() {
 
 void Shoe::updateRocket() {
 	constexpr Vec2 rocketVec(0.3, -2);
-	rocketCnt++;
+	
 	if (hasItems->at((int)GACHA_ITEM::ROCKET_BOOSTER)) {
-
+		if (rocketCnt == 0) {
+			AudioAsset(U"explosion").setPosSec(0);
+			AudioAsset(U"explosion").setVolume(0.3);
+			AudioAsset(U"explosion").play();
+		}
 		if (rocketCnt >= 10 && rocketCnt <= 60 * 1.5) {
 			if (rocketCnt <= 30) {
 				shoeVec += rocketVec;
 			}
 			effects->add(rocketEffect, getShoePos());
 		}
-		
 	}
+	rocketCnt++;
 }
 
 void Shoe::updateAngel() {
@@ -122,8 +144,9 @@ void Shoe::updateAngel() {
 				shoeVec = shoeVecInit / 1.5;
 			}
 		}
-		else if(angelCnt <= 20){
+		else if(angelCnt <= 30){
 			angelCnt++;
+			effects->add(angelEffect, getShoePos());
 		}
 
 	}

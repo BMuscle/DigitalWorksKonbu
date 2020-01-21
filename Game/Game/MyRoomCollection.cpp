@@ -178,7 +178,7 @@ void MyRoomCollection::draw() {
 
 	constexpr int ITEM_INTERVAL = 230;//アイテム同士の間隔
 	constexpr float ITEM_SCALED = 0.4;//アイテムの大きさ
-	constexpr int ITEM_OFFSET_X = 100;//左側が大きいのでオフセットで足す
+	constexpr int ITEM_OFFSET_X = 0;//左側が大きいのでオフセットで足す
 	constexpr int ITEM_Y[(int)GAME_TYPE::SIZE] = {
 		200,
 		545,
