@@ -1,6 +1,6 @@
 #include "MyImageEffect.h"
 
-MyImageEffect::MyImageEffect(String filepath, const int frameX, const int frameY, const float switchingTime) {
+MyImageEffect::MyImageEffect(String filepath, const int frameX, const int frameY, const float switchingTime, int rotate) {
 	this->switchingTime = switchingTime;//Ø‘ÖŠÔŠi”[
 	this->frameNumber = frameX * frameY;//ƒtƒŒ[ƒ€”‚ğŠi”[
 	Image baseTexture = Image(filepath);
@@ -10,15 +10,16 @@ MyImageEffect::MyImageEffect(String filepath, const int frameX, const int frameY
 		}
 	}
 	baseTexture.release();//Œ³‰æ‘œ‚ğŠJ•ú
+	this->rotate = rotate;
 }
 MyImageEffect::~MyImageEffect() {
 
 }
 bool MyImageEffect::update(float t, const Vec2& pos) {//ƒI[ƒoƒ‰ƒCƒh@ŒvZˆ—@•`‰æˆ—‚àŒ“‚Ë‚Ä‚¢‚é
 	if (t / switchingTime >= animationTexture.size()) {
-		animationTexture.at(animationTexture.size() - 1).drawAt(pos);//‡”Ô‚É•`‰æ‚·‚é
+		animationTexture.at(animationTexture.size() - 1).rotated(ToRadians(rotate)).drawAt(pos);//‡”Ô‚É•`‰æ‚·‚é
 		return false;//•`‰æI—¹
 	}
-	animationTexture.at(t / switchingTime).drawAt(pos);//‡”Ô‚É•`‰æ‚·‚é
+	animationTexture.at(t / switchingTime).rotated(ToRadians(rotate)).drawAt(pos);//‡”Ô‚É•`‰æ‚·‚é
 	return t < (switchingTime * frameNumber);//ƒtƒŒ[ƒ€‚ğ‘S‚Ä•`‰æ‚µI‚¦‚ê‚Îfalse‚ğ•Ô‚·
 }

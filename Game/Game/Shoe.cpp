@@ -20,10 +20,10 @@ Shoe::Shoe(Array<bool>* hasItems) {
 
 	//エフェクト初期化
 	effects = new MyEffects();
-	rocketEffect = new MyImageEffect(U"resources/images/items/game/shoekick/game/effects/rocket.png", 5, 4, 0.02);
+	rocketEffect = new MyImageEffect(U"resources/images/items/game/shoekick/game/effects/rocket.png", 8, 1, 0.01, -60);
 	rocketCnt = 0;
 
-	angelEffect = new MyImageEffect(U"resources/images/items/game/shoekick/game/effects/angel.png", 5, 3, 0.01);
+	angelEffect = new MyImageEffect(U"resources/images/items/game/shoekick/game/effects/angel.png", 5, 3, 0.02);
 	angelCnt = 0;
 
 	AudioAsset::Register(U"explosion", U"resources/musics/items/game/shoekick/explosion.mp3");
