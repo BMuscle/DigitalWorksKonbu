@@ -300,6 +300,12 @@
     <ClCompile Include="ShoeKickResult.cpp">
       <Filter>Source Files\Scene\Game\ShoeKick</Filter>
     </ClCompile>
+    <ClCompile Include="DodgeHitMotion.cpp">
+      <Filter>Source Files\Scene\Game\Dodge</Filter>
+    </ClCompile>
+    <ClCompile Include="DodgeCharacter.cpp">
+      <Filter>Source Files\Scene\Game\Dodge</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -704,6 +710,18 @@
       <Filter>Header Files\Scene\Game\Dodge</Filter>
     </ClInclude>
     <ClInclude Include="DodgeTitle.h">
+      <Filter>Header Files\Scene\Game\Dodge</Filter>
+    </ClInclude>
+    <ClInclude Include="Scope.h">
+      <Filter>Header Files\Scene\Game\Dodge</Filter>
+    </ClInclude>
+    <ClInclude Include="DodgeResult.h">
+      <Filter>Header Files\Scene\Game\Dodge</Filter>
+    </ClInclude>
+    <ClInclude Include="DodgeHitMotion.h">
+      <Filter>Header Files\Scene\Game\Dodge</Filter>
+    </ClInclude>
+    <ClInclude Include="DodgeCharacter.h">
       <Filter>Header Files\Scene\Game\Dodge</Filter>
     </ClInclude>
   </ItemGroup>

@@ -111,6 +111,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DodgeCharacter.cpp" />
+    <ClCompile Include="DodgeHitMotion.cpp" />
     <ClCompile Include="Shoe.cpp" />
     <ClCompile Include="ShoeCharacter.cpp" />
     <ClCompile Include="CreateSaveData.cpp" />
@@ -275,6 +277,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DodgeCharacter.h" />
+    <ClInclude Include="DodgeHitMotion.h" />
+    <ClInclude Include="DodgeResult.h" />
+    <ClInclude Include="Scope.h" />
     <ClInclude Include="Shoe.h" />
     <ClInclude Include="ShoeCharacter.h" />
     <ClInclude Include="CreateSaveData.h" />

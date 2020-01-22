@@ -3,6 +3,8 @@
 #include"DodgeSceneBase.h"
 #include"DodgeTitle.h"
 #include"DodgeGame.h"
+#include"DodgeResult.h"
+#include"DodgeHitMotion.h"
 
 
 

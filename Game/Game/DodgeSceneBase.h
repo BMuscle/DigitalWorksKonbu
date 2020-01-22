@@ -3,6 +3,7 @@
 enum class DODGE_SCENE {
 	TITLE,
 	GAME,
+	MOTION,
 	RESULT,
 	SIZE,
 };

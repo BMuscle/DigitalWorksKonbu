@@ -12,17 +12,19 @@ DodgeTitle::~DodgeTitle() {
 	TextureAsset::Unregister(U"dodgeback");
 	delete backAudio;
 }
+
 void DodgeTitle::start(void) {	//ロード空けた後に実行されるもの
 	//BGM再生開始
 	backAudio = new Audio(U"resources/musics/backs/dodge.wav");
 	backAudio->setLoop(true);
 	backAudio->play();
 }
+
 void DodgeTitle::update() {
-	if (MyKey::getUpKeyDown()) {//上キー入力
+	if (MyKey::getRightKeyDown()) {//上キー入力
 		nowselect = GAME;
 	}
-	else if (MyKey::getDownKeyDown()) {//下キー入力
+	else if (MyKey::getLeftKeyDown()) {//下キー入力
 		nowselect = MAP;
 	}
 	else if (MyKey::getDecisionKey()) {
@@ -39,6 +41,7 @@ void DodgeTitle::update() {
 		}
 	}
 }
+
 void DodgeTitle::draw() {
 	
 	TextureAsset(U"dodgeback").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
