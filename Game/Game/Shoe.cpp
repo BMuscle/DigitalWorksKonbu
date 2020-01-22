@@ -26,8 +26,11 @@ Shoe::Shoe(Array<bool>* hasItems) {
 	angelEffect = new MyImageEffect(U"resources/images/items/game/shoekick/game/effects/angel.png", 5, 3, 0.02);
 	angelCnt = 0;
 
-	AudioAsset::Register(U"explosion", U"resources/musics/items/game/shoekick/explosion.mp3");
-	AudioAsset::Register(U"pop", U"resources/musics/items/game/shoekick/pop.mp3");
+	AudioAsset::Register(U"explosion", U"resources/musics/items/game/shoekick/explosion.wav");
+	AudioAsset::Register(U"pop", U"resources/musics/items/game/shoekick/pop.wav");
+	AudioAsset::Register(U"kira", U"resources/musics/items/game/shoekick/kira.wav");
+	AudioAsset::Register(U"slide", U"resources/musics/items/game/shoekick/slide.wav");
+	AudioAsset::Register(U"roll", U"resources/musics/items/game/shoekick/roll.wav");
 
 }
 Shoe::~Shoe() {
@@ -35,6 +38,11 @@ Shoe::~Shoe() {
 	delete effects;
 	delete rocketEffect;
 	delete angelEffect;
+	AudioAsset::Unregister(U"explosion");
+	AudioAsset::Unregister(U"pop");
+	AudioAsset::Unregister(U"kira");
+	AudioAsset::Unregister(U"slide");
+	AudioAsset::Unregister(U"roll");
 }
 void Shoe::setAngle(bool rotate) {
 	isRotation = rotate;
@@ -49,16 +57,26 @@ bool Shoe::update() {
 		setGround();//座標を地面に修正
 		if (shoeVec.x > 0) {//少し右に惰性で動かす
 			if (hasItems->at((int)GACHA_ITEM::ROLLER)) {//ローラーの場合摩擦を緩くする
-				shoeVec.x -= 0.15;
+				shoeVec.x -= 0.1;
+				/*
+				AudioAsset(U"roll").setVolume(0.3);
+				AudioAsset(U"roll").play();
+				*/
+				AudioAsset(U"slide").setVolume(0.3);
+				AudioAsset(U"slide").setSpeed(0.2);
+				AudioAsset(U"slide").play();
 			}
 			else {
 				shoeVec.x -= 5;
+				AudioAsset(U"slide").setVolume(0.3);
+				AudioAsset(U"slide").play();
 			}
-			
 			totalShoeVec.x += shoeVec.x;
 		}
 		else {
 			shoeVec.x = 0;
+			AudioAsset(U"roll").stop();
+			AudioAsset(U"slide").stop();
 			return false;
 		}
 	}
@@ -142,6 +160,9 @@ void Shoe::updateAngel() {
 			if (SHOE_INIT_Y < totalShoeVec.y) {
 				angelCnt++;//２段ジャンプ開始
 				shoeVec = shoeVecInit / 1.5;
+				AudioAsset(U"kira").setPosSec(0);
+				AudioAsset(U"kira").setVolume(0.3);
+				AudioAsset(U"kira").play();
 			}
 		}
 		else if(angelCnt <= 30){

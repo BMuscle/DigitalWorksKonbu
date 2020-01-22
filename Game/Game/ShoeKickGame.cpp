@@ -65,8 +65,8 @@ ShoeKickGame::ShoeKickGame(SHOEKICK_SCENE* scenep) : ShoeKickSceneBase(scenep) {
 	isDescription = true;
 
 
-	AudioAsset::Register(U"whistle", U"resources/musics/items/game/shoekick/whistle.mp3");
-	AudioAsset::Register(U"drum", U"resources/musics/items/game/shoekick/drum.mp3");
+	AudioAsset::Register(U"whistle", U"resources/musics/items/game/shoekick/whistle.wav");
+	AudioAsset::Register(U"drum", U"resources/musics/items/game/shoekick/drum.wav");
 
 }
 ShoeKickGame::~ShoeKickGame() {

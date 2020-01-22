@@ -17,8 +17,8 @@ ShoeCharacter::ShoeCharacter(Vec2 init): moveSpeed(Vec2(moveSpeedX,0)) {
 	jumpSpeed = Vec2(0, 0);
 	moveCnt = 0;
 
-	AudioAsset::Register(U"jump", U"resources/musics/items/game/shoekick/jump.mp3");
-	AudioAsset::Register(U"dash", U"resources/musics/items/game/shoekick/dash.mp3");
+	AudioAsset::Register(U"jump", U"resources/musics/items/game/shoekick/jump.wav");
+	AudioAsset::Register(U"dash", U"resources/musics/items/game/shoekick/dash.wav");
 }
 ShoeCharacter::~ShoeCharacter() {
 	for (int i = 0; i < textureArray.size(); i++) {
