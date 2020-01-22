@@ -6,8 +6,8 @@ DodgeHitMotion::DodgeHitMotion(DODGE_SCENE* nextScene, int ballCnt,float dVeloci
 	this->dVelocity = dVelocity;
 	this->hitLevel = hitLevel; 
 	
-	pSpawn = Vec2(200,800);
-	bSpawn = Vec2(1500,250);
+	pSpawn = Vec2(850,700);
+	bSpawn = Vec2(1150,650);
 	FontAsset::Register(U"dodgefont", 70);
 	FontAsset::Preload(U"dodgefont");
 	TextureAsset::Register(U"landscape", U"resources/images/backs/landscape.jpg");
@@ -17,6 +17,7 @@ DodgeHitMotion::DodgeHitMotion(DODGE_SCENE* nextScene, int ballCnt,float dVeloci
 	ball = Ball(bSpawn, U"resources/images/items/game/dodge/ball.png", this->dVelocity);
 	nowselect = ANIME;
 	judge = NONE;
+	ballDraw = false;
 
 	judgeHitSensorState();
 	judgeHitOrMiss();
@@ -66,10 +67,14 @@ void DodgeHitMotion::draw() {
 		if (!player.drawCompletecheck()) {
 			player.draw();
 			if (player.isBallThrow()) {
-				
+				ballDraw = true;
 			}
 			player.ChangeChip();
+		}
+		if (ballDraw==true) {
+			player.draw();
 			ball.Draw();
+			ball.Move();
 		}
 		break;
 
@@ -96,7 +101,6 @@ void DodgeHitMotion::judgeHitSensorState() {
 	else if (dVelocity >= 10)speed = NORMAL;
 	else if (dVelocity >= 5)speed = LATE;
 	//センサーの値で分岐（FAST,NORMAL,LATE）
-	
 }
 
 void DodgeHitMotion::judgeHitOrMiss() {

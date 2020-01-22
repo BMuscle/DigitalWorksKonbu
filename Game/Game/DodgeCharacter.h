@@ -23,8 +23,8 @@ public:
 		chipCnt = 0;
 		vec = Vec2(0, 0);
 		Image baseimage = Image(filepath);
-		int chipW=baseimage.width()/ DODGE_CHAR_CHIP_SIZE;
-		int chipH= baseimage.height() / (int)CHAR_DIR::SIZE;
+		float chipW=baseimage.width()/ DODGE_CHAR_CHIP_SIZE;
+		float chipH= baseimage.height() / (int)CHAR_DIR::SIZE;
 		for (int dir = 0; dir < (int)CHAR_DIR::SIZE; dir++) {
 			for (int i = 0; i < DODGE_CHAR_CHIP_SIZE; i++) {
 				charChip[dir][i] = new Texture(baseimage.clipped(chipW * i, chipH * dir, chipW, chipH));
@@ -33,7 +33,7 @@ public:
 	}
 
 	void Move(int M) {	//ˆÚ“®‚ðŠ®—¹‚·‚é
-		if (chipCnt == 10) {
+		if (chipCnt == 15) {
 			chipCnt = 0;
 			nowChip++;
 			if (nowChip >= DODGE_CHAR_CHIP_SIZE)nowChip = 0;
@@ -90,7 +90,6 @@ private:
 		else if (angle < 225)return CHAR_DIR::W;
 		else
 			return CHAR_DIR::N;
-		
 	}
 	CHAR_DIR nowDir;//Œ»Ý‚Ì•ûŒü
 	int nowChip;
