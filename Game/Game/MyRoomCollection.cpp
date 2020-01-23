@@ -33,9 +33,12 @@ MyRoomCollection::MyRoomCollection(MYROOM_SCENE* scenep) :MyRoomSceneBase(scenep
 	initializeCollectionTable();
 
 	alpha = 0;
+
+	TextureAsset::Register(U"myroomcursor",U"resources/images/items/myroom/collection/cursor.png");
 }
 MyRoomCollection::~MyRoomCollection() {
 	TextureAsset::Unregister(U"myroomback");
+	TextureAsset::Unregister(U"myroomcursor");
 	FontAsset::Unregister(U"myroomsmallfont");
 	AudioAsset::Unregister(U"deci2");
 
@@ -212,10 +215,12 @@ void MyRoomCollection::draw() {
 			TextureAsset(csvItem[(int)GAME_TYPE::DODGE].get<String>(row, 1)).scaled(ITEM_SCALED).drawAt(x, ITEM_Y[(int)GAME_TYPE::DODGE], AlphaF(ITEM_ALPHA));
 		}
 	}
+	//‘I‘ð‚³‚ê‚Ä‚¢‚é‚à‚Ì‚Ì•`‰æ
 	if (!isButtonSelect && hasItem) {
 		int median = csvItem[selectedItem.row].rows() / 2;
 		int x = (Window::ClientWidth() / 2) + ((selectedItem.column - median) * ITEM_INTERVAL) + ITEM_OFFSET_X;//‰æ–Ê’†‰›‚ÉƒZƒ“ƒ^ƒŠƒ“ƒO‚³‚ê‚é‚æ‚¤•`‰æ
 		TextureAsset(csvItem[selectedItem.row].get<String>(selectedItem.column, 1)).scaled(ITEM_SCALED).drawAt(x, ITEM_Y[selectedItem.row]);
+		TextureAsset(U"myroomcursor").drawAt(x, ITEM_Y[selectedItem.row]);
 	}
 
 
