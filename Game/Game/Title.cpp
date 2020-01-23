@@ -1,9 +1,9 @@
 #include "Title.h"
 
 Title::Title(void) {
-	FontAsset::Register(U"titlefont", 70);
+	FontAsset::Register(U"titlefont", 80);
 	FontAsset::Preload(U"titlefont");
-	TextureAsset::Register(U"titleback", U"resources/images/backs/title.jpg", AssetParameter::LoadAsync());
+	TextureAsset::Register(U"titleback", U"resources/images/backs/title.png", AssetParameter::LoadAsync());
 	AudioAsset::Register(U"titledecision", U"resources/musics/items/title/decision.wav");
 }
 
@@ -45,8 +45,8 @@ void Title::draw(void) {
 	//îwåiÇÃï`âÊ
 	TextureAsset(U"titleback").draw();
 	//É^ÉCÉgÉãÇÃÉtÉHÉìÉg
-	FontAsset(U"titlefont")(U"Å`Press Button To StartÅ`").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() - 150 + 3, ColorF(0, 0, 0, alpha - 0.05));
-	FontAsset(U"titlefont")(U"Å`Press Button To StartÅ`").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() - 150, AlphaF(alpha));
+	FontAsset(U"titlefont")(U"Å` Play Å`").drawAt(Window::ClientWidth() *0.27, Window::ClientHeight() - 200 + 3, ColorF(0, 0, 0, alpha - 0.05));
+	FontAsset(U"titlefont")(U"Å` Play Å`").drawAt(Window::ClientWidth() * 0.27, Window::ClientHeight() - 200, AlphaF(alpha));
 }
 
 void Title::changeAlpha(void) {
