@@ -217,7 +217,7 @@ void ShoeKickGame::updateKick() {
 		setNextState(FLY);//シーン移行する
 		shoe->setFly(true);
 		if (kickPower <= 0) {
-			kickPower = 20.0;
+			kickPower = 2;
 		}
 		shoe->setShoeVector(kickPower);//靴飛ばしのパワーを求める。
 	}
