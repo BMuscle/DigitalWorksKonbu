@@ -94,6 +94,7 @@ void SelectSaveData::start(void) {
 	backAudio->play();
 }
 void SelectSaveData::update(void) {
+
 	if (isPopUp) {//ポップアップ選択状態の場合
 		if (MyKey::getDecisionKey()) {
 			if (popUpState == POPUP::DECISION) {
@@ -138,6 +139,8 @@ void SelectSaveData::update(void) {
 		}
 		
 		GeneralSoundEffects::play(SE_NAME::DECISION);
+	}else if (MyKey::getReturnKey()) {
+		MySceneManager::setNextScene(SCENE::TITLE);
 	}
 	else if (MyKey::getRightKeyDown()) {//ユーザー存在するなら削除ボタンを選択させる
 		if (!selectDeleteButton && User::isUser(getSelectUser_Id())) {

@@ -66,7 +66,9 @@ void SelectMode::start(void) {
 }
 void SelectMode::update(void) {
 	updateFrameCount();//フレーム数カウント更新
-	if (MyKey::getDecisionKey()) {
+	if (MyKey::getReturnKey()) {
+		MySceneManager::setNextScene(SCENE::SELECT_SAVEDATA);
+	}else if (MyKey::getDecisionKey()) {
 		if (getSelectedMode() == MODE::MYROOM) {//マイルームシーンへ移行
 			MySceneManager::setNextScene(SCENE::MYROOM);
 		}
