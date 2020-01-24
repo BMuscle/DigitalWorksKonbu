@@ -4,10 +4,12 @@
 DodgeGame::DodgeGame(DODGE_SCENE* nextScene, int ballCnt) :DodgeSceneBase(nextScene) {
 	this->ballCnt = ballCnt;
 
+	spawn = Vec2(340, 60);
+	scope = Scope(50, spawn);
+	ballplace = Vec2(1500, 960);
+
 	TextureAsset::Register(U"rule",U"resources/images/backs/rule.jpg");
-	TextureAsset::Register(U"landscape",U"resources/images/backs/landscape.jpg");
-
-
+	TextureAsset::Register(U"landscape",U"resources/images/items/game/dodge/gameback.png");
 	if (ballCnt == DEFAULT) {
 		nowselect=RULE;
 	}
@@ -17,14 +19,14 @@ DodgeGame::DodgeGame(DODGE_SCENE* nextScene, int ballCnt) :DodgeSceneBase(nextSc
 
 	//ゲームスタート！（文字）（効果音）
 
-	spawn = Vec2(340, 60);
-	scope = Scope(50, spawn);
 
 	//配列に入れる処理
 	for (int i = 0; i < 5; i++) {
-		mobs.push_back(DodgeCharacter(Vec2(Random(280, 1600), Random(50, 900)), U"resources/images/items/game/dodge/mob.png"));
+		mobs.push_back(DodgeCharacter(Vec2(Random(AREA_LEFT, AREA_RIGHT), Random(AREA_UP, AREA_DOWN)), U"resources/images/items/game/dodge/mob.png"));
 	}
-
+	for (int i = 0; i < ballCnt; i++) {
+		balllife.push_back( BallLife(ballplace, U"resources/images/items/game/dodge/balllife.png", i));
+	}
 	target = DodgeCharacter(Vec2(480, 450), U"resources/images/items/game/dodge/target.png");
 	Scopeimage = Texture(U"resources/images/backs/Scopeimage.png");
 
@@ -108,6 +110,10 @@ void DodgeGame::draw()
 			//スコープの描写
 			Scopeimage.drawAt(scope.getPlace());//描画処理draw
 
+			//ボールの残機表示
+			for (auto& balllife : balllife) {
+				balllife.Draw();
+			}
 			Rect(0, Window::ClientHeight() * 0.5, Window::ClientWidth(), 10).draw(ColorF(1, 0, 0));
 			for (int i = 0; i < 20; i++) {
 				Rect(i * 100, Window::ClientHeight() * 0.5, 3, 100).draw(ColorF(1, 0, 0));

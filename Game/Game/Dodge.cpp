@@ -38,6 +38,7 @@ void Dodge::changeScene() {
 	int ballCnt;
 	float dVelocity;
 	int hitLevel;
+	struct Score score;
 	switch (nextscene)
 	{
 	case DODGE_SCENE::TITLE:
@@ -47,20 +48,22 @@ void Dodge::changeScene() {
 	case DODGE_SCENE::GAME:
 		if (nowscene == DODGE_SCENE::MOTION) {
 			ballCnt = ((DodgeHitMotion*)scene)->getBallCnt();
+			score = ((DodgeHitMotion*)scene)->getScore();
 		}
 		else{
 			ballCnt = DEFAULT;//最初のボール残機
 		}
 
 		delete scene;
-		scene = new DodgeGame(&nextscene, ballCnt);
+		scene = new DodgeGame(&nextscene, ballCnt,score);
 		break;
 	case DODGE_SCENE::MOTION:
 		ballCnt = ((DodgeGame*)scene)->getBallCnt();
 		dVelocity = ((DodgeGame*)scene)->getDVelocity();
 		hitLevel = ((DodgeGame*)scene)->getHitLevel();
+		score = ((DodgeGame*)scene)->getScore();
 		delete scene;
-		scene = new DodgeHitMotion(&nextscene, ballCnt, dVelocity, hitLevel);
+		scene = new DodgeHitMotion(&nextscene, ballCnt, dVelocity, hitLevel,score);
 		break;
 	case DODGE_SCENE::RESULT:
 		delete scene;

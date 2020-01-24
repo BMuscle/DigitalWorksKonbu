@@ -29,14 +29,29 @@ public:
 	int getHitLevel();
 
 private:
-	int HitScopeCheck(int r1,Vec2 z1,int r2,Vec2 z2);
-	bool getHitSensorState();
 	//ˆø”
 	int ballCnt;
 	float dVelocity;
 	int hitLevel;
 
+	struct BallLife {
+	public:
+		BallLife() {
+		}
+		BallLife(Vec2 p,String filepath,int i) {
+			pos = p;
+			ballimage=Texture(filepath);
+			vec = Vec2(i* ballimage.width(),0);
+		}
 
+		void Draw() {
+			ballimage.draw(pos+vec);
+		}
+	private:
+		Texture ballimage;
+		Vec2 pos;	
+		Vec2 vec;	//‰E•ûŒüˆÚ“®—Ê
+	};
 
 	int flag = 1;
 	int radius = 20;
@@ -45,9 +60,21 @@ private:
 	struct Scope scope;
 	Vec2 initial;
 	Vec2 spawn;
+	Vec2 ballplace;
 	Audio* backAudio;
 	STAGE nowselect;
 	Array<DodgeCharacter> mobs;
+	Array<struct BallLife> balllife;
 	Texture Scopeimage;
-	
+	int HitScopeCheck(int r1, Vec2 z1, int r2, Vec2 z2);
+	bool getHitSensorState();
+};
+
+struct Score {
+public:
+	bool hit;
+	float hitlevel;
+	float velocity;
+
+private:
 };

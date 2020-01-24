@@ -2,10 +2,10 @@
 #include <Siv3D.hpp>
 #include<math.h>
 
-#define AREA_LEFT 280 
+#define AREA_LEFT 260 
 #define AREA_RIGHT 1600 
-#define AREA_UP 50 
-#define AREA_DOWN 900 
+#define AREA_UP 110 
+#define AREA_DOWN 800
 #define DODGE_CHAR_CHIP_SIZE 3
 constexpr int MOVE_COUNT = 50;
 

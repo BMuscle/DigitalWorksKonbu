@@ -1,11 +1,11 @@
 #include"DodgeHitMotion.h"
 
 
-DodgeHitMotion::DodgeHitMotion(DODGE_SCENE* nextScene, int ballCnt,float dVelocity,int hitLevel) :DodgeSceneBase(nextScene) {
+DodgeHitMotion::DodgeHitMotion(DODGE_SCENE* nextScene, int ballCnt,float dVelocity,int hitLevel,struct Score score) :DodgeSceneBase(nextScene) {
 	this->ballCnt = ballCnt;
 	this->dVelocity = dVelocity;
 	this->hitLevel = hitLevel; 
-	
+	this->score = score;
 	pSpawn = Vec2(850,700);
 	bSpawn = Vec2(1150,650);
 	FontAsset::Register(U"dodgefont", 70);
@@ -95,7 +95,6 @@ void DodgeHitMotion::draw() {
 
 }
 
-
 void DodgeHitMotion::judgeHitSensorState() {
 	if (dVelocity>= 15)speed = FAST;
 	else if (dVelocity >= 10)speed = NORMAL;
@@ -112,5 +111,9 @@ void DodgeHitMotion::judgeHitOrMiss() {
 
 int DodgeHitMotion::getBallCnt() {
 	return ballCnt;
+}
+
+struct DodgeHitMotion::getScore() {
+	return score;
 }
 

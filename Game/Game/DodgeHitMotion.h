@@ -4,6 +4,7 @@
 #include"MyKey.h"
 #include"Dodge.h"
 #include"MySceneManager.h"
+#include"DodgeGame.h"
 
 #define DODGE_PLAYER_ROW_SIZE 6
 #define DODGE_PLAYER_LINE_SIZE 4
@@ -17,23 +18,16 @@ constexpr Vec2 E = Vec2(1, 3);
 constexpr Vec2 F = Vec2(1, 3);
 constexpr Vec2 END = Vec2(1, 3);
 
-/*enum  USEFULCHIP{
- A = (2, 0),
- B = (2, 2),
- C = (2, 0),
- D = (1, 4),
- E = (1, 3),
- END,
-};*/
 
 class DodgeHitMotion :public DodgeSceneBase {
 public:
-	DodgeHitMotion(DODGE_SCENE* nextScene, int ballCnt,float dVelocity,int hitLevel);
+	DodgeHitMotion(DODGE_SCENE* nextScene, int ballCnt,float dVelocity,int hitLevel,struct Score score);
 	~DodgeHitMotion();
 	void start(void);
 	void update();
 	void draw();
 	int getBallCnt();
+	struct getScore();
 
 private:
 	//à¯êî
@@ -176,6 +170,7 @@ private:
 	bool ballDraw;
 	struct Ball ball;
 	struct DodgePlayer player;
+	struct Score score;
 };
 
 
