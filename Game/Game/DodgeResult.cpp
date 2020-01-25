@@ -19,11 +19,11 @@ DodgeResult::DodgeResult(DODGE_SCENE* nextScene,Score score) :DodgeSceneBase(nex
 	button[TITLE] = new MyImageButton(U"resources/images/items/game/dodge/title", U"", 0, 1800, Window::ClientHeight() * 0.5);
 
 	//’lƒeƒXƒg—p‰Šú‰»
-	for (int i = 0; i < DODGE_GAME_PLAY_COUNT; i++) {
+	/*for (int i = 0; i < DODGE_GAME_PLAY_COUNT; i++) {
 		dVelocity[i] = 10;
 		hitLevel[i] = 50;
 		hit[i] = true;
-	}
+	}*/
 }
 DodgeResult::~DodgeResult() {
 	TextureAsset::Unregister(U"dodgeback");
@@ -80,7 +80,7 @@ void DodgeResult::draw() {
 	TextureAsset(U"dodgeresult").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
 	//•¶š•`‰æ
 	for (int i = 0; i < DODGE_GAME_PLAY_COUNT; i++) {
-		if (hit[i]) { subFont(U"Z").drawAt(basePosX[0], basePosY[i], Color(255,204,255)); }
+		if (hit[i]) { subFont(U"Z").drawAt(basePosX[0], basePosY[i], Color(234, 245, 152)); }
 		else { subFont(U"~").drawAt(basePosX[0], basePosY[i], Color(153, 255,255)); }
 		subFont(Format(dVelocity[i])).drawAt(basePosX[1], basePosY[i]);
 		subFont(Format(hitLevel[i]) + U"%").drawAt(basePosX[2], basePosY[i]);

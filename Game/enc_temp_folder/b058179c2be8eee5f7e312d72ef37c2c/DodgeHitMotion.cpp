@@ -29,7 +29,6 @@ DodgeHitMotion::~DodgeHitMotion() {
 	FontAsset::Unregister(U"dodgefont");
 	TextureAsset::Unregister(U"dodgeback");
 	delete backAudio;
-
 }
 
 void DodgeHitMotion::start(void) {	//ÉçÅ[ÉhãÛÇØÇΩå„Ç…é¿çsÇ≥ÇÍÇÈÇ‡ÇÃ

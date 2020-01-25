@@ -28,8 +28,8 @@ public:
 	void start(void);
 	void update();
 	void draw();
-	int getBallCnt();
-	struct Score getScore();
+	int getBallCnt();			//引数用関数
+	struct Score getScore();	//引数用関数
 
 private:
 	//引数
@@ -166,6 +166,7 @@ private:
 	
 	void judgeHitSensorState();//センサーの値でランク付け
 	void judgeHitOrMiss();		//センサーの値とスコープの命中度で総合判定(HIT or MISS)
+	void scoreStore();//配列に格納（HIT/MISS velocity hitLevel ）
 	SPEED speed;
 	MODE nowselect;
 	STATE judge =NONE;
