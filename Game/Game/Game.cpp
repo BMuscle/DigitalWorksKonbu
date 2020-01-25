@@ -49,7 +49,7 @@ void Game::start(void) {
 }
 void Game::update(void) {
 	//if (MySocketServer::isConnection()) {//コントローラーコネクション確立時
-	if (!MySocketServer::isConnection()) {//デバッグ用
+		if (!MySocketServer::isConnection()) {//デバッグ用
 		if (isStop) {
 			if (MyKey::getRightKeyDown()) {
 				popUpState = POPUP::RESTART;//ポップアップをマップへに
