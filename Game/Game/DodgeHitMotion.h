@@ -173,6 +173,8 @@ private:
 	Audio* backAudio;
 	Vec2 pSpawn;
 	Vec2 bSpawn;
+	Font subFont;
+	Font mainFont;
 	bool ballDraw;
 	struct Ball ball;
 	struct DodgePlayer player;

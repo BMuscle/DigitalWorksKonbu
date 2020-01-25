@@ -77,10 +77,10 @@ void DodgeGame::update()
 
 		//Ä•`‰æ
 		if (scope.getPlace().y > 800 ) {//‰º‚Ü‚Ås‚Á‚½‚ç
-			scope.setPlace(Vec2(scope.getPlace().x + 30, -50));
+			scope.setPlace(Vec2(scope.getPlace().x + 50, -50));
 		}
 		if (scope.getPlace().x > Window::ClientHeight()) {
-			scope.setPlace(Vec2(-50, scope.getPlace().y));
+			scope.setPlace(Vec2(260, scope.getPlace().y));
 		}
 	}
 

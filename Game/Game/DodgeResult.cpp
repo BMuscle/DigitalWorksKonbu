@@ -81,7 +81,7 @@ void DodgeResult::draw() {
 	TextureAsset(U"dodgeresult").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
 	//•¶Žš•`‰æ
 	for (int i = 0; i < DODGE_GAME_PLAY_COUNT; i++) {
-		if (hit[i]) { subFont(U"Z").drawAt(basePosX[0], basePosY[i], Color(234, 245, 152)); }
+		if (hit[i]) { subFont(U"Z").drawAt(basePosX[0], basePosY[i], Color(255,182,193)); }
 		else { subFont(U"~").drawAt(basePosX[0], basePosY[i], Color(153, 255,255)); }
 		subFont(Format(dVelocity[i])).drawAt(basePosX[1], basePosY[i]);
 		subFont(Format(hitLevel[i]) + U"%").drawAt(basePosX[2], basePosY[i]);

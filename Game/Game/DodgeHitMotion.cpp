@@ -10,6 +10,8 @@ DodgeHitMotion::DodgeHitMotion(DODGE_SCENE* nextScene, int ballCnt,float dVeloci
 	bSpawn = Vec2(1150,650);
 	FontAsset::Register(U"dodgefont", 70);
 	FontAsset::Preload(U"dodgefont");
+	subFont = Font(200, U"resources/font/kokuban.ttf");
+	mainFont = Font(150, U"resources/font/RiiPopkkR.otf");
 	TextureAsset::Register(U"landscape", U"resources/images/backs/landscape.jpg");
 	TextureAsset::Register(U"motionback", U"resources/images/backs/gacha.png", AssetParameter::LoadAsync());
 	//プレイヤーコンストラクタ引数
@@ -85,6 +87,10 @@ void DodgeHitMotion::draw() {
 			ball.Draw();
 			ball.Move();
 		}
+		mainFont(U"加速度").drawAt(300, 100, Color(255, 182, 193));
+		mainFont(U"命中率").drawAt(300, 400, Color(255, 182, 193));
+		subFont(Format(dVelocity)).drawAt(400,250, Color(153, 255, 255));
+		subFont(Format(hitLevel)).drawAt(400, 550, Color(153, 255, 255));
 		break;
 
 	case DodgeHitMotion::JUDGE:
