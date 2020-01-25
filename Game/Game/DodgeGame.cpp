@@ -71,6 +71,7 @@ void DodgeGame::update()
 
 			hitLevel = HitScopeCheck(scope.getRadius(), scope.getPlace(), target.getRadius(), target.getPlace());//スコープ、ターゲット
 
+
 			nowselect = MOTION;
 		}
 
@@ -130,12 +131,14 @@ void DodgeGame::draw()
 int DodgeGame::HitScopeCheck(int r1, Vec2 z1, int r2, Vec2 z2)//スコープ　ターゲット
 {	//スコープとどれだけ当たっているか（Hitlevel）
 	float d;
+	int result;
 	Vec2 gap(z2 - z1);
 	gap.x = abs(gap.x);
 	gap.y = abs(gap.y);
 	d = sqrt((gap.x * gap.x) + (gap.y * gap.y));
-
-	return ((abs(r1+r2)-d)/(r1+r2))*100;	//接している割合hitLevelに0％以上が返る
+	result = ((abs(r1 + r2) - d) / (r1 + r2)) * 100;
+	if (result < 0)return 0;
+	else return result;	//接している割合hitLevelに0％以上が返る
 
 }
 

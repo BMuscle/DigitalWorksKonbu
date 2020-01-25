@@ -23,13 +23,13 @@ public:
 	Score() {
 		for (int i = 0; i < DODGE_GAME_PLAY_COUNT; i++) {
 			hit[i] = false;
-			hitlevel[i] = 0;
+			hitLevel[i] = 0;
 			dVelocity[i] = 0;
 		}
 	}
 
 	bool hit[DODGE_GAME_PLAY_COUNT];
-	float hitlevel[DODGE_GAME_PLAY_COUNT];
+	float hitLevel[DODGE_GAME_PLAY_COUNT];
 	float dVelocity[DODGE_GAME_PLAY_COUNT];
 
 private:

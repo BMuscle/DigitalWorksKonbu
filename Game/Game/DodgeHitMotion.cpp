@@ -128,7 +128,7 @@ struct Score DodgeHitMotion::getScore() {
 
 void DodgeHitMotion::scoreStore() {
 	score.hit[DEFAULT - (ballCnt+1)] = judge;
-	score.hitlevel[DEFAULT - (ballCnt + 1)] = hitLevel;
+	score.hitLevel[DEFAULT - (ballCnt + 1)] = hitLevel;
 	score.dVelocity[DEFAULT - (ballCnt + 1)] = dVelocity;
 
 }

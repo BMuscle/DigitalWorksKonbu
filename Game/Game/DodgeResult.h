@@ -34,7 +34,7 @@ private:
 	MyImageButton* button[SIZE];
 
 	float dVelocity[DODGE_GAME_PLAY_COUNT];//‰Á‘¬“x
-	int hitLevel[DODGE_GAME_PLAY_COUNT];//–½’†—¦
+	float hitLevel[DODGE_GAME_PLAY_COUNT];//–½’†—¦
 	bool hit[DODGE_GAME_PLAY_COUNT];//“–‚½‚Á‚½‚©‚Ç‚¤‚©
 
 };

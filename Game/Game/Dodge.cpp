@@ -37,7 +37,7 @@ void Dodge::restartGame() {
 void Dodge::changeScene() {
 	int ballCnt;
 	float dVelocity;
-	int hitLevel;
+	float hitLevel;
 	struct Score score;
 	switch (nextscene)
 	{
