@@ -1,8 +1,14 @@
 #include"DodgeResult.h"
 
 
-DodgeResult::DodgeResult(DODGE_SCENE* nextScene) :DodgeSceneBase(nextScene) {
-	TextureAsset::Register(U"dodgeresult", U"resources/images/backs/game/dodge/result.png");
+DodgeResult::DodgeResult(DODGE_SCENE* nextScene,Score score) :DodgeSceneBase(nextScene) {
+	this->score = score;
+	TextureAsset::Register(U"dodgeresult", U"resources/images/items/game/dodge/result.png");
+	TextureAsset::Register(U"mapRon", U"resources/images/items/game/dodge/button/sceneresult/map/on.png");
+	TextureAsset::Register(U"mapRoff", U"resources/images/items/game/dodge/button/sceneresult/map/off.png");
+	TextureAsset::Register(U"titleon", U"resources/images/items/game/dodge/button/sceneresult/title/on.png");
+	TextureAsset::Register(U"titleoff", U"resources/images/items/game/dodge/button/sceneresult/title/off.png");
+
 
 	mainFont(70, U"resources/font/kokuban.ttf");
 	subFont = Font(80, U"resources/font/kokuban.ttf");
@@ -83,14 +89,25 @@ void DodgeResult::draw() {
 	switch (nowselect)
 	{
 	case DodgeResult::MAP:
-		button[TITLE]->drawNotWord(false);
-		button[MAP]->drawNotWord(true);
+		TextureAsset(U"mapRon").drawAt(1670, 500);
+		TextureAsset(U"titleoff").drawAt(250, 500);
+		
+		//button[TITLE]->drawNotWord(false);
+		//button[MAP]->drawNotWord(true);
 		break;
 	case DodgeResult::TITLE:
-		button[TITLE]->drawNotWord(true);
-		button[MAP]->drawNotWord(false);
+		TextureAsset(U"titleon").drawAt(250, 500);
+		TextureAsset(U"mapRoff").drawAt(1670, 500);
+	
+		//button[TITLE]->drawNotWord(true);
+		//button[MAP]->drawNotWord(false);
 		break;
 	}
 	
 
+}
+
+//ˆø”ŠÇ—
+struct Score DodgeResult::getScore() {
+	return score;
 }

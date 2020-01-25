@@ -6,6 +6,8 @@
 #include"DodgeCharacter.h"
 #include"Sensor.h"
 
+constexpr int DODGE_GAME_PLAY_COUNT = 3;
+
 #define DEFAULT 3
 
 enum STAGE {
@@ -16,10 +18,27 @@ enum STAGE {
 	STOP,
 };
 
+struct Score {
+public:
+	Score() {
+		for (int i = 0; i < DODGE_GAME_PLAY_COUNT; i++) {
+			hit[i] = false;
+			hitlevel[i] = 0;
+			velocity[i] = 0;
+		}
+	}
+
+	bool hit[DODGE_GAME_PLAY_COUNT];
+	float hitlevel[DODGE_GAME_PLAY_COUNT];
+	float velocity[DODGE_GAME_PLAY_COUNT];
+
+private:
+};
+
 class DodgeGame :public DodgeSceneBase
 {
 public:
-	DodgeGame(DODGE_SCENE* nextScene, int ballCnt);
+	DodgeGame(DODGE_SCENE* nextScene, int ballCnt,struct Score score);
 	~DodgeGame();
 	void start(void);
 	void update();
@@ -27,12 +46,13 @@ public:
 	int getBallCnt();
 	float getDVelocity();
 	int getHitLevel();
-
+	struct Score getScore();
 private:
 	//ˆø”
 	int ballCnt;
 	float dVelocity;
 	int hitLevel;
+	struct Score score;
 
 	struct BallLife {
 	public:
@@ -70,11 +90,3 @@ private:
 	bool getHitSensorState();
 };
 
-struct Score {
-public:
-	bool hit;
-	float hitlevel;
-	float velocity;
-
-private:
-};

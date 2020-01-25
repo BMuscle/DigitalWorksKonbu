@@ -1,14 +1,14 @@
 #include"DodgeGame.h"
 #include"MyKey.h"
 
-DodgeGame::DodgeGame(DODGE_SCENE* nextScene, int ballCnt) :DodgeSceneBase(nextScene) {
+DodgeGame::DodgeGame(DODGE_SCENE* nextScene, int ballCnt,struct Score score) :DodgeSceneBase(nextScene) {
 	this->ballCnt = ballCnt;
-
+	this->score = score;
 	spawn = Vec2(340, 60);
 	scope = Scope(50, spawn);
 	ballplace = Vec2(1500, 960);
 
-	TextureAsset::Register(U"rule",U"resources/images/backs/rule.jpg");
+	TextureAsset::Register(U"rule", U"resources/images/items/game/dodge/rule.png");
 	TextureAsset::Register(U"landscape",U"resources/images/items/game/dodge/gameback.png");
 	if (ballCnt == DEFAULT) {
 		nowselect=RULE;
@@ -28,7 +28,7 @@ DodgeGame::DodgeGame(DODGE_SCENE* nextScene, int ballCnt) :DodgeSceneBase(nextSc
 		balllife.push_back( BallLife(ballplace, U"resources/images/items/game/dodge/balllife.png", i));
 	}
 	target = DodgeCharacter(Vec2(480, 450), U"resources/images/items/game/dodge/target.png");
-	Scopeimage = Texture(U"resources/images/backs/Scopeimage.png");
+	Scopeimage = Texture(U"resources/images/items/game/dodge/Scopeimage.png");
 
 }
 
@@ -95,6 +95,7 @@ void DodgeGame::draw()
 		case START:
 			break;
 		case RULE:
+			TextureAsset(U"landscape").draw();
 			TextureAsset(U"rule").draw();
 			break;
 		case GAME:
@@ -134,7 +135,7 @@ int DodgeGame::HitScopeCheck(int r1, Vec2 z1, int r2, Vec2 z2)
 
 }
 
-//引数用関数＊３
+//引数用関数＊4
 int DodgeGame::getBallCnt() {
 	return ballCnt;
 }
@@ -145,6 +146,10 @@ float DodgeGame::getDVelocity() {
 
 int DodgeGame::getHitLevel() {
 	return hitLevel;
+}
+
+struct Score DodgeGame::getScore() {
+	return score;
 }
 
 //センサの値とる（5未満は未判定）

@@ -2,7 +2,7 @@
 
 
 DodgeHitMotion::DodgeHitMotion(DODGE_SCENE* nextScene, int ballCnt,float dVelocity,int hitLevel,struct Score score) :DodgeSceneBase(nextScene) {
-	this->ballCnt = ballCnt;
+	this->ballCnt = ballCnt-1;
 	this->dVelocity = dVelocity;
 	this->hitLevel = hitLevel; 
 	this->score = score;
@@ -16,11 +16,13 @@ DodgeHitMotion::DodgeHitMotion(DODGE_SCENE* nextScene, int ballCnt,float dVeloci
 	player=DodgePlayer(pSpawn, U"resources/images/items/game/dodge/player.png");
 	ball = Ball(bSpawn, U"resources/images/items/game/dodge/ball.png", this->dVelocity);
 	nowselect = ANIME;
-	judge = NONE;
+	judge = HIT;	//NONE‚É•Ï‚¦‚é
 	ballDraw = false;
+	hiteffect = new MyImageEffect(U"resources/images/items/game/dodge/effect.png",2,5);
+	effects = new MyEffects();
 
 	judgeHitSensorState();
-	judgeHitOrMiss();
+	//judgeHitOrMiss();
 
 }
 DodgeHitMotion::~DodgeHitMotion() {
@@ -41,12 +43,17 @@ void DodgeHitMotion::update()
 		if (nowselect==ANIME&&MyKey::getDecisionKey()) {
 			nowselect = JUDGE;
 		}
-
-		else if (nowselect == JUDGE) {
-				ballCnt--;
+		else if (nowselect == JUDGE ) {
+			if (MyKey::getDecisionKey()) {
 				nowselect = NEXT;
+			}
+			else if (judge == HIT) {
+				effects->add(hiteffect,Vec2(Window::ClientCenter()));
+			}
+			else if (judge == MISS) {
+
+			}
 		}
-		
 		else if (nowselect == NEXT ) {
 			if (MyKey::getDecisionKey()) {
 				if (ballCnt == 0) {
@@ -54,7 +61,8 @@ void DodgeHitMotion::update()
 				}
 				else setNextScene(DODGE_SCENE::GAME);	//ˆø”“n‚·
 			}
-		}	
+		}
+
 }
 
 void DodgeHitMotion::draw() {
@@ -80,7 +88,7 @@ void DodgeHitMotion::draw() {
 
 	case DodgeHitMotion::JUDGE:
 		if (judge == HIT) {
-		
+			effects->draw();
 		}
 		else if(judge == MISS){
 		}
@@ -113,7 +121,7 @@ int DodgeHitMotion::getBallCnt() {
 	return ballCnt;
 }
 
-struct DodgeHitMotion::getScore() {
+struct Score DodgeHitMotion::getScore() {
 	return score;
 }
 

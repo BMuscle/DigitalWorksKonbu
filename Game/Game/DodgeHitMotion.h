@@ -5,6 +5,8 @@
 #include"Dodge.h"
 #include"MySceneManager.h"
 #include"DodgeGame.h"
+#include"MyEffects.h"
+#include"MyImageEffect.h"
 
 #define DODGE_PLAYER_ROW_SIZE 6
 #define DODGE_PLAYER_LINE_SIZE 4
@@ -27,13 +29,14 @@ public:
 	void update();
 	void draw();
 	int getBallCnt();
-	struct getScore();
+	struct Score getScore();
 
 private:
 	//à¯êî
 	int ballCnt;
 	float dVelocity;
 	int hitLevel;
+	struct Score score;
 
 	enum SPEED {
 		FAST = 90,
@@ -51,6 +54,8 @@ private:
 		MISS,
 	};
 
+	class MyEffects* effects;
+	class MyImageEffect* hiteffect;
 	struct DodgePlayer
 	{
 	public:
@@ -170,8 +175,8 @@ private:
 	bool ballDraw;
 	struct Ball ball;
 	struct DodgePlayer player;
-	struct Score score;
 };
+
 
 
 

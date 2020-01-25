@@ -52,6 +52,7 @@ void Dodge::changeScene() {
 		}
 		else{
 			ballCnt = DEFAULT;//最初のボール残機
+			
 		}
 
 		delete scene;
@@ -66,8 +67,9 @@ void Dodge::changeScene() {
 		scene = new DodgeHitMotion(&nextscene, ballCnt, dVelocity, hitLevel,score);
 		break;
 	case DODGE_SCENE::RESULT:
+		score = ((DodgeHitMotion*)scene)->getScore();
 		delete scene;
-		scene = new DodgeResult(&nextscene);
+		scene = new DodgeResult(&nextscene,score);
 		break;
 	default:
 		break;

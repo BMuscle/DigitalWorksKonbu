@@ -6,16 +6,20 @@
 #include"MySceneManager.h"
 #include "MyImageButton.h"
 #include "GeneralSoundEffects.h"
-constexpr int DODGE_GAME_PLAY_COUNT = 3;
+#include"DodgeGame.h"
+
 
 class DodgeResult :public DodgeSceneBase {
 public:
-	DodgeResult(DODGE_SCENE* nextScene);//3回分のスピード、命中率、ヒット判定を受け取る！！
+	DodgeResult(DODGE_SCENE* nextScene,Score score );//3回分のスピード、命中率、ヒット判定を受け取る！！
 	~DodgeResult();
 	void start(void);
 	void update();
 	void draw();
+	struct Score getScore();
 private:
+	//引数
+	struct Score score;
 	Audio* backAudio;
 	enum MODE {
 		MAP,
@@ -32,4 +36,5 @@ private:
 	float dVelocity[DODGE_GAME_PLAY_COUNT];//加速度
 	int hitLevel[DODGE_GAME_PLAY_COUNT];//命中率
 	bool hit[DODGE_GAME_PLAY_COUNT];//当たったかどうか
+
 };
