@@ -8,6 +8,7 @@
 #include"MyEffects.h"
 #include"MyImageEffect.h"
 #include"DodgeCharacter.h"
+#include"GeneralSoundEffects.h"
 
 #define DODGE_PLAYER_ROW_SIZE 6
 #define DODGE_PLAYER_LINE_SIZE 4
@@ -193,6 +194,13 @@ private:
 		bool isEnd;
 	};
 
+	bool effectFlag;
+	bool fontOn;
+
+	bool sFlag;
+	bool sFlag1;
+	bool sFlag2;
+
 	int frameWait;
 	void judgeHitSensorState();//センサーの値でランク付け
 	void judgeHitOrMiss();		//センサーの値とスコープの命中度で総合判定(HIT or MISS)
@@ -205,6 +213,7 @@ private:
 	Vec2 bSpawn;
 	Font subFont;
 	Font mainFont;
+	Font judgeFont;
 	bool ballDraw;
 	struct Ball ballJudge;
 	struct Ball ball;

@@ -9,28 +9,35 @@ DodgeTitle::DodgeTitle(DODGE_SCENE* nextScene):DodgeSceneBase(nextScene){
 	TextureAsset::Register(U"mapoff", U"resources/images/items/game/dodge/button/scenetitle/mapoff.png");
 	TextureAsset::Register(U"gameon", U"resources/images/items/game/dodge/button/scenetitle/gameon.png");
 	TextureAsset::Register(U"gameoff", U"resources/images/items/game/dodge/button/scenetitle/gameoff.png");
+	AudioAsset::Register(U"title", U"resources/musics/items/game/dodge/title.wav");
+
 }
 DodgeTitle::~DodgeTitle() {
 	FontAsset::Unregister(U"dodgefont");
 	TextureAsset::Unregister(U"dodgeback");
+	AudioAsset::Unregister(U"title");
 	delete backAudio;
 }
 
 void DodgeTitle::start(void) {	//ロード空けた後に実行されるもの
 	//BGM再生開始
-	backAudio = new Audio(U"resources/musics/backs/dodge.wav");
+	delete backAudio;
+	backAudio = new Audio(U"resources/musics/items/game/dodge/title.wav");
 	backAudio->setLoop(true);
 	backAudio->play();
 }
 
 void DodgeTitle::update() {
 	if (MyKey::getRightKeyDown()) {//右キー入力
+		GeneralSoundEffects::play(SE_NAME::CURSOR);
 		nowselect = GAME;
 	}
 	else if (MyKey::getLeftKeyDown()) {//左キー入力
+		GeneralSoundEffects::play(SE_NAME::CURSOR);
 		nowselect = MAP;
 	}
 	else if (MyKey::getDecisionKey()) {
+		GeneralSoundEffects::play(SE_NAME::DECISION);
 		switch (nowselect)
 		{
 		case DodgeTitle::MAP:

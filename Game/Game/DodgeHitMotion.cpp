@@ -12,27 +12,42 @@ DodgeHitMotion::DodgeHitMotion(DODGE_SCENE* nextScene, int ballCnt,float dVeloci
 	FontAsset::Preload(U"dodgefont");
 	subFont = Font(180, U"resources/font/RiiPopkkR.otf");
 	mainFont = Font(130, U"resources/font/RiiPopkkR.otf");
+	judgeFont = Font(220, U"resources/font/RiiPopkkR.otf");
 	TextureAsset::Register(U"landscape", U"resources/images/backs/landscape.jpg");
-	TextureAsset::Register(U"motionback", U"resources/images/backs/gacha.png", AssetParameter::LoadAsync());
+	TextureAsset::Register(U"motionback", U"resources/images/backs/gacha.png");
 	//プレイヤーコンストラクタ引数
 	player=DodgePlayer(pSpawn, U"resources/images/items/game/dodge/player.png");
 	ball = Ball(bSpawn, U"resources/images/items/game/dodge/ball.png", this->dVelocity);
 	ballJudge = Ball(Vec2(Window::ClientWidth()*0.5,Window::ClientHeight()), U"resources/images/items/game/dodge/ball.png", this->dVelocity);
 	targetJudge = DodgeCharacter(Vec2(Window::ClientCenter()), U"resources/images/items/game/dodge/target.png");
 	nowselect = ANIME;
-	judge =NONE;	//NONEに変える
+	judge =HIT;	//NONEに変える
 	ballDraw = false;
 	hiteffect = new MyImageEffect(U"resources/images/items/game/dodge/effect.png",2,5);
 	effects = new MyEffects();
 	frameWait = 0;
+	fontOn = false;
+	effectFlag = false;
+	sFlag=false;
+	sFlag1 = false;
+	sFlag2 = false;
 
 	judgeHitSensorState();
-	judgeHitOrMiss();   //HITeffect確認のためにコメントアウト中
+	//judgeHitOrMiss();   //HITeffect確認のためにコメントアウト中
 	scoreStore();
+	AudioAsset::Register(U"hit", U"resources/musics/items/game/dodge/hit.wav");
+	AudioAsset::Register(U"throw", U"resources/musics/items/game/dodge/throw.wav");
+	AudioAsset::Register(U"escape", U"resources/musics/items/game/dodge/escape.wav");
+
+
 }
 DodgeHitMotion::~DodgeHitMotion() {
 	FontAsset::Unregister(U"dodgefont");
 	TextureAsset::Unregister(U"dodgeback");
+	AudioAsset::Unregister(U"filename");
+	AudioAsset::Unregister(U"hit");
+	AudioAsset::Unregister(U"throw");
+	AudioAsset::Unregister(U"escape");
 	delete backAudio;
 
 }
@@ -46,22 +61,29 @@ void DodgeHitMotion::start(void) {	//ロード空けた後に実行されるもの
 
 void DodgeHitMotion::update() 
 {
-		if (nowselect==ANIME&&frameWait>=170) {
+		if (nowselect==ANIME&&frameWait>=150) {
 			frameWait = 0;
 			nowselect = JUDGE;
 		}
 		else if (nowselect == JUDGE ) {	//現在の状態がジャッジ
-			if (frameWait==110) {//取りま今だけ
+			if (frameWait==100) {
 				frameWait = 0;
 				nowselect = NEXT;
 			}
 			if (judge == HIT) {//当たった瞬間だけ呼ばれるようにするif
 				if (ballJudge.HitCheck()) {
-					effects->add(hiteffect, Vec2(Window::ClientCenter()));
+					if (!effectFlag) {
+						effects->add(hiteffect, Vec2(Window::ClientCenter()));
+						effectFlag = true;
+					}
+					fontOn = true;
 				}
 				ballJudge.BallHitUpdate();
 			}
 			else if (judge == MISS) {
+				if (ballJudge.HitCheck()) {
+					fontOn = true;
+				}
 				 targetJudge.targetMissUpdate();
 				 ballJudge.BallMissUpdate();
 			}
@@ -93,6 +115,13 @@ void DodgeHitMotion::draw() {
 			player.ChangeChip();
 		}
 		if (ballDraw==true) {
+			if (!sFlag) {
+				sFlag = true;
+				AudioAsset(U"throw").setPosSec(0);
+				AudioAsset(U"throw").setVolume(0.3);
+				AudioAsset(U"throw").play();
+			}
+
 			player.draw();
 			ball.Draw();
 			ball.Move();
@@ -107,21 +136,33 @@ void DodgeHitMotion::draw() {
 	case DodgeHitMotion::JUDGE:
 		
 		if (judge == HIT) {
-			mainFont(U"HIT").drawAt(300, 400, Color(255, 51, 0));
+			if(fontOn)judgeFont(U"HIT").drawAt(300, 350, Color(255, 51, 0));
 			//ターゲット描画
 			targetJudge.targetHitDraw(0, 1);
 			//エフェクト描画
 			//if () {
-				effects->draw();		//触らん
+				effects->draw();
+				if (effectFlag&&!sFlag2) {
+					sFlag2 = true;
+					AudioAsset(U"hit").setPosSec(0);
+					AudioAsset(U"hit").setVolume(0.1);
+					AudioAsset(U"hit").play();//触らん
+				}
 			//}
 			//ボール描画
 			ballJudge.BallHitDraw();
 			
 		}
 		else if(judge == MISS){
-			mainFont(U"MISS").drawAt(300, 400, Color(0, 153, 255));
+			if(fontOn)judgeFont(U"MISS").drawAt(300, 350, Color(0, 153, 255));
 			//ターゲット描画
 			targetJudge.targetMissDraw();
+			if (!sFlag1) {
+				sFlag1 = true;
+				AudioAsset(U"escape").setPosSec(0);
+				AudioAsset(U"escape").setVolume(0.1);
+				AudioAsset(U"escape").play();
+			}
 			//エフェクト描画なし
 			//ボール描画
 			ballJudge.BallMissDraw();
@@ -158,7 +199,8 @@ struct Score DodgeHitMotion::getScore() {
 }
 
 void DodgeHitMotion::scoreStore() {
-	score.hit[DEFAULT - (ballCnt+1)] = judge;
+	if (judge == HIT)score.hit[DEFAULT - (ballCnt + 1)] = true;
+	else score.hit[DEFAULT - (ballCnt+1)] = false;
 	score.hitLevel[DEFAULT - (ballCnt + 1)] = hitLevel;
 	score.dVelocity[DEFAULT - (ballCnt + 1)] = dVelocity;
 

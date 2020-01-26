@@ -7,6 +7,8 @@ DodgeGame::DodgeGame(DODGE_SCENE* nextScene, int ballCnt,struct Score score) :Do
 	spawn = Vec2(340, 60);
 	scope = Scope(150, spawn);
 	ballplace = Vec2(1500, 960);
+	nextSceneFlag = false;
+	frame = 0;
 
 	TextureAsset::Register(U"rule", U"resources/images/items/game/dodge/rule.png");
 	TextureAsset::Register(U"landscape",U"resources/images/items/game/dodge/gameback.png");
@@ -30,11 +32,14 @@ DodgeGame::DodgeGame(DODGE_SCENE* nextScene, int ballCnt,struct Score score) :Do
 	target = DodgeCharacter(Vec2(480, 450), U"resources/images/items/game/dodge/target.png");
 	Scopeimage = Texture(U"resources/images/items/game/dodge/Scopeimage.png");
 
+	AudioAsset::Register(U"scope", U"resources/musics/items/game/dodge/scope.wav");
+
 }
 
 DodgeGame::~DodgeGame()
 {
-
+	delete backAudio;
+	AudioAsset::Unregister(U"scope");
 }
 
 void DodgeGame::start(void)
@@ -48,40 +53,50 @@ void DodgeGame::start(void)
 
 void DodgeGame::update()
 {
-	if (nowselect == START) {
-		nowselect = RULE;
-	}
-	else if (nowselect == RULE && MyKey::getDecisionKey() ) {
-		nowselect = GAME;
-	}
-	else if (nowselect == GAME) {
-		//場所のセット 
-		target.Move(movement);
-		
-		for (auto& mob : mobs) {
-			mob.Move(movement);
-		}
-		scope.setPlace(scope.getPlace() + Vec2(0, 15));//更新処理update
-		Circle scopeimage(scope.getPlace(), scope.getRadius());
-
-
-		//物理当たり判定チェック
-		if (getHitSensorState()||MyKey::getDecisionKey()) {
-			//画面上当たり判定チェック
-
-			hitLevel = HitScopeCheck(scope.getRadius(), scope.getPlace(), target.getRadius()-5, target.getPlace());//スコープ、ターゲット
-
-
+	if (nextSceneFlag) {
+		if ( frame > 100) {
 			nowselect = MOTION;
 		}
+	}
+	else{
+		if (nowselect == START) {
+			nowselect = RULE;
+		}
+		else if (nowselect == RULE && MyKey::getDecisionKey() ) {
+			GeneralSoundEffects::play(SE_NAME::DECISION);
+			nowselect = GAME;
+		}
+		else if (nowselect == GAME) {
+			//場所のセット 
+			target.Move(movement);
 
-		//再描画
-		if (scope.getPlace().y > 800 ) {//下まで行ったら
-			scope.setPlace(Vec2(scope.getPlace().x + 200, -50));
+			for (auto& mob : mobs) {
+				mob.Move(movement);
+			}
+			scope.setPlace(scope.getPlace() + Vec2(0, 15));//更新処理update
+			Circle scopeimage(scope.getPlace(), scope.getRadius());
+
+			//再描画
+			if (scope.getPlace().y > 800) {//下まで行ったら
+				scope.setPlace(Vec2(scope.getPlace().x + 200, -50));
+			}
+			if (scope.getPlace().x > AREA_RIGHT) {
+				scope.setPlace(Vec2(260, scope.getPlace().y));
+			}
+
+			//物理当たり判定チェック
+			if (!nextSceneFlag && getHitSensorState() || MyKey::getDecisionKey()) {
+				//画面上当たり判定チェック
+				AudioAsset(U"scope").setPosSec(0);
+				AudioAsset(U"scope").setVolume(0.1);
+				AudioAsset(U"scope").play();
+				hitLevel = HitScopeCheck(scope.getRadius(), scope.getPlace(), target.getRadius() - 5, target.getPlace());//スコープ、ターゲット
+				nextSceneFlag = true;
+				frame = 0;
+			}
+
 		}
-		if (scope.getPlace().x > AREA_RIGHT) {
-			scope.setPlace(Vec2(260, scope.getPlace().y));
-		}
+
 	}
 
 if (nowselect == MOTION)
@@ -118,11 +133,11 @@ void DodgeGame::draw()
 			for (auto& balllife : balllife) {
 				balllife.Draw();
 			}
-			Rect(0, Window::ClientHeight() * 0.5, Window::ClientWidth(), 10).draw(ColorF(1, 0, 0));
-			for (int i = 0; i < 20; i++) {
-				Rect(i * 100, Window::ClientHeight() * 0.5, 3, 100).draw(ColorF(1, 0, 0));
-			}
-			
+			//Rect(0, Window::ClientHeight() * 0.5, Window::ClientWidth(), 10).draw(ColorF(1, 0, 0));
+			//for (int i = 0; i < 20; i++) {
+			//	Rect(i * 100, Window::ClientHeight() * 0.5, 3, 100).draw(ColorF(1, 0, 0));
+			//}
+			frame++;
 		default:
 			break;
 	}

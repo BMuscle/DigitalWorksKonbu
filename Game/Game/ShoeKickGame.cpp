@@ -94,7 +94,7 @@ void ShoeKickGame::start(void) {
 	isStart = true;
 
 	//BGMÄ¶ŠJŽn
-	backAudio = new Audio(U"resources/musics/backs/shoekick/game.wav");
+	backAudio = new Audio(U"resources/musics/backs/title.wav");
 	backAudio->setLoop(true);
 	backAudio->play();
 

@@ -5,6 +5,7 @@
 #include "Scope.h"
 #include"DodgeCharacter.h"
 #include"Sensor.h"
+#include"GeneralSoundEffects.h"
 
 constexpr int DODGE_GAME_PLAY_COUNT = 3;
 
@@ -73,6 +74,8 @@ private:
 		Vec2 vec;	//‰E•ûŒüˆÚ“®—Ê
 	};
 
+	bool nextSceneFlag;
+	int frame;
 	int flag = 1;
 	int radius = 20;
 	float movement = 4;
