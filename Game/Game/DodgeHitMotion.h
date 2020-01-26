@@ -7,6 +7,7 @@
 #include"DodgeGame.h"
 #include"MyEffects.h"
 #include"MyImageEffect.h"
+#include"DodgeCharacter.h"
 
 #define DODGE_PLAYER_ROW_SIZE 6
 #define DODGE_PLAYER_LINE_SIZE 4
@@ -153,6 +154,23 @@ private:
 			texture.drawAt(pos);
 		}
 
+		//DodgeHitMotionで使うやつ
+		void BallHitUpdate() {	//中央に向かって
+			pos -= Vec2(0, 20);
+		}
+		void BallMissUpdate() {//右にそれる感じ
+			pos -= Vec2(0, 20);
+		}
+
+		void BallHitDraw() {
+			texture.drawAt(pos);
+		}
+		void BallMissDraw() {
+			
+			texture.drawAt(pos);
+		}
+
+
 		//ボールの回転rotate
 		Texture texture;
 		Vec2 pos;//座標
@@ -176,8 +194,11 @@ private:
 	Font subFont;
 	Font mainFont;
 	bool ballDraw;
+	struct Ball ballJudge;
 	struct Ball ball;
 	struct DodgePlayer player;
+	struct DodgeCharacter target;
+	struct DodgeCharacter targetJudge;
 };
 
 

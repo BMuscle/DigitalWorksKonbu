@@ -17,6 +17,8 @@ DodgeHitMotion::DodgeHitMotion(DODGE_SCENE* nextScene, int ballCnt,float dVeloci
 	//プレイヤーコンストラクタ引数
 	player=DodgePlayer(pSpawn, U"resources/images/items/game/dodge/player.png");
 	ball = Ball(bSpawn, U"resources/images/items/game/dodge/ball.png", this->dVelocity);
+	ballJudge = Ball(Vec2(Window::ClientWidth()*0.5,Window::ClientHeight()), U"resources/images/items/game/dodge/ball.png", this->dVelocity);
+	targetJudge = DodgeCharacter(Vec2(Window::ClientCenter()), U"resources/images/items/game/dodge/target.png");
 	nowselect = ANIME;
 	judge = NONE;	//NONEに変える
 	ballDraw = false;
@@ -24,7 +26,7 @@ DodgeHitMotion::DodgeHitMotion(DODGE_SCENE* nextScene, int ballCnt,float dVeloci
 	effects = new MyEffects();
 
 	judgeHitSensorState();
-	judgeHitOrMiss();   //HITeffect確認のためにコメントアウト中
+	//judgeHitOrMiss();   //HITeffect確認のためにコメントアウト中
 	scoreStore();
 }
 DodgeHitMotion::~DodgeHitMotion() {
@@ -46,18 +48,21 @@ void DodgeHitMotion::update()
 		if (nowselect==ANIME&&MyKey::getDecisionKey()) {
 			nowselect = JUDGE;
 		}
-		else if (nowselect == JUDGE ) {
-			if (MyKey::getDecisionKey()) {
+		else if (nowselect == JUDGE ) {	//現在の状態がジャッジ
+			if (MyKey::getDecisionKey()) {//取りま今だけ
 				nowselect = NEXT;
 			}
-			else if (judge == HIT) {//当たった瞬間だけ呼ばれるようにするif
-				effects->add(hiteffect,Vec2(Window::ClientCenter()));
+			if (judge == HIT) {//当たった瞬間だけ呼ばれるようにするif
+				effects->add(hiteffect, Vec2(Window::ClientCenter()));
+				ballJudge.BallHitUpdate();
 			}
 			else if (judge == MISS) {
-
+				 targetJudge.targetMissUpdate();
+				 ballJudge.BallMissUpdate();
 			}
 		}
-		else if (nowselect == NEXT ) {
+		
+		else if (nowselect == NEXT ) {	//次のシーンへ移行する
 			if (MyKey::getDecisionKey()) {
 				if (ballCnt == 0) {
 					setNextScene(DODGE_SCENE::RESULT);
@@ -94,11 +99,26 @@ void DodgeHitMotion::draw() {
 		break;
 
 	case DodgeHitMotion::JUDGE:
+		
 		if (judge == HIT) {
+			mainFont(U"HIT").drawAt(300, 400, Color(255, 182, 193));
+			//ターゲット描画
+			targetJudge.targetHitDraw(0, 1);
+			//エフェクト描画
 			effects->draw();		//触らん
+			//ボール描画
+			ballJudge.BallHitDraw();
+			
 		}
 		else if(judge == MISS){
+			mainFont(U"MISS").drawAt(300, 400, Color(255, 182, 193));
+			//ターゲット描画
+			targetJudge.targetMissDraw();
+			//エフェクト描画なし
+			//ボール描画
+			ballJudge.BallMissDraw();
 		}
+	
 		break;
 
 	case DodgeHitMotion::NEXT:

@@ -69,7 +69,7 @@ void DodgeGame::update()
 		if (getHitSensorState()||MyKey::getDecisionKey()) {
 			//画面上当たり判定チェック
 
-			hitLevel = HitScopeCheck(scope.getRadius(), scope.getPlace(), target.getRadius(), target.getPlace());//スコープ、ターゲット
+			hitLevel = HitScopeCheck(scope.getRadius(), scope.getPlace(), target.getRadius()-5, target.getPlace());//スコープ、ターゲット
 
 
 			nowselect = MOTION;
@@ -77,9 +77,9 @@ void DodgeGame::update()
 
 		//再描画
 		if (scope.getPlace().y > 800 ) {//下まで行ったら
-			scope.setPlace(Vec2(scope.getPlace().x + 50, -50));
+			scope.setPlace(Vec2(scope.getPlace().x + 150, -50));
 		}
-		if (scope.getPlace().x > Window::ClientHeight()) {
+		if (scope.getPlace().x > AREA_RIGHT) {
 			scope.setPlace(Vec2(260, scope.getPlace().y));
 		}
 	}

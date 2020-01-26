@@ -21,6 +21,7 @@ public:
 		nowDir = CHAR_DIR::S;
 		nowChip = 0;
 		chipCnt = 0;
+		TchipCnt = 0;
 		vec = Vec2(0, 0);
 		Image baseimage = Image(filepath);
 		float chipW=baseimage.width()/ DODGE_CHAR_CHIP_SIZE;
@@ -28,6 +29,7 @@ public:
 		for (int dir = 0; dir < (int)CHAR_DIR::SIZE; dir++) {
 			for (int i = 0; i < DODGE_CHAR_CHIP_SIZE; i++) {
 				charChip[dir][i] = new Texture(baseimage.clipped(chipW * i, chipH * dir, chipW, chipH));
+				TcharChip[dir][i] = new Texture(baseimage.clipped(chipW * i, chipH * dir, chipW, chipH));
 			}
 		}
 	}
@@ -76,6 +78,29 @@ public:
 		charChip[(int)nowDir][nowChip]->drawAt(pos);
 	}
 
+	//DodgeHitMotionで使うやつ
+	void targetHitDraw(int l,int r) {
+		TcharChip[l][r]->drawAt(pos);
+	}
+
+	void targetMissUpdate() {
+		if (Tar.y < 3) {	//次のチップを設定
+			if (TchipCnt == 10) {
+				TchipCnt = 0;
+				Tar.y += 1;
+			}
+			TchipCnt++;
+			pos.x -= 10;
+		}
+	}
+
+	void targetMissDraw() {
+			charChip[(int)Tar.x][(int)Tar.y]->drawAt(pos);
+
+	
+	}
+
+
 private:
 	enum class CHAR_DIR {
 		S,
@@ -94,12 +119,13 @@ private:
 	CHAR_DIR nowDir;//現在の方向
 	int nowChip;
 	int chipCnt;
+	int TchipCnt=0;
 	int radius;//Target用当たり判定半径
 	int moveCount;//同じ方向に動いた回数
 	Vec2 pos;	//位置
 	Vec2 vec;
-
+	Vec2 Tar = Vec2(1, 0);
 	Texture* charChip[(int)CHAR_DIR::SIZE][DODGE_CHAR_CHIP_SIZE];
-	
+	Texture* TcharChip[(int)CHAR_DIR::SIZE][DODGE_CHAR_CHIP_SIZE];
 };
 
