@@ -88,4 +88,6 @@ private:
 
 	int acex;
 
+	bool endMusic;
+
 };

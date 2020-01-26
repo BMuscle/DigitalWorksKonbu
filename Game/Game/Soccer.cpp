@@ -11,83 +11,93 @@ Soccer::Soccer(void) {
 	//アセットへロード
 	FontAsset::Register(U"soccerfont", 70);
 	FontAsset::Preload(U"soccerfont");
-	TextureAsset::Register(U"soccerback", U"resources/images/backs/soccer.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"soccerback1", U"resources/images/items/game/soccer/soccer.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"soccerkicker1", U"resources/images/items/game/soccer/kicker.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"soccerkicker2", U"resources/images/items/game/soccer/kicker2.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"soccerkeeper1", U"resources/images/items/game/soccer/keeper.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"soccerkeeper2", U"resources/images/items/game/soccer/keeper2.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"backgameselect1", U"resources/images/items/game/soccer/So_backgameselect1.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"backgameselect2", U"resources/images/items/game/soccer/So_backgameselect2.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"startgame1", U"resources/images/items/game/soccer/So_startgame1.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"startgame2", U"resources/images/items/game/soccer/So_startgame2.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"inter", U"resources/images/items/game/soccer/inter.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"replay1", U"resources/images/items/game/soccer/replay1.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"replay2", U"resources/images/items/game/soccer/replay2.png", AssetParameter::LoadAsync());
+	TextureAsset::Register(U"soccerback", U"resources/images/backs/soccer.png");
+	TextureAsset::Register(U"soccerback1", U"resources/images/items/game/soccer/soccer.png");
+	TextureAsset::Register(U"soccerkicker1", U"resources/images/items/game/soccer/kicker.png");
+	TextureAsset::Register(U"soccerkicker2", U"resources/images/items/game/soccer/kicker2.png");
+	TextureAsset::Register(U"soccerkeeper1", U"resources/images/items/game/soccer/keeper.png");
+	TextureAsset::Register(U"soccerkeeper2", U"resources/images/items/game/soccer/keeper2.png");
+	TextureAsset::Register(U"backgameselect1", U"resources/images/items/game/soccer/So_backgameselect1.png");
+	TextureAsset::Register(U"backgameselect2", U"resources/images/items/game/soccer/So_backgameselect2.png");
+	TextureAsset::Register(U"startgame1", U"resources/images/items/game/soccer/So_startgame1.png");
+	TextureAsset::Register(U"startgame2", U"resources/images/items/game/soccer/So_startgame2.png");
+	TextureAsset::Register(U"inter", U"resources/images/items/game/soccer/inter.png");
+	TextureAsset::Register(U"replay1", U"resources/images/items/game/soccer/replay1.png");
+	TextureAsset::Register(U"replay2", U"resources/images/items/game/soccer/replay2.png");
 	
-	TextureAsset::Register(U"wearleg", U"resources/images/items/game/soccer/ashitukeru.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"wearhand", U"resources/images/items/game/soccer/tekubitukeru.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"s_setu0", U"resources/images/items/game/soccer/setumei0.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"s_setu1", U"resources/images/items/game/soccer/setumei1.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"s_setu2", U"resources/images/items/game/soccer/setumei2.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"s_setu3", U"resources/images/items/game/soccer/setumei3.png", AssetParameter::LoadAsync());
+	TextureAsset::Register(U"wearleg", U"resources/images/items/game/soccer/ashitukeru.png");
+	TextureAsset::Register(U"wearhand", U"resources/images/items/game/soccer/tekubitukeru.png");
+	TextureAsset::Register(U"s_setu0", U"resources/images/items/game/soccer/setumei0.png");
+	TextureAsset::Register(U"s_setu1", U"resources/images/items/game/soccer/setumei1.png");
+	TextureAsset::Register(U"s_setu2", U"resources/images/items/game/soccer/setumei2.png");
+	TextureAsset::Register(U"s_setu3", U"resources/images/items/game/soccer/setumei3.png");
 
-	TextureAsset::Register(U"three", U"resources/images/items/game/soccer/three.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"two", U"resources/images/items/game/soccer/two.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"one", U"resources/images/items/game/soccer/one.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"shoot", U"resources/images/items/game/soccer/shoot.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"titlemesse", U"resources/images/items/game/soccer/soccertitle.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"selectpoji", U"resources/images/items/game/soccer/selectpoji.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"soccerboal", U"resources/images/items/game/soccer/soccerboal.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"soccerboal2", U"resources/images/items/game/soccer/soccerboal2.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"soccerboal3", U"resources/images/items/game/soccer/soccerboal3.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"soccerboal4", U"resources/images/items/game/soccer/soccerboal4.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"gameback", U"resources/images/items/game/soccer/gameback.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"gatya200", U"resources/images/items/game/soccer/resultwin.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"gatya50", U"resources/images/items/game/soccer/resultlose.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"soccerboal1", U"resources/images/items/game/soccer/soccerboal1.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"soccerboal2", U"resources/images/items/game/soccer/soccerboal2.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"soccerboal3", U"resources/images/items/game/soccer/soccerboal3.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"soccerboal4", U"resources/images/items/game/soccer/soccerboal4.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"soccerboal5", U"resources/images/items/game/soccer/soccerboal5.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"soccerboal6", U"resources/images/items/game/soccer/soccerboal6.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"soccerboal7", U"resources/images/items/game/soccer/soccerboal7.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"soccerboal8", U"resources/images/items/game/soccer/soccerboal8.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"saveright", U"resources/images/items/game/soccer/saveright.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"saveleft", U"resources/images/items/game/soccer/saveleft.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"goalright", U"resources/images/items/game/soccer/goalright.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"goalleft", U"resources/images/items/game/soccer/goalleft.png", AssetParameter::LoadAsync());
+	TextureAsset::Register(U"three", U"resources/images/items/game/soccer/three.png");
+	TextureAsset::Register(U"two", U"resources/images/items/game/soccer/two.png");
+	TextureAsset::Register(U"one", U"resources/images/items/game/soccer/one.png");
+	TextureAsset::Register(U"shoot", U"resources/images/items/game/soccer/shoot.png");
+	TextureAsset::Register(U"titlemesse", U"resources/images/items/game/soccer/soccertitle.png");
+	TextureAsset::Register(U"selectpoji", U"resources/images/items/game/soccer/selectpoji.png");
+	TextureAsset::Register(U"soccerboal", U"resources/images/items/game/soccer/soccerboal.png");
+	TextureAsset::Register(U"soccerboal2", U"resources/images/items/game/soccer/soccerboal2.png");
+	TextureAsset::Register(U"soccerboal3", U"resources/images/items/game/soccer/soccerboal3.png");
+	TextureAsset::Register(U"soccerboal4", U"resources/images/items/game/soccer/soccerboal4.png");
+	TextureAsset::Register(U"gameback", U"resources/images/items/game/soccer/gameback.png");
+	TextureAsset::Register(U"gatya200", U"resources/images/items/game/soccer/resultwin.png");
+	TextureAsset::Register(U"gatya50", U"resources/images/items/game/soccer/resultlose.png");
+	TextureAsset::Register(U"soccerboal1", U"resources/images/items/game/soccer/soccerboal1.png");
+	TextureAsset::Register(U"soccerboal2", U"resources/images/items/game/soccer/soccerboal2.png");
+	TextureAsset::Register(U"soccerboal3", U"resources/images/items/game/soccer/soccerboal3.png");
+	TextureAsset::Register(U"soccerboal4", U"resources/images/items/game/soccer/soccerboal4.png");
+	TextureAsset::Register(U"soccerboal5", U"resources/images/items/game/soccer/soccerboal5.png");
+	TextureAsset::Register(U"soccerboal6", U"resources/images/items/game/soccer/soccerboal6.png");
+	TextureAsset::Register(U"soccerboal7", U"resources/images/items/game/soccer/soccerboal7.png");
+	TextureAsset::Register(U"soccerboal8", U"resources/images/items/game/soccer/soccerboal8.png");
+	TextureAsset::Register(U"saveright", U"resources/images/items/game/soccer/saveright.png");
+	TextureAsset::Register(U"saveleft", U"resources/images/items/game/soccer/saveleft.png");
+	TextureAsset::Register(U"goalright", U"resources/images/items/game/soccer/goalright.png");
+	TextureAsset::Register(U"goalleft", U"resources/images/items/game/soccer/goalleft.png");
 	
 	
+	AudioAsset::Register(U"whistle", U"resources/musics/items/game/soccer/whistle.wav");
+	AudioAsset::Register(U"drum", U"resources/musics/items/game/soccer/drum.wav");
+	AudioAsset::Register(U"kick", U"resources/musics/items/game/soccer/kick.wav");
+	AudioAsset::Register(U"goal", U"resources/musics/items/game/soccer/goal.wav");
+	AudioAsset::Register(U"miss", U"resources/musics/items/game/soccer/miss.wav");
 
+	AudioAsset::Register(U"clear", U"resources/musics/items/game/soccer/clear.mp3");
+	AudioAsset::Register(U"zannen", U"resources/musics/items/game/soccer/zannen.mp3");
 
 
 	nowScene = Soccer::TITLE;
 	nextScene = Soccer::TITLE;
 	oldNowScene = Soccer::INTERRUPTION;
 
-
+	endMusic = false;
 }
 Soccer::~Soccer(void) {
 	//アセットからアンロード
 	FontAsset::Unregister(U"soccerfont");
 	TextureAsset::Unregister(U"soccerback");
+	AudioAsset::Unregister(U"whistle");
+	AudioAsset::Unregister(U"drum");
+	AudioAsset::Unregister(U"kick");
+	AudioAsset::Unregister(U"goal");
+	AudioAsset::Unregister(U"miss");
+	AudioAsset::Unregister(U"clear");
+	AudioAsset::Unregister(U"zannen");
+
 	delete backAudio;
 }
 bool Soccer::isReady(void) {	//ロード終了してもいいかどうか
-	if (TextureAsset::IsReady(U"soccerback")) {
-		return true;
-	}
-	return false;
+	return true;
 }
 void Soccer::start(void) {	//ロード空けた後に実行されるもの
-	//BGM再生開始
-	/*
-	backAudio = new Audio(U"resources/musics/backs/soccer.wav");
+	delete backAudio;
+	backAudio = new Audio(U"resources/musics/backs/soccer/title.mp3");
 	backAudio->setLoop(true);
 	backAudio->setVolume(0.1);
-	backAudio->play();
-	*/
+	backAudio->play();	
 }
 void Soccer::update(void) {	//計算処理
 	frameCount();
@@ -248,14 +258,34 @@ void Soccer::changeScene() {//シーンを変更する
 	switch (nextScene)//初期化処理
 	{
 	case Soccer::TITLE:
+		//BGM再生開始
+		delete backAudio;
+		backAudio = new Audio(U"resources/musics/backs/soccer/title.mp3");
+		backAudio->setLoop(true);
+		backAudio->setVolume(0.1);
+		backAudio->play();
 		break;
 	case Soccer::SELECT_MODE:
+		//BGM再生開始
+		delete backAudio;
+		backAudio = new Audio(U"resources/musics/backs/soccer/game.mp3");
+		backAudio->setLoop(true);
+		backAudio->setVolume(0.1);
+		backAudio->play();
 		break;
 	case Soccer::THINKING:
 		break;
 	case Soccer::PRACTICAL_SKILL:
 		break;
 	case Soccer::RESULT:
+		//BGM再生開始
+		delete backAudio;
+		backAudio = new Audio(U"resources/musics/backs/soccer/result.mp3");
+		backAudio->setLoop(true);
+		backAudio->setVolume(0.1);
+		backAudio->play();
+
+		endMusic = false;
 		break;
 	case Soccer::INTERRUPTION:
 		break;
@@ -368,6 +398,32 @@ void Soccer::updateThinking() {
 	readflag = 0;
 	if (countdownflag == 0) {
 		coutdown--;
+	}
+
+	if (coutdown == 239) {
+		AudioAsset(U"drum").setVolume(0.3);
+		AudioAsset(U"drum").setPosSec(0);
+		AudioAsset(U"drum").play();
+	}
+	else if (coutdown == 180) {
+		AudioAsset(U"drum").setVolume(0.3);
+		AudioAsset(U"drum").setPosSec(0);
+		AudioAsset(U"drum").play();
+	}
+	else if (coutdown == 120) {
+		AudioAsset(U"drum").setVolume(0.3);
+		AudioAsset(U"drum").setPosSec(0);
+		AudioAsset(U"drum").play();
+	}
+	else if (coutdown == 60) {
+		AudioAsset(U"whistle").setVolume(0.3);
+		AudioAsset(U"whistle").setPosSec(0);
+		AudioAsset(U"whistle").play();
+	}
+	else if (coutdown == 0) {
+		AudioAsset(U"kick").setVolume(0.3);
+		AudioAsset(U"kick").setPosSec(0);
+		AudioAsset(U"kick").play();
 	}
 	
 	if (coutdown >= 180 && thinkdrawflag == 0) {
@@ -503,6 +559,16 @@ void Soccer::updatePractical_skill() { //けったとき
 	}
 	
 	if (end_flag == 2) {
+		if (endcount == 0) {
+			if (winflag == 2) {
+				AudioAsset(U"goal").setVolume(0.3);
+				AudioAsset(U"goal").play();
+			}
+			else {
+				AudioAsset(U"miss").setVolume(0.3);
+				AudioAsset(U"miss").play();
+			}
+		}
 		endcount++;
 		if (endcount >= 60) {
 			endcount = 0;
@@ -531,6 +597,17 @@ void Soccer::updatePractical_skill() { //けったとき
 }
 
 void Soccer::updateResult() {  //つづけるかいなか
+	if (!endMusic) {
+		if (winflag == 2) {
+			AudioAsset(U"clear").setVolume(0.3);
+			AudioAsset(U"clear").play();
+		}
+		else if (winflag == 1) {
+			AudioAsset(U"zannen").setVolume(0.3);
+			AudioAsset(U"zannen").play();
+		}
+		endMusic = true;
+	}
 	if (MyKey::getLeftKeyDown()) {
 		inputRBotton = 2;
 

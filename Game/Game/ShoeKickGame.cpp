@@ -80,6 +80,9 @@ ShoeKickGame::~ShoeKickGame() {
 	FontAsset::Unregister(U"shoekick_font");
 	FontAsset::Unregister(U"shoekick_boardfont");
 
+	AudioAsset::Unregister(U"whistle");
+	AudioAsset::Unregister(U"drum");
+
 	for (int i = 0; i < 4; i++) {
 		delete countTexture[i];
 	}
