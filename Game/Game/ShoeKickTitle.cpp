@@ -33,7 +33,8 @@ bool ShoeKickTitle::isReady(void) {
 }
 void ShoeKickTitle::start(void) {
 	//BGMÄ¶ŠJŽn
-	backAudio = new Audio(U"resources/musics/backs/shoekick/title.wav");
+	backAudio = new Audio(U"resources/musics/backs/shoekick/title.mp3");
+	backAudio->setVolume(0.1);
 	backAudio->setLoop(true);
 	backAudio->play();
 }

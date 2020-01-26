@@ -13,8 +13,12 @@ ShoeCharacter::ShoeCharacter(Vec2 init): moveSpeed(Vec2(moveSpeedX,0)) {
 	}
 	textureIndex = 0;
 	isJump = false;
+	isMove = false;
 	jumpSpeed = Vec2(0, 0);
 	moveCnt = 0;
+
+	AudioAsset::Register(U"jump", U"resources/musics/items/game/shoekick/jump.wav");
+	AudioAsset::Register(U"dash", U"resources/musics/items/game/shoekick/dash.wav");
 }
 ShoeCharacter::~ShoeCharacter() {
 	for (int i = 0; i < textureArray.size(); i++) {
@@ -26,6 +30,11 @@ ShoeCharacter::~ShoeCharacter() {
 void ShoeCharacter::update() {
 	constexpr int MOVE_CNT_LIMIT = 5;
 	if (isMove) {
+		if (!AudioAsset(U"dash").isPlaying()) {
+			AudioAsset(U"dash").setPosSec(0);
+			AudioAsset(U"dash").setVolume(0.4);
+			AudioAsset(U"dash").play();
+		}
 		moveRight();
 		moveCnt++;
 		//フレーム制限必要かも？
@@ -36,6 +45,9 @@ void ShoeCharacter::update() {
 			}
 		}
 		isMove = false;
+	}
+	else {
+		AudioAsset(U"dash").stop();
 	}
 	if (isJump) {
 		textureIndex = 0;
@@ -53,6 +65,10 @@ void ShoeCharacter::setMoveRight() {
 void ShoeCharacter::setMoveJump() {
 	isJump = true;
 	jumpSpeed = Vec2(0, -23.5);
+	AudioAsset(U"jump").setPosSec(0);
+	AudioAsset(U"jump").setVolume(0.1);
+	AudioAsset(U"jump").play();
+
 }
 
 void ShoeCharacter::moveRight() {

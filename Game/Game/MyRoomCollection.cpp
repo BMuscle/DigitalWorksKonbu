@@ -33,9 +33,12 @@ MyRoomCollection::MyRoomCollection(MYROOM_SCENE* scenep) :MyRoomSceneBase(scenep
 	initializeCollectionTable();
 
 	alpha = 0;
+
+	TextureAsset::Register(U"myroomcursor",U"resources/images/items/myroom/collection/cursor.png");
 }
 MyRoomCollection::~MyRoomCollection() {
 	TextureAsset::Unregister(U"myroomback");
+	TextureAsset::Unregister(U"myroomcursor");
 	FontAsset::Unregister(U"myroomsmallfont");
 	AudioAsset::Unregister(U"deci2");
 
@@ -178,7 +181,7 @@ void MyRoomCollection::draw() {
 
 	constexpr int ITEM_INTERVAL = 230;//アイテム同士の間隔
 	constexpr float ITEM_SCALED = 0.4;//アイテムの大きさ
-	constexpr int ITEM_OFFSET_X = 100;//左側が大きいのでオフセットで足す
+	constexpr int ITEM_OFFSET_X = 0;//左側が大きいのでオフセットで足す
 	constexpr int ITEM_Y[(int)GAME_TYPE::SIZE] = {
 		200,
 		545,
@@ -212,10 +215,12 @@ void MyRoomCollection::draw() {
 			TextureAsset(csvItem[(int)GAME_TYPE::DODGE].get<String>(row, 1)).scaled(ITEM_SCALED).drawAt(x, ITEM_Y[(int)GAME_TYPE::DODGE], AlphaF(ITEM_ALPHA));
 		}
 	}
+	//選択されているものの描画
 	if (!isButtonSelect && hasItem) {
 		int median = csvItem[selectedItem.row].rows() / 2;
 		int x = (Window::ClientWidth() / 2) + ((selectedItem.column - median) * ITEM_INTERVAL) + ITEM_OFFSET_X;//画面中央にセンタリングされるよう描画
 		TextureAsset(csvItem[selectedItem.row].get<String>(selectedItem.column, 1)).scaled(ITEM_SCALED).drawAt(x, ITEM_Y[selectedItem.row]);
+		TextureAsset(U"myroomcursor").drawAt(x, ITEM_Y[selectedItem.row]);
 	}
 
 

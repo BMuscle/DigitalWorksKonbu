@@ -64,6 +64,10 @@ ShoeKickGame::ShoeKickGame(SHOEKICK_SCENE* scenep) : ShoeKickSceneBase(scenep) {
 
 	isDescription = true;
 
+
+	AudioAsset::Register(U"whistle", U"resources/musics/items/game/shoekick/whistle.wav");
+	AudioAsset::Register(U"drum", U"resources/musics/items/game/shoekick/drum.wav");
+
 }
 ShoeKickGame::~ShoeKickGame() {
 	delete backAudio;
@@ -94,7 +98,8 @@ void ShoeKickGame::start(void) {
 	isStart = true;
 
 	//BGM再生開始
-	backAudio = new Audio(U"resources/musics/backs/shoekick/game.wav");
+	backAudio = new Audio(U"resources/musics/backs/shoekick/game.mp3");
+	backAudio->setVolume(0.05);
 	backAudio->setLoop(true);
 	backAudio->play();
 
@@ -210,8 +215,9 @@ void ShoeKickGame::updateKick() {
 	}
 	else {//キック時間下限
 		setNextState(FLY);//シーン移行する
+		shoe->setFly(true);
 		if (kickPower <= 0) {
-			kickPower = 20.0;
+			kickPower = 2;
 		}
 		shoe->setShoeVector(kickPower);//靴飛ばしのパワーを求める。
 	}
@@ -237,6 +243,18 @@ void ShoeKickGame::drawFly() {
 
 //蹴る時のカウントダウン
 void ShoeKickGame::updateKickTimer() {
+	if (kickCount == FPS * 3 ||
+		kickCount == FPS * 2 ||
+		kickCount == FPS * 1) {
+		AudioAsset(U"drum").setVolume(0.3);
+		AudioAsset(U"drum").setPosSec(0);
+		AudioAsset(U"drum").play();
+	}
+	else if(kickCount == 0){
+		AudioAsset(U"whistle").setVolume(0.3);
+		AudioAsset(U"whistle").setPosSec(0);
+		AudioAsset(U"whistle").play();
+	}
 	kickCount--;
 }
 

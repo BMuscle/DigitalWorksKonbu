@@ -31,6 +31,9 @@ ShoeKickResult::ShoeKickResult(SHOEKICK_SCENE* scenep, int meter) : ShoeKickScen
 	}
 
 	point = meter * POINT_WEIGHT;
+	if (User::getHasItems(GAME_TYPE::SHOEKICK, (int)GACHA_ITEM::CAT + 1)) {
+		point *= 1.5;
+	}
 	User::addUserPoint(point);
 	alpha = 0;
 	
@@ -49,7 +52,8 @@ bool ShoeKickResult::isReady(void) {
 }
 void ShoeKickResult::start(void) {
 	//BGMÄ¶ŠJŽn
-	backAudio = new Audio(U"resources/musics/backs/shoekick/result.wav");
+	backAudio = new Audio(U"resources/musics/backs/shoekick/result.mp3");
+	backAudio->setVolume(0.1);
 	backAudio->setLoop(true);
 	backAudio->play();
 }
