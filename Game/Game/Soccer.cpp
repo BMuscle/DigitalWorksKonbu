@@ -808,7 +808,7 @@ void Soccer::drawResult() {
 	}
 	else if (winflag == 2) {
 		if (direction_flag == 1) {
-			TextureAsset(U"goaright").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+			TextureAsset(U"goalright").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
 		}
 		else {
 			TextureAsset(U"goalleft").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
