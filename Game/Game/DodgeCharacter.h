@@ -90,14 +90,12 @@ public:
 				Tar.y += 1;
 			}
 			TchipCnt++;
-			pos.x -= 10;
+			pos.x -= 15;
 		}
 	}
 
 	void targetMissDraw() {
 			charChip[(int)Tar.x][(int)Tar.y]->drawAt(pos);
-
-	
 	}
 
 

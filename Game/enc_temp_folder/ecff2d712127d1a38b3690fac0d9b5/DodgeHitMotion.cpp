@@ -20,14 +20,14 @@ DodgeHitMotion::DodgeHitMotion(DODGE_SCENE* nextScene, int ballCnt,float dVeloci
 	ballJudge = Ball(Vec2(Window::ClientWidth()*0.5,Window::ClientHeight()), U"resources/images/items/game/dodge/ball.png", this->dVelocity);
 	targetJudge = DodgeCharacter(Vec2(Window::ClientCenter()), U"resources/images/items/game/dodge/target.png");
 	nowselect = ANIME;
-	judge =NONE;	//NONEに変える
+	judge =HIT;	//NONEに変える
 	ballDraw = false;
 	hiteffect = new MyImageEffect(U"resources/images/items/game/dodge/effect.png",2,5);
 	effects = new MyEffects();
 	frameWait = 0;
 
 	judgeHitSensorState();
-	judgeHitOrMiss();   //HITeffect確認のためにコメントアウト中
+	//judgeHitOrMiss();   //HITeffect確認のためにコメントアウト中
 	scoreStore();
 }
 DodgeHitMotion::~DodgeHitMotion() {

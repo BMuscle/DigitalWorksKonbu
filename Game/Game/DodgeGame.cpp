@@ -5,7 +5,7 @@ DodgeGame::DodgeGame(DODGE_SCENE* nextScene, int ballCnt,struct Score score) :Do
 	this->ballCnt = ballCnt;
 	this->score = score;
 	spawn = Vec2(340, 60);
-	scope = Scope(50, spawn);
+	scope = Scope(150, spawn);
 	ballplace = Vec2(1500, 960);
 
 	TextureAsset::Register(U"rule", U"resources/images/items/game/dodge/rule.png");
@@ -61,7 +61,7 @@ void DodgeGame::update()
 		for (auto& mob : mobs) {
 			mob.Move(movement);
 		}
-		scope.setPlace(scope.getPlace() + Vec2(0, 10));//更新処理update
+		scope.setPlace(scope.getPlace() + Vec2(0, 15));//更新処理update
 		Circle scopeimage(scope.getPlace(), scope.getRadius());
 
 
@@ -77,14 +77,14 @@ void DodgeGame::update()
 
 		//再描画
 		if (scope.getPlace().y > 800 ) {//下まで行ったら
-			scope.setPlace(Vec2(scope.getPlace().x + 150, -50));
+			scope.setPlace(Vec2(scope.getPlace().x + 200, -50));
 		}
 		if (scope.getPlace().x > AREA_RIGHT) {
 			scope.setPlace(Vec2(260, scope.getPlace().y));
 		}
 	}
 
-	else if (nowselect == MOTION)
+if (nowselect == MOTION)
 	{
 		setNextScene(DODGE_SCENE::MOTION);
 	}

@@ -115,6 +115,7 @@ private:
 			else return false;
 		}
 
+		
 	private:
 
 		int chipCnt;
@@ -154,19 +155,29 @@ private:
 			texture.drawAt(pos);
 		}
 
-		//DodgeHitMotionで使うやつ
-		void BallHitUpdate() {	//中央に向かって
-			pos -= Vec2(0, 20);
-		}
-		void BallMissUpdate() {//右にそれる感じ
-			pos -= Vec2(0, 20);
+		bool HitCheck() {
+			if (onetime == false) {
+				if (pos.y <= Window::ClientHeight() * 0.5) {
+					onetime = true;
+					return true;
+				}
+				else return false;
+			}
 		}
 
+		//DodgeHitMotionで使うやつ
+		void BallHitUpdate() {	//中央に向かって
+			if (HitCheck())return;
+			pos -= Vec2(0, 10);
+		}
+		void BallMissUpdate() {//
+			pos -= Vec2(0, 10);
+		}
 		void BallHitDraw() {
+			if (HitCheck())return;
 			texture.drawAt(pos);
 		}
 		void BallMissDraw() {
-			
 			texture.drawAt(pos);
 		}
 
@@ -175,13 +186,14 @@ private:
 		Texture texture;
 		Vec2 pos;//座標
 		Vec2 vec;//移動量
+		bool onetime = false;
 		int angle;
 		int gravity;
 		float dVelocity;
 		bool isEnd;
 	};
 
-	
+	int frameWait;
 	void judgeHitSensorState();//センサーの値でランク付け
 	void judgeHitOrMiss();		//センサーの値とスコープの命中度で総合判定(HIT or MISS)
 	void scoreStore();//配列に格納（HIT/MISS velocity hitLevel ）
