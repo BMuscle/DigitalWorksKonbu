@@ -20,7 +20,7 @@ Shoe::Shoe(Array<bool>* hasItems) {
 
 	//エフェクト初期化
 	effects = new MyEffects();
-	rocketEffect = new MyImageEffect(U"resources/images/items/game/shoekick/game/effects/rocket.png", 8, 1, 0.03, -120);
+	rocketEffect = new MyImageEffect(U"resources/images/items/game/shoekick/game/effects/rocket.png", 8, 1, 0.01, -120);
 	rocketCnt = 0;
 
 	angelEffect = new MyImageEffect(U"resources/images/items/game/shoekick/game/effects/angel.png", 5, 3, 0.02);
@@ -145,12 +145,12 @@ void Shoe::updateRocket() {
 			AudioAsset(U"explosion").setVolume(0.3);
 			AudioAsset(U"explosion").play();
 		}
-		if (rocketCnt >= 10 && rocketCnt <= 30) {
+		if (rocketCnt >= 10) {
 			if (rocketCnt <= 30) {
 				shoeVec += rocketVec;
 			}
 			if (rocketCnt % 3 == 0) {
-				effects->add(rocketEffect, getShoePos() + Vec2(-30,30));
+				effects->add(rocketEffect, getShoePos() + Vec2(-30,90));
 			}
 		}
 	}

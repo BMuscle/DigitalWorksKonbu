@@ -15,6 +15,10 @@ void Main()
 	Profiler::EnableAssetCreationWarning(false);	//アセットの警告オフ
 	Window::Resize(1920, 1080);						//画面サイズを1920/1080に固定	
 	Scene::Resize(1920, 1080);
+
+	// ウィンドウを手動リサイズ可能にする
+	Window::SetStyle(WindowStyle::Sizable);
+
 	//Window::SetFullscreen(true);					//フルスクリーンに設定
 	
 	Graphics::SetTargetFrameRateHz(60);				//FPSを60に固定

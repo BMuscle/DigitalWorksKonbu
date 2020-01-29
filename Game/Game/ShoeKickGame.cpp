@@ -223,7 +223,6 @@ void ShoeKickGame::updateKick() {
 		if (kickPower < abs(acc.z)) {
 			kickPower = abs(acc.z);
 		}
-		kickPower = 80;
 	}
 	else {//キック時間下限
 		setNextState(FLY);//シーン移行する
