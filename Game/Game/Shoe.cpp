@@ -53,7 +53,9 @@ bool Shoe::update() {
 	}
 
 	if (totalShoeVec.y >= GROUND) {//‚à‚µ’n–Ê‚É’…‚¢‚Ä‚¢‚é‚È‚ç‚Î
-		setAngle(false);//‰ñ“]’âŽ~
+		if ((int)angle % 180 <= 10) {
+			setAngle(false);//‰ñ“]’âŽ~
+		}
 		setGround();//À•W‚ð’n–Ê‚ÉC³
 		if (shoeVec.x > 0) {//­‚µ‰E‚É‘Ä«‚Å“®‚©‚·
 			if (hasItems->at((int)GACHA_ITEM::ROLLER)) {//ƒ[ƒ‰[‚Ìê‡–€ŽC‚ðŠÉ‚­‚·‚é
@@ -106,8 +108,8 @@ Vec2 Shoe::getTotalVec() {
 void Shoe::setShoeVector(float kickPower) {
 	constexpr float KICKWEIGHT = 3;
 	kickPower *= KICKWEIGHT;
-	constexpr float X_WEIGHT = 6.0, Y_WEIGHT = 10.0;
-	constexpr Vec2 SPORTS_SHOE_WEIGHT = Vec2(1.5, 1.5);
+	constexpr float X_WEIGHT = 5.0, Y_WEIGHT = 13.0;
+	constexpr Vec2 SPORTS_SHOE_WEIGHT = Vec2(1.2, 1.2);
 	shoeVec = Vec2(kickPower / X_WEIGHT, -(kickPower / Y_WEIGHT));
 	if (hasItems->at((int)GACHA_ITEM::SPORTS_SHOE)) {
 		shoeVec *= SPORTS_SHOE_WEIGHT;
@@ -135,7 +137,7 @@ Vec2 Shoe::getShoePos() {
 }
 
 void Shoe::updateRocket() {
-	constexpr Vec2 rocketVec(0.3, -2);
+	constexpr Vec2 rocketVec(0.2, -0.7);
 	
 	if (hasItems->at((int)GACHA_ITEM::ROCKET_BOOSTER)) {
 		if (rocketCnt == 0) {

@@ -78,8 +78,8 @@ void ShoeCharacter::moveJump() {
 	pos += jumpSpeed;
 	jumpSpeed.y += 1.5;	
 }
-void ShoeCharacter::draw() {
-	textureArray.at(textureIndex)->drawAt(pos);
+void ShoeCharacter::draw(float shoeY) {
+	textureArray.at(textureIndex)->drawAt(pos.x ,pos.y - shoeY);
 }
 void ShoeCharacter::setVecMoveLeft(int x) {
 	pos.x = x;

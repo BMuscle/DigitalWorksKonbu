@@ -28,7 +28,7 @@ public:
 	//ジャンプフラグON
 	void setMoveJump();
 	//描画処理
-	void draw();
+	void draw(float shoeY);
 
 	Vec2 getPos();
 };

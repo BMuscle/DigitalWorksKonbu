@@ -1,7 +1,7 @@
 #include "Game.h"
 
 //ポップアップのボタンの離れている間隔を定義
-#define POPUP_INTERVAL (Window::ClientWidth() * 0.12)
+#define POPUP_INTERVAL (Scene::Width() * 0.12)
 
 Game::Game(MODE gamemode) {
 	switch (gamemode) {//渡されたゲームの種類によって変更する
@@ -25,8 +25,8 @@ Game::Game(MODE gamemode) {
 	TextureAsset::Register(U"wordnot", U"resources/images/items/game/not.png");
 
 	//ポップアップのボタン初期化
-	popUpButton[(int)POPUP::RESTART] = new MyImageButton(U"resources/images/items/game/restart", U"", 0, (int)(Window::ClientWidth() / 2) + (int)POPUP_INTERVAL, (int)Window::ClientHeight() * 0.6, true);
-	popUpButton[(int)POPUP::NEXTMAP] = new MyImageButton(U"resources/images/items/game/nextmap", U"", 0, (int)(Window::ClientWidth() / 2) - (int)POPUP_INTERVAL, (int)Window::ClientHeight() * 0.6, false);
+	popUpButton[(int)POPUP::RESTART] = new MyImageButton(U"resources/images/items/game/restart", U"", 0, (int)(Scene::Width() / 2) + (int)POPUP_INTERVAL, (int)Scene::Height() * 0.6, true);
+	popUpButton[(int)POPUP::NEXTMAP] = new MyImageButton(U"resources/images/items/game/nextmap", U"", 0, (int)(Scene::Width() / 2) - (int)POPUP_INTERVAL, (int)Scene::Height() * 0.6, false);
 
 	popUpState = POPUP::NONE;//ポップアップ選択の初期状態はNONEに
 }
@@ -48,8 +48,8 @@ void Game::start(void) {
 	minigame->start();
 }
 void Game::update(void) {
-	//if (MySocketServer::isConnection()) {//コントローラーコネクション確立時
-		if (!MySocketServer::isConnection()) {//デバッグ用
+//	if (MySocketServer::isConnection()) {//コントローラーコネクション確立時
+	if (!MySocketServer::isConnection()) {//デバッグ用
 		if (isStop) {
 			if (MyKey::getRightKeyDown()) {
 				popUpState = POPUP::RESTART;//ポップアップをマップへに
@@ -102,13 +102,13 @@ void Game::draw(void) {
 	if (isStop) {
 
 		//ポップアップ背景を描画
-		TextureAsset(U"stopback").drawAt(Window::ClientWidth() * 0.5, Window::ClientHeight() * 0.45);
+		TextureAsset(U"stopback").drawAt(Scene::Width() * 0.5, Scene::Height() * 0.45);
 
 		if (MySocketServer::isConnection()) {//コントローラーコネクション確立時
-			TextureAsset(U"wordok").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() * 0.4);
+			TextureAsset(U"wordok").drawAt(Scene::Width() / 2, Scene::Height() * 0.4);
 		}
 		else {//切断時
-			TextureAsset(U"wordnot").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() * 0.4);
+			TextureAsset(U"wordnot").drawAt(Scene::Width() / 2, Scene::Height() * 0.4);
 		}
 
 		switch (popUpState)

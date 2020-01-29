@@ -231,8 +231,10 @@ bool User::getRandomGacha(String& itemName, int& key, GAME_TYPE& type) {
 	type = possible.begin()->type;
 	key = possible.begin()->key;
 	itemName = getItemName((int)possible.begin()->type + 1, possible.begin()->key);
-	setUserItem((int)possible.begin()->type + 1, possible.begin()->key);
-	Items[(int)possible.begin()->type].at(possible.begin()->key) = true;
+	//setUserItem((int)possible.begin()->type + 1, possible.begin()->key);
+	setUserItem((int)GAME_TYPE::SHOEKICK + 1, 2);//ŒC”ò‚Î‚µROCKET
+	Items[(int)GAME_TYPE::SHOEKICK].at(2) = true;
+	//Items[(int)possible.begin()->type].at(possible.begin()->key) = true;
 
 	return true;
 }

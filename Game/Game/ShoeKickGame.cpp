@@ -133,11 +133,11 @@ void ShoeKickGame::update(void) {
 		break;
 	case ShoeKickGame::FLY:
 		updateFly();
-		character->setVecMoveLeft(Window::ClientWidth() / 2 - shoe->getTotalVec().x);
+		character->setVecMoveLeft(Scene::Width() / 2 - shoe->getTotalVec().x);
 		break;
 	case ShoeKickGame::END:
 		frameCnt--;
-		character->setVecMoveLeft(Window::ClientWidth() / 2 - shoe->getTotalVec().x);
+		character->setVecMoveLeft(Scene::Width() / 2 - shoe->getTotalVec().x);
 		if (frameCnt < 0) {
 			setNextScene(SHOEKICK_SCENE::RESULT);
 		}
@@ -149,10 +149,18 @@ void ShoeKickGame::update(void) {
 }
 
 void ShoeKickGame::draw(void) {
-	int x = Window::ClientWidth() / 2 - ((int)shoe->getTotalVec().x % Window::ClientWidth());
+	float subY = shoe->getTotalVec().y - GROUND + 80;
+	if (subY > 0) {
+		subY = 0;
+	}
+	else if (subY < -Scene::Height() * 2) {
+		subY = -Scene::Height() * 2;
+	}
+
+	int x = Scene::Width() / 2 - ((int)shoe->getTotalVec().x % Scene::Width());
 	//îwåiï`âÊ
-	TextureAsset(U"shoekick_game").drawAt(x, Window::ClientHeight() / 2);
-	TextureAsset(U"shoekick_game").drawAt(x + Window::ClientWidth(), Window::ClientHeight() / 2);
+	TextureAsset(U"shoekick_game").drawAt(x, -Scene::Height() / 2 - (subY));
+	TextureAsset(U"shoekick_game").drawAt(x + Scene::Width(), -Scene::Height() / 2 - (subY));
 
 
 	//METERï`âÊ
@@ -162,11 +170,11 @@ void ShoeKickGame::draw(void) {
 	FontAsset(U"shoekick_font")(Format(meter) + U"m").draw(500 - tmp.w,100,ColorF(0,0,0,1));//ï∂éöï`âÊ
 	//ä≈î¬ï`âÊ
 	for (auto vec : boardVec) {
-		TextureAsset(U"shoekick_signboard").drawAt(vec.vec.x - shoe->getTotalVec().x, vec.vec.y);
-		FontAsset(U"shoekick_boardfont")(Format(vec.meter)).drawAt(vec.vec.x - shoe->getTotalVec().x, vec.vec.y, ColorF(0, 0, 0));
+		TextureAsset(U"shoekick_signboard").drawAt(vec.vec.x - shoe->getTotalVec().x, vec.vec.y - (subY));
+		FontAsset(U"shoekick_boardfont")(Format(vec.meter)).drawAt(vec.vec.x - shoe->getTotalVec().x, vec.vec.y - (subY), ColorF(0, 0, 0));
 	}
 	//Characterï`âÊ
-	character->draw();
+	character->draw(subY);
 
 
 	switch (nowGameState)
@@ -182,8 +190,8 @@ void ShoeKickGame::draw(void) {
 	}
 	//èââÒê‡ñæï`âÊ
 	if (isDescription) {
-		Rect(0, 0, Window::ClientWidth(), Window::ClientHeight()).draw(ColorF(1, 1, 1, 0.8));
-		TextureAsset(U"shoekick_description").drawAt(Window::ClientCenter());
+		Rect(0, 0, Scene::Width(), Scene::Height()).draw(ColorF(1, 1, 1, 0.8));
+		TextureAsset(U"shoekick_description").drawAt(Scene::Center());
 	}
 }
 
@@ -215,6 +223,7 @@ void ShoeKickGame::updateKick() {
 		if (kickPower < abs(acc.z)) {
 			kickPower = abs(acc.z);
 		}
+		kickPower = 80;
 	}
 	else {//ÉLÉbÉNéûä‘â∫å¿
 		setNextState(FLY);//ÉVÅ[Éìà⁄çsÇ∑ÇÈ
@@ -269,11 +278,11 @@ void ShoeKickGame::drawKickTimer() {
 	}
 	if (kickCount > 0) {
 		//êîéöï`âÊ
-		countTexture[cnt]->drawAt(Window::ClientWidth() / 2, Window::ClientHeight() * 0.4);
+		countTexture[cnt]->drawAt(Scene::Width() / 2, Scene::Height() * 0.4);
 	}
 	else {
 		//èRÇÍÅIÇï`âÊ
-		countTexture[0]->drawAt(Window::ClientWidth() / 2, Window::ClientHeight() * 0.4);
+		countTexture[0]->drawAt(Scene::Width() / 2, Scene::Height() * 0.4);
 	}
 }
 
@@ -285,10 +294,10 @@ void ShoeKickGame::setKickTimer(int kicktime) {
 ShoeKickGame::SignBoard ShoeKickGame::createSignBoard(int meter) {
 	SignBoard board;
 	if (meter == 0) {
-		board.vec = Vec2(Window::ClientWidth() /2, GROUND - 120);
+		board.vec = Vec2(Scene::Width() /2, GROUND - 120);
 	}
 	else {
-		board.vec = Vec2(Window::ClientWidth() / 2 + meter / METER_WEIGHT , GROUND - 120);
+		board.vec = Vec2(Scene::Width() / 2 + meter / METER_WEIGHT , GROUND - 120);
 	}
 	board.meter = meter;
 	return board;

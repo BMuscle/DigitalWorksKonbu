@@ -29,8 +29,8 @@ ShoeKickResult::ShoeKickResult(SHOEKICK_SCENE* scenep, int meter) : ShoeKickScen
 	else {
 		isHighScoreUpdate = false;
 	}
-
-	point = meter * POINT_WEIGHT;
+	//point = meter * POINT_WEIGHT;
+	point = meter * POINT_WEIGHT + 500;//デバッグ用強制500P
 	if (User::getHasItems(GAME_TYPE::SHOEKICK, (int)GACHA_ITEM::CAT + 1)) {
 		point *= 1.5;
 	}
