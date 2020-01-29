@@ -15,10 +15,10 @@ ShoeKickGame::ShoeKickGame(SHOEKICK_SCENE* scenep) : ShoeKickSceneBase(scenep) {
 		hasItems.push_back(User::getHasItems(GAME_TYPE::SHOEKICK, i + 1));
 	}
 	//‰æ‘œ‚Ìƒ[ƒh
-	TextureAsset::Register(U"shoekick_game", U"resources/images/backs/game/shoekick/game.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"shoekick_frame", U"resources/images/items/game/shoekick/game/frame.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"shoekick_signboard", U"resources/images/items/game/shoekick/game/signboard.png", AssetParameter::LoadAsync());
-	TextureAsset::Register(U"shoekick_description", U"resources/images/items/game/shoekick/game/description.png", AssetParameter::LoadAsync());
+	TextureAsset::Register(U"shoekick_game", U"resources/images/backs/game/shoekick/game.png");
+	TextureAsset::Register(U"shoekick_frame", U"resources/images/items/game/shoekick/game/frame.png");
+	TextureAsset::Register(U"shoekick_signboard", U"resources/images/items/game/shoekick/game/signboard.png");
+	TextureAsset::Register(U"shoekick_description", U"resources/images/items/game/shoekick/game/description.png");
 
 	FontAsset::Register(U"shoekick_font", 70);
 	FontAsset::Preload(U"shoekick_font");
@@ -153,8 +153,8 @@ void ShoeKickGame::draw(void) {
 	if (subY > 0) {
 		subY = 0;
 	}
-	else if (subY < -Scene::Height() * 2) {
-		subY = -Scene::Height() * 2;
+	else if (subY < -Scene::Height() * 3) {
+		subY = -Scene::Height() * 3;
 	}
 
 	int x = Scene::Width() / 2 - ((int)shoe->getTotalVec().x % Scene::Width());
