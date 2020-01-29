@@ -3,7 +3,7 @@
 MyRoomCollection::MyRoomCollection(MYROOM_SCENE* scenep) :MyRoomSceneBase(scenep) {
 	TextureAsset::Register(U"myroomback", U"resources/images/backs/myroom/collection.png", AssetParameter::LoadAsync());
 
-	button = new MyImageButton(U"resources/images/items/myroom/collection/return", U"", 0, Window::ClientWidth() - 120, Window::ClientHeight() / 2);
+	button = new MyImageButton(U"resources/images/items/myroom/collection/return", U"", 0, Scene::Width() - 120, Scene::Height() / 2);
 
 	FontAsset::Register(U"myroomsmallfont", 50, AssetParameter::LoadAsync());
 	FontAsset::Preload(U"myroomsmallfont");
@@ -193,7 +193,7 @@ void MyRoomCollection::draw() {
 	for (int row = 0; row < csvItem[(int)GAME_TYPE::SOCCER].rows(); row++) {
 		if (User::getHasItems(GAME_TYPE::SOCCER, csvItem[(int)GAME_TYPE::SOCCER].get<int>(row, 0))){
 			int median = csvItem[(int)GAME_TYPE::DODGE].rows() / 2;
-			int x = (Window::ClientWidth() / 2) + ((row - median) * ITEM_INTERVAL) + ITEM_OFFSET_X;//画面中央にセンタリングされるよう描画
+			int x = (Scene::Width() / 2) + ((row - median) * ITEM_INTERVAL) + ITEM_OFFSET_X;//画面中央にセンタリングされるよう描画
 			TextureAsset(csvItem[(int)GAME_TYPE::SOCCER].get<String>(row, 1)).scaled(ITEM_SCALED).drawAt(x, ITEM_Y[(int)GAME_TYPE::SOCCER], AlphaF(ITEM_ALPHA));
 		}
 	}
@@ -202,7 +202,7 @@ void MyRoomCollection::draw() {
 	for (int row = 0; row < csvItem[(int)GAME_TYPE::SHOEKICK].rows(); row++) {
 		if (User::getHasItems(GAME_TYPE::SHOEKICK, csvItem[(int)GAME_TYPE::SHOEKICK].get<int>(row, 0))) {
 			int median = csvItem[(int)GAME_TYPE::DODGE].rows() / 2;
-			int x = (Window::ClientWidth() / 2) + ((row - median) * ITEM_INTERVAL) + ITEM_OFFSET_X;//画面中央にセンタリングされるよう描画
+			int x = (Scene::Width() / 2) + ((row - median) * ITEM_INTERVAL) + ITEM_OFFSET_X;//画面中央にセンタリングされるよう描画
 			TextureAsset(csvItem[(int)GAME_TYPE::SHOEKICK].get<String>(row, 1)).scaled(ITEM_SCALED).drawAt(x, ITEM_Y[(int)GAME_TYPE::SHOEKICK], AlphaF(ITEM_ALPHA));
 		}
 	}
@@ -211,14 +211,14 @@ void MyRoomCollection::draw() {
 	for (int row = 0; row < csvItem[(int)GAME_TYPE::DODGE].rows(); row++) {
 		if (User::getHasItems(GAME_TYPE::DODGE, csvItem[(int)GAME_TYPE::DODGE].get<int>(row, 0))) {
 			int median = csvItem[(int)GAME_TYPE::DODGE].rows() / 2;
-			int x = (Window::ClientWidth() / 2) + ((row - median) * ITEM_INTERVAL) + ITEM_OFFSET_X;//画面中央にセンタリングされるよう描画
+			int x = (Scene::Width() / 2) + ((row - median) * ITEM_INTERVAL) + ITEM_OFFSET_X;//画面中央にセンタリングされるよう描画
 			TextureAsset(csvItem[(int)GAME_TYPE::DODGE].get<String>(row, 1)).scaled(ITEM_SCALED).drawAt(x, ITEM_Y[(int)GAME_TYPE::DODGE], AlphaF(ITEM_ALPHA));
 		}
 	}
 	//選択されているものの描画
 	if (!isButtonSelect && hasItem) {
 		int median = csvItem[selectedItem.row].rows() / 2;
-		int x = (Window::ClientWidth() / 2) + ((selectedItem.column - median) * ITEM_INTERVAL) + ITEM_OFFSET_X;//画面中央にセンタリングされるよう描画
+		int x = (Scene::Width() / 2) + ((selectedItem.column - median) * ITEM_INTERVAL) + ITEM_OFFSET_X;//画面中央にセンタリングされるよう描画
 		TextureAsset(csvItem[selectedItem.row].get<String>(selectedItem.column, 1)).scaled(ITEM_SCALED).drawAt(x, ITEM_Y[selectedItem.row]);
 		TextureAsset(U"myroomcursor").drawAt(x, ITEM_Y[selectedItem.row]);
 	}
@@ -227,10 +227,10 @@ void MyRoomCollection::draw() {
 
 	//詳細説明表示
 	if (isCollectionSelected) {
-		Rect(0, 0, Window::ClientWidth(), Window::ClientHeight()).draw(ColorF(1, 1, 1, 0.5));
-		TextureAsset(csvItem[selectedItem.row].get<String>(selectedItem.column, 1)).scaled(0.8).drawAt(Window::ClientWidth() * 0.25, Window::ClientHeight() / 2);
-		TextureAsset(U"gachatext").drawAt(Window::ClientWidth() * 0.65, Window::ClientHeight() / 2);
-		FontAsset(U"myroomsmallfont")(U"～Press to Enter～").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() - 100, ColorF(0, 0, 0, alpha));
+		Rect(0, 0, Scene::Width(), Scene::Height()).draw(ColorF(1, 1, 1, 0.5));
+		TextureAsset(csvItem[selectedItem.row].get<String>(selectedItem.column, 1)).scaled(0.8).drawAt(Scene::Width() * 0.25, Scene::Height() / 2);
+		TextureAsset(U"gachatext").drawAt(Scene::Width() * 0.65, Scene::Height() / 2);
+		FontAsset(U"myroomsmallfont")(U"～Press to Enter～").drawAt(Scene::Width() / 2, Scene::Height() - 100, ColorF(0, 0, 0, alpha));
 	}
 }
 

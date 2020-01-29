@@ -66,13 +66,13 @@ void ShoeKickResult::update(void) {
 }
 void ShoeKickResult::draw(void) {
 	//îwåiï`âÊ
-	TextureAsset(U"shoekick_back").drawAt(Window::ClientCenter());
-	FontAsset(U"shoekick_font_bold")(Format(meter) + U"m").drawAt(Window::ClientWidth() * 0.55, Window::ClientHeight() * 0.45, ColorF(0, 0, 0));
-	FontAsset(U"shoekick_font_small")(Format(point) + U"P").drawAt(Window::ClientWidth() * 0.55, Window::ClientHeight() * 0.6, ColorF(0, 0, 0));
+	TextureAsset(U"shoekick_back").drawAt(Scene::Center());
+	FontAsset(U"shoekick_font_bold")(Format(meter) + U"m").drawAt(Scene::Width() * 0.55, Scene::Height() * 0.45, ColorF(0, 0, 0));
+	FontAsset(U"shoekick_font_small")(Format(point) + U"P").drawAt(Scene::Width() * 0.55, Scene::Height() * 0.6, ColorF(0, 0, 0));
 	if (isHighScoreUpdate) {//ÉnÉCÉXÉRÉAçXêVÇµÇƒÇ¢ÇÈÇ»ÇÁÇŒ
-		TextureAsset(U"shoekick_high").drawAt(Window::ClientWidth() * 0.5, Window::ClientHeight() * 0.72);
+		TextureAsset(U"shoekick_high").drawAt(Scene::Width() * 0.5, Scene::Height() * 0.72);
 	}
-	FontAsset(U"shoekick_font")(U"Å`Press to EnterÅ`").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() - 160, ColorF(0, 0, 0, alpha));
+	FontAsset(U"shoekick_font")(U"Å`Press to EnterÅ`").drawAt(Scene::Width() / 2, Scene::Height() - 160, ColorF(0, 0, 0, alpha));
 }
 
 void ShoeKickResult::changeAlpha(void) {

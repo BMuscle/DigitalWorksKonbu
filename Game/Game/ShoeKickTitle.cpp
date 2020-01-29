@@ -2,14 +2,14 @@
 
 //画面中央からどれだけボタンが離れているか
 #define BUTTON_INTERVAL 300
-#define BUTTON_Y Window::ClientHeight() * 0.7
+#define BUTTON_Y Scene::Height() * 0.7
 
 ShoeKickTitle::ShoeKickTitle(SHOEKICK_SCENE* scenep) : ShoeKickSceneBase(scenep){
 	TextureAsset::Register(U"shoekick_title", U"resources/images/backs/game/shoekick/title.png", AssetParameter::LoadAsync());
 
 	//ボタンロード
-	button[GAME] = new MyImageButton(U"resources/images/items/game/shoekick/title/game", U"", 0, Window::ClientWidth() / 2 + BUTTON_INTERVAL, BUTTON_Y);
-	button[MAP] = new MyImageButton(U"resources/images/items/game/shoekick/title/map", U"", 0, Window::ClientWidth() / 2 - BUTTON_INTERVAL, BUTTON_Y);
+	button[GAME] = new MyImageButton(U"resources/images/items/game/shoekick/title/game", U"", 0, Scene::Width() / 2 + BUTTON_INTERVAL, BUTTON_Y);
+	button[MAP] = new MyImageButton(U"resources/images/items/game/shoekick/title/map", U"", 0, Scene::Width() / 2 - BUTTON_INTERVAL, BUTTON_Y);
 
 
 	selectButton = BUTTON::GAME;//初期ボタン選択状態
@@ -64,7 +64,7 @@ void ShoeKickTitle::update(void) {
 
 }
 void ShoeKickTitle::draw(void) {
-	TextureAsset(U"shoekick_title").drawAt(Window::ClientCenter());
+	TextureAsset(U"shoekick_title").drawAt(Scene::Center());
 
 	switch (selectButton)
 	{

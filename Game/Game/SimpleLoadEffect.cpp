@@ -50,7 +50,7 @@ void SimpleLoadEffect::update() {
 //ï`âÊèàóù
 void SimpleLoadEffect::draw() {
 	if (loadState != SIMPLE_LOAD_STATE::NONE) {
-		Rect(0, 0, Window::ClientWidth(), Window::ClientHeight()).draw(ColorF(0, 0, 0, alpha));
+		Rect(0, 0, Scene::Width(), Scene::Height()).draw(ColorF(0, 0, 0, alpha));
 	}
 }
 

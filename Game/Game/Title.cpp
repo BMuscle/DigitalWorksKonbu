@@ -45,8 +45,8 @@ void Title::draw(void) {
 	//îwåiÇÃï`âÊ
 	TextureAsset(U"titleback").draw();
 	//É^ÉCÉgÉãÇÃÉtÉHÉìÉg
-	FontAsset(U"titlefont")(U"Å` Play Å`").drawAt(Window::ClientWidth() *0.27, Window::ClientHeight() - 200 + 3, ColorF(0, 0, 0, alpha - 0.05));
-	FontAsset(U"titlefont")(U"Å` Play Å`").drawAt(Window::ClientWidth() * 0.27, Window::ClientHeight() - 200, AlphaF(alpha));
+	FontAsset(U"titlefont")(U"Å` Play Å`").drawAt(Scene::Width() *0.27, Scene::Height() - 200 + 3, ColorF(0, 0, 0, alpha - 0.05));
+	FontAsset(U"titlefont")(U"Å` Play Å`").drawAt(Scene::Width() * 0.27, Scene::Height() - 200, AlphaF(alpha));
 }
 
 void Title::changeAlpha(void) {

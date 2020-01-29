@@ -17,7 +17,7 @@ enum class GACHA_ITEM {
 	CAT,
 	SIZE,
 };
-#define GROUND Window::ClientHeight() * 0.8
+#define GROUND Scene::Height() * 0.8
 
 class ShoeKickGame : public ShoeKickSceneBase {
 private:

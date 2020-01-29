@@ -1,11 +1,11 @@
 #include "SelectSaveData.h"
 
-#define FRAME_CENTER_X (Window::ClientWidth() / 2)		//真ん中のフレームの位置X
-#define FRAME_CENTER_Y (Window::ClientHeight() / 2 + 150)		//真ん中のフレームの位置Y
-#define FRAME_INTERVAL (Window::ClientHeight() * 0.23)	//フレームの間隔
+#define FRAME_CENTER_X (Scene::Width() / 2)		//真ん中のフレームの位置X
+#define FRAME_CENTER_Y (Scene::Height() / 2 + 150)		//真ん中のフレームの位置Y
+#define FRAME_INTERVAL (Scene::Height() * 0.23)	//フレームの間隔
 
 //ポップアップのボタンの離れている間隔を定義
-#define POPUP_INTERVAL (Window::ClientWidth() * 0.07)
+#define POPUP_INTERVAL (Scene::Width() * 0.07)
 
 #define SELECT_INTERVAL_COUNT (60 * 0.2)
 
@@ -49,8 +49,8 @@ SelectSaveData::SelectSaveData(void) {
 	}
 
 	//ポップアップのボタン初期化
-	popUpButton[(int)POPUP::DECISION] = new MyImageButton(U"resources/images/items/selectsavedata/popupdeci", U"", 0, (int)(Window::ClientWidth() / 2) + (int)POPUP_INTERVAL, (int)Window::ClientHeight() * 0.70, true);
-	popUpButton[(int)POPUP::RETURN] = new MyImageButton(U"resources/images/items/selectsavedata/popupretu", U"", 0, (int)(Window::ClientWidth() / 2) - (int)POPUP_INTERVAL, (int)Window::ClientHeight() * 0.70, false);
+	popUpButton[(int)POPUP::DECISION] = new MyImageButton(U"resources/images/items/selectsavedata/popupdeci", U"", 0, (int)(Scene::Width() / 2) + (int)POPUP_INTERVAL, (int)Scene::Height() * 0.70, true);
+	popUpButton[(int)POPUP::RETURN] = new MyImageButton(U"resources/images/items/selectsavedata/popupretu", U"", 0, (int)(Scene::Width() / 2) - (int)POPUP_INTERVAL, (int)Scene::Height() * 0.70, false);
 
 
 	//変数の初期化
@@ -176,7 +176,7 @@ void SelectSaveData::update(void) {
 }
 void SelectSaveData::draw(void) {
 	//背景描画
-	TextureAsset(U"selectSDback").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+	TextureAsset(U"selectSDback").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 
 
 	//セーブデータのフレーム画像描画
@@ -203,7 +203,7 @@ void SelectSaveData::draw(void) {
 
 	if (isPopUp) {
 		//ポップアップ背景を描画
-		TextureAsset(U"selectSDpopup").drawAt(Window::ClientWidth() * 0.5 - 35, Window::ClientHeight() * 0.6);
+		TextureAsset(U"selectSDpopup").drawAt(Scene::Width() * 0.5 - 35, Scene::Height() * 0.6);
 		switch (popUpState)
 		{
 		case POPUP::DECISION://YESが選択されているとき 選択状態を変更

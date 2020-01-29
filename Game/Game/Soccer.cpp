@@ -197,7 +197,7 @@ void Soccer::draw(void) {	//描画処理
 	Print(U"SensorData" + Format(x));
 
 	if (conecttingflag == 0) {
-		TextureAsset(U"soccerback").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+		TextureAsset(U"soccerback").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 		switch (nowScene)//シーンによって描画処理を切り替える
 		{
 		case Soccer::TITLE:
@@ -224,7 +224,7 @@ void Soccer::draw(void) {	//描画処理
 			break;
 			*/
 		default:
-			TextureAsset(U"soccerresult").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+			TextureAsset(U"soccerresult").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 			break;
 		}
 	}
@@ -336,8 +336,8 @@ void Soccer::updateTitle() {//できるならエンター押してにしたい
 }
 
 void Soccer::drawTitle() {
-	//TextureAsset(U"soccertitle").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
-	TextureAsset(U"titlemesse").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+	//TextureAsset(U"soccertitle").drawAt(Scene::Width() / 2, Scene::Height() / 2);
+	TextureAsset(U"titlemesse").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 	if (inputUBotton == 1) {
 		TextureAsset(U"startgame2").drawAt(1400, 700);
 		TextureAsset(U"backgameselect1").drawAt(600, 700);
@@ -659,8 +659,8 @@ void Soccer::whichWin(int direction, int power) {  //どっちがかったか判
 
 
 void Soccer::drawSelect() {
-	//TextureAsset(U"soccerchoice").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
-	TextureAsset(U"selectpoji").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 4 - 200);
+	//TextureAsset(U"soccerchoice").drawAt(Scene::Width() / 2, Scene::Height() / 2);
+	TextureAsset(U"selectpoji").drawAt(Scene::Width() / 2, Scene::Height() / 4 - 200);
 	if (selecttype == 0) {
 		TextureAsset(U"soccerkicker2").drawAt(600, 700);
 		TextureAsset(U"soccerkeeper1").drawAt(1400, 700);
@@ -674,24 +674,24 @@ void Soccer::drawSelect() {
 void Soccer::drawBeforeThiking()
 {
 	if (readflag == 1) {
-		TextureAsset(U"s_setu0").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+		TextureAsset(U"s_setu0").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 	}
 	else if (readflag == 2) {
-		TextureAsset(U"s_setu1").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+		TextureAsset(U"s_setu1").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 	}
 	else if (readflag == 3) {
-		TextureAsset(U"s_setu2").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+		TextureAsset(U"s_setu2").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 	}
 	else if (readflag == 4) {
-		TextureAsset(U"s_setu3").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+		TextureAsset(U"s_setu3").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 	}
 	else {
 		if (selecttype == 0) {
-			TextureAsset(U"wearleg").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+			TextureAsset(U"wearleg").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 			readflag = 0;
 		}
 		else if (selecttype == 1) {
-			TextureAsset(U"wearhand").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+			TextureAsset(U"wearhand").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 			readflag = 0;
 		}
 	}
@@ -700,58 +700,58 @@ void Soccer::drawBeforeThiking()
 }
 
 void Soccer::drawThinking() {
-	//TextureAsset(U"gameback").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+	//TextureAsset(U"gameback").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 	switch (thinkdrawflag) {
 	case 0:
-		TextureAsset(U"three").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() - 400);
+		TextureAsset(U"three").drawAt(Scene::Width() / 2, Scene::Height() - 400);
 		break;
 		
 	case 1:
-		TextureAsset(U"two").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() - 400);
+		TextureAsset(U"two").drawAt(Scene::Width() / 2, Scene::Height() - 400);
 		break;
 
 	case 2:
-		TextureAsset(U"one").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() - 400);
+		TextureAsset(U"one").drawAt(Scene::Width() / 2, Scene::Height() - 400);
 		break;
 
 	case 3:
-		TextureAsset(U"shoot").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() - 400);
+		TextureAsset(U"shoot").drawAt(Scene::Width() / 2, Scene::Height() - 400);
 		break;
 	}
 }
 
 void Soccer::drawPractical_skill() {
-	TextureAsset(U"soccerback1").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
-	static int boal_x = Window::ClientWidth() / 2;
-	static int boal_y = Window::ClientHeight() - 150;
+	TextureAsset(U"soccerback1").drawAt(Scene::Width() / 2, Scene::Height() / 2);
+	static int boal_x = Scene::Width() / 2;
+	static int boal_y = Scene::Height() - 150;
 
 	if (end_flag == 1) {
 		soccerboalcount--;
 		switch (direction_flag) {
 		case -1:
 			if (soccerboalcount >= 120 - 15) {
-				TextureAsset(U"soccerboal1").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() - 100);
+				TextureAsset(U"soccerboal1").drawAt(Scene::Width() / 2, Scene::Height() - 100);
 			}
 			else if (soccerboalcount >= 120 - 30) {
-				TextureAsset(U"soccerboal2").drawAt(Window::ClientWidth() / 2 - 10, Window::ClientHeight() / 2 - 105);
+				TextureAsset(U"soccerboal2").drawAt(Scene::Width() / 2 - 10, Scene::Height() / 2 - 105);
 			}
 			else if (soccerboalcount >= 120 - 45) {
-				TextureAsset(U"soccerboal3").drawAt(Window::ClientWidth() / 2 - 50, Window::ClientHeight() / 2 - 110);
+				TextureAsset(U"soccerboal3").drawAt(Scene::Width() / 2 - 50, Scene::Height() / 2 - 110);
 			}
 			else if (soccerboalcount >= 120 - 60) {
-				TextureAsset(U"soccerboal4").drawAt(Window::ClientWidth() / 2 - 90, Window::ClientHeight() / 2 - 115);
+				TextureAsset(U"soccerboal4").drawAt(Scene::Width() / 2 - 90, Scene::Height() / 2 - 115);
 			}
 			else if (soccerboalcount >= 120 - 75) {
-				TextureAsset(U"soccerboal5").drawAt(Window::ClientWidth() / 2 - 120, Window::ClientHeight() / 2 - 125);
+				TextureAsset(U"soccerboal5").drawAt(Scene::Width() / 2 - 120, Scene::Height() / 2 - 125);
 			}
 			else if (soccerboalcount >= 120 - 90) {
-				TextureAsset(U"soccerboal6").drawAt(Window::ClientWidth() / 2 - 160, Window::ClientHeight() / 2 - 140);
+				TextureAsset(U"soccerboal6").drawAt(Scene::Width() / 2 - 160, Scene::Height() / 2 - 140);
 			}
 			else if (soccerboalcount >= 120 - 105) {
-				TextureAsset(U"soccerboal7").drawAt(Window::ClientWidth() / 2 - 200, Window::ClientHeight() / 2 - 155);
+				TextureAsset(U"soccerboal7").drawAt(Scene::Width() / 2 - 200, Scene::Height() / 2 - 155);
 			}
 			else if (soccerboalcount >= -30) {
-				TextureAsset(U"soccerboal8").drawAt(Window::ClientWidth() / 2 - 300, Window::ClientHeight() / 2 - 170);
+				TextureAsset(U"soccerboal8").drawAt(Scene::Width() / 2 - 300, Scene::Height() / 2 - 170);
 			}
 			else {
 				end_flag = 2;
@@ -760,28 +760,28 @@ void Soccer::drawPractical_skill() {
 
 		case 1:
 			if (soccerboalcount >= 120 - 15) {
-				TextureAsset(U"soccerboal1").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() - 100);
+				TextureAsset(U"soccerboal1").drawAt(Scene::Width() / 2, Scene::Height() - 100);
 			}
 			else if (soccerboalcount >= 120 - 30) {
-				TextureAsset(U"soccerboal2").drawAt(Window::ClientWidth() / 2 + 10, Window::ClientHeight() / 2 - 105);
+				TextureAsset(U"soccerboal2").drawAt(Scene::Width() / 2 + 10, Scene::Height() / 2 - 105);
 			}
 			else if (soccerboalcount >= 120 - 45) {
-				TextureAsset(U"soccerboal3").drawAt(Window::ClientWidth() / 2 + 50, Window::ClientHeight() / 2 - 110);
+				TextureAsset(U"soccerboal3").drawAt(Scene::Width() / 2 + 50, Scene::Height() / 2 - 110);
 			}
 			else if (soccerboalcount >= 120 - 60) {
-				TextureAsset(U"soccerboal4").drawAt(Window::ClientWidth() / 2 + 90, Window::ClientHeight() / 2 - 115);
+				TextureAsset(U"soccerboal4").drawAt(Scene::Width() / 2 + 90, Scene::Height() / 2 - 115);
 			}
 			else if (soccerboalcount >= 120 - 75) {
-				TextureAsset(U"soccerboal5").drawAt(Window::ClientWidth() / 2 + 120, Window::ClientHeight() / 2 - 125);
+				TextureAsset(U"soccerboal5").drawAt(Scene::Width() / 2 + 120, Scene::Height() / 2 - 125);
 			}
 			else if (soccerboalcount >= 120 - 90) {
-				TextureAsset(U"soccerboal6").drawAt(Window::ClientWidth() / 2 + 160, Window::ClientHeight() / 2 - 140);
+				TextureAsset(U"soccerboal6").drawAt(Scene::Width() / 2 + 160, Scene::Height() / 2 - 140);
 			}
 			else if (soccerboalcount >= 120 - 105) {
-				TextureAsset(U"soccerboal7").drawAt(Window::ClientWidth() / 2 + 200, Window::ClientHeight() / 2 - 155);
+				TextureAsset(U"soccerboal7").drawAt(Scene::Width() / 2 + 200, Scene::Height() / 2 - 155);
 			}
 			else if (soccerboalcount >= -30) {
-				TextureAsset(U"soccerboal8").drawAt(Window::ClientWidth() / 2 + 300, Window::ClientHeight() / 2 - 170);
+				TextureAsset(U"soccerboal8").drawAt(Scene::Width() / 2 + 300, Scene::Height() / 2 - 170);
 			}
 			else {
 				end_flag = 2;
@@ -795,25 +795,25 @@ void Soccer::drawPractical_skill() {
 
 
 void Soccer::drawResult() {
-	//TextureAsset(U"soccerresult").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 4 - 200);
+	//TextureAsset(U"soccerresult").drawAt(Scene::Width() / 2, Scene::Height() / 4 - 200);
 	if (winflag == 1) {
 		if (direction_flag == 1) {
-			TextureAsset(U"saveright").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+			TextureAsset(U"saveright").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 		}
 		else {
-			TextureAsset(U"saveleft").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+			TextureAsset(U"saveleft").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 		}
-		TextureAsset(U"gatya50").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2 + 60);
+		TextureAsset(U"gatya50").drawAt(Scene::Width() / 2, Scene::Height() / 2 + 60);
 
 	}
 	else if (winflag == 2) {
 		if (direction_flag == 1) {
-			TextureAsset(U"goalright").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+			TextureAsset(U"goalright").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 		}
 		else {
-			TextureAsset(U"goalleft").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+			TextureAsset(U"goalleft").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 		}
-		TextureAsset(U"gatya200").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+		TextureAsset(U"gatya200").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 	}
 	switch (inputRBotton)
 	{
@@ -873,7 +873,7 @@ void Soccer::itemCheck() {
 }
 
 void Soccer::stopGame() {	//ゲームを一時中断する
-	TextureAsset(U"inter").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+	TextureAsset(U"inter").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 	isStop = true;
 
 }

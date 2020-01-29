@@ -85,8 +85,8 @@ void MyRoomReport::draw() {
 	//ëçï]ï`âÊ
 	TextureAsset(U"myroomword").drawAt(wordVec2);
 
-	FontAsset(U"myroomsmallfont")(U"Å`Press to EnterÅ`").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() - 70, ColorF(0, 0, 0));
-	FontAsset(U"myroomsmallfont")(U"Å`Press to EnterÅ`").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() - 70, AlphaF(alpha));
+	FontAsset(U"myroomsmallfont")(U"Å`Press to EnterÅ`").drawAt(Scene::Width() / 2, Scene::Height() - 70, ColorF(0, 0, 0));
+	FontAsset(U"myroomsmallfont")(U"Å`Press to EnterÅ`").drawAt(Scene::Width() / 2, Scene::Height() - 70, AlphaF(alpha));
 
 
 

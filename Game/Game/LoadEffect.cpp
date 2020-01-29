@@ -42,7 +42,7 @@ void LoadEffect::update() {
 }
 void LoadEffect::draw() {
 	if (loadState != LOAD_STATE::NONE) {
-		Rect(0, 0, Window::ClientWidth(), Window::ClientHeight()).draw(ColorF(0, 0, 0, alpha));
+		Rect(0, 0, Scene::Width(), Scene::Height()).draw(ColorF(0, 0, 0, alpha));
 	}
 }
 

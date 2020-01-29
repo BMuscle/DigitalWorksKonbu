@@ -131,7 +131,7 @@ bool Shoe::isFlying() {
 }
 
 Vec2 Shoe::getShoePos() {
-	return Vec2(Window::ClientWidth() / 2, totalShoeVec.y + 20);
+	return Vec2(Scene::Width() / 2, totalShoeVec.y + 20);
 }
 
 void Shoe::updateRocket() {

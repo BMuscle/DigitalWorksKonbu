@@ -87,14 +87,14 @@ void SelectMode::update(void) {
 void SelectMode::draw(void) {
 
 	//背景描画
-	TextureAsset(U"selectmodeback").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+	TextureAsset(U"selectmodeback").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 	//選択部分の表示
 	for (int i = 0; i < (int)MODE::SIZE; i++) {
 		button[i]->drawNotWord(getSelectedMode() == (MODE)i);
 	}
 
 	//現在選択されているものの内容画像を表示する
-	TextureAsset(textureName[(int)getSelectedMode()] + U"txt").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() * 0.62, AlphaF(1));
+	TextureAsset(textureName[(int)getSelectedMode()] + U"txt").drawAt(Scene::Width() / 2, Scene::Height() * 0.62, AlphaF(1));
 }
 
 MODE SelectMode::getSelectedMode() {//選択されているモードを返す。シーン移行時に受け渡す

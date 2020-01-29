@@ -1,19 +1,19 @@
 #include "CreateSaveData.h"
 
 //テキストボックスの座標 幅 定義
-#define NAMEBOX_X (Window::ClientWidth() * 0.5)
-#define NAMEBOX_Y (Window::ClientHeight() * 0.55)
-#define NAMEBOX_W (Window::ClientWidth() * 0.18)
+#define NAMEBOX_X (Scene::Width() * 0.5)
+#define NAMEBOX_Y (Scene::Height() * 0.55)
+#define NAMEBOX_W (Scene::Width() * 0.18)
 //アイテムの位置の間隔を定義
-#define ITEM_INTERVAL (Window::ClientHeight() * 0.2)
+#define ITEM_INTERVAL (Scene::Height() * 0.2)
 //ポップアップのボタンの離れている間隔を定義
-#define POPUP_INTERVAL (Window::ClientWidth() * 0.07)
+#define POPUP_INTERVAL (Scene::Width() * 0.07)
 
 //ボタンの画面端から離れている距離
 #define BUTTON_OFFSET_X (600)
 
 #define BUTTON_RETURN_X (BUTTON_OFFSET_X)
-#define BUTTON_DECISION_X (Window::ClientWidth() - BUTTON_OFFSET_X)
+#define BUTTON_DECISION_X (Scene::Width() - BUTTON_OFFSET_X)
 
 #define BUTTON_Y NAMEBOX_Y
 
@@ -32,8 +32,8 @@ CreateSaveData::CreateSaveData(int user_id) {
 	button[(int)BUTTON::DECISION] = new MyImageButton(U"resources/images/items/createsavedata/decision", U"", 0, BUTTON_DECISION_X, BUTTON_Y, false);
 	
 	//ポップアップのボタン初期化
-	popUpButton[(int)POPUP::DECISION] = new MyImageButton(U"resources/images/items/createsavedata/popupdeci", U"", 0, (int)(Window::ClientWidth() / 2) + (int)POPUP_INTERVAL, (int)Window::ClientHeight() * 0.6, true);
-	popUpButton[(int)POPUP::RETURN] = new MyImageButton(U"resources/images/items/createsavedata/popupretu", U"", 0, (int)(Window::ClientWidth() / 2) - (int)POPUP_INTERVAL, (int)Window::ClientHeight() * 0.6, false);
+	popUpButton[(int)POPUP::DECISION] = new MyImageButton(U"resources/images/items/createsavedata/popupdeci", U"", 0, (int)(Scene::Width() / 2) + (int)POPUP_INTERVAL, (int)Scene::Height() * 0.6, true);
+	popUpButton[(int)POPUP::RETURN] = new MyImageButton(U"resources/images/items/createsavedata/popupretu", U"", 0, (int)(Scene::Width() / 2) - (int)POPUP_INTERVAL, (int)Scene::Height() * 0.6, false);
 
 	//変数の初期化
 	createUser_Id = user_id;//ユーザーID
@@ -97,7 +97,7 @@ void CreateSaveData::update(void) {//計算処理
 
 void CreateSaveData::draw(void) {//描画処理
 	//背景描画
-	TextureAsset(U"createSDback").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+	TextureAsset(U"createSDback").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 
 	//ボタンの描画
 	button[(int)BUTTON::DECISION]->drawNotWord(selectState == SELECT_STATE::DECISION);
@@ -208,7 +208,7 @@ void CreateSaveData::popUpMove() {//ポップアップの移動チェック移動処理
 
 void CreateSaveData::popUpDraw() {//ポップアップの描画
 	//ポップアップ背景を描画
-	TextureAsset(U"createSDpopup").drawAt(Window::ClientWidth() * 0.5, Window::ClientHeight() * 0.45);
+	TextureAsset(U"createSDpopup").drawAt(Scene::Width() * 0.5, Scene::Height() * 0.45);
 	switch (popUpState)
 	{
 	case POPUP::DECISION://YESが選択されているとき 選択状態を変更

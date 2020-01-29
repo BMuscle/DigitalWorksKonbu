@@ -128,14 +128,14 @@ void DodgeGame::Match()
 		}
 
 		//çƒï`âÊ
-		if (scope.getPlace().y > Window::ClientHeight() * 0.5) {//â∫Ç‹Ç≈çsÇ¡ÇΩÇÁ
+		if (scope.getPlace().y > Scene::Height() * 0.5) {//â∫Ç‹Ç≈çsÇ¡ÇΩÇÁ
 			scope.setPlace(Vec2(scope.getPlace().x + 30, -50));
 		}
 		
 		
-		Rect(0, Window::ClientHeight() * 0.5, Window::ClientWidth(), 10).draw(ColorF(1, 0, 0));
+		Rect(0, Scene::Height() * 0.5, Scene::Width(), 10).draw(ColorF(1, 0, 0));
 		for (int i = 0; i < 20; i++) {
-			Rect(i * 100, Window::ClientHeight() * 0.5, 3, 100).draw(ColorF(1, 0, 0));
+			Rect(i * 100, Scene::Height() * 0.5, 3, 100).draw(ColorF(1, 0, 0));
 		}
 	}
 
