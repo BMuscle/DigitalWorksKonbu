@@ -106,7 +106,7 @@ Vec2 Shoe::getTotalVec() {
 void Shoe::setShoeVector(float kickPower) {
 	constexpr float KICKWEIGHT = 3;
 	kickPower *= KICKWEIGHT;
-	constexpr float X_WEIGHT = 2.0, Y_WEIGHT = 4.0;
+	constexpr float X_WEIGHT = 6.0, Y_WEIGHT = 10.0;
 	constexpr Vec2 SPORTS_SHOE_WEIGHT = Vec2(1.5, 1.5);
 	shoeVec = Vec2(kickPower / X_WEIGHT, -(kickPower / Y_WEIGHT));
 	if (hasItems->at((int)GACHA_ITEM::SPORTS_SHOE)) {

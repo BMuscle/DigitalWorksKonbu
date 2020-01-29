@@ -80,8 +80,4 @@ void Sensor::setData(Vec3& accel, Vec3& angular, Vec3& dir) {
 	acceleration.x /= 10;
 	acceleration.y /= 10;
 	acceleration.z /= 10;
-	//1G‚ðm/s^2‚É’¼‚·
-	acceleration.x *= 0.98;
-	acceleration.y *= 0.98;
-	acceleration.z *= 0.98;
 }
