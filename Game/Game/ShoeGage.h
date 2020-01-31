@@ -2,7 +2,7 @@
 #include <Siv3D.hpp>
 #include <stdlib.h>
 
-constexpr Vec2 POS = Vec2(1920 / 2, 230);
+constexpr Vec2 POS = Vec2(1920 / 2, 100);
 //constexpr Vec2 GAGE = Vec2(107, 523);
 constexpr Vec2 GAGE = Vec2(58, 478);
 

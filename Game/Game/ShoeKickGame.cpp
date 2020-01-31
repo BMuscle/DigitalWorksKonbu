@@ -164,12 +164,12 @@ void ShoeKickGame::draw(void) {
 	TextureAsset(U"shoekick_game").drawAt(x, -Scene::Height() / 2 - (subY));
 	TextureAsset(U"shoekick_game").drawAt(x + Scene::Width(), -Scene::Height() / 2 - (subY));
 
-	int meterX = 80;
-	int meterY = 40;
+	int meterX = 1200;
+	int meterY = 140;
 	//METER•`‰æ
 	int meter = (int)(shoe->getTotalVec().x * METER_WEIGHT);
 	Rect tmp = FontAsset(U"shoekick_font")(Format(meter) + U"M").boundingRect();			//À•WŒn‚³‚ñ
-	TextureAsset(U"shoekick_frame").draw(meterX + 500 - 450, meterY);//ƒtƒŒ[ƒ€•`‰æ
+	TextureAsset(U"shoekick_frame").draw(meterX + 500 - 300, meterY - 20);//ƒtƒŒ[ƒ€•`‰æ
 	FontAsset(U"shoekick_font")(Format(meter) + U"m").draw(meterX +500 - tmp.w,meterY,ColorF(0,0,0,1));//•¶š•`‰æ
 	//ŠÅ”Â•`‰æ
 	for (auto vec : boardVec) {
