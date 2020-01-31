@@ -7,6 +7,7 @@
 #include <math.h>
 #include "ShoeCharacter.h"
 #include "Shoe.h"
+#include "ShoeGage.h"
 
 //ガチャアイテム用 キー値は＋1
 enum class GACHA_ITEM {
@@ -36,6 +37,7 @@ private:
 
 	class ShoeCharacter* character;
 	class Shoe* shoe;
+	class ShoeGage* shoeGage;
 
 	enum GAME_STATE {
 		KICK,

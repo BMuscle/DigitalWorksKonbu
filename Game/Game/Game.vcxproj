@@ -307,6 +307,7 @@
     <ClInclude Include="SelectMode.h" />
     <ClInclude Include="SelectSaveData.h" />
     <ClInclude Include="Sensor.h" />
+    <ClInclude Include="ShoeGage.h" />
     <ClInclude Include="ShoeKick.h" />
     <ClInclude Include="ShoeKickSceneBase.h" />
     <ClInclude Include="ShoeKickGame.h" />

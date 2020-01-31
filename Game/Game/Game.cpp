@@ -51,7 +51,7 @@ void Game::update(void) {
 //	if (MySocketServer::isConnection()) {//コントローラーコネクション確立時
 	if (true) {//デバッグ用
 		if (!MySocketServer::isConnection()) {
-			Vec3 vec = Vec3(500, 500, 500);
+			Vec3 vec = Vec3(500, 500, 800);
 			Sensor::setData(vec, vec, vec);
 		}
 		if (isStop) {

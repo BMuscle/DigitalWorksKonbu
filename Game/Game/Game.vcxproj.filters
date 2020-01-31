@@ -706,5 +706,8 @@
     <ClInclude Include="DodgeTitle.h">
       <Filter>Header Files\Scene\Game\Dodge</Filter>
     </ClInclude>
+    <ClInclude Include="ShoeGage.h">
+      <Filter>Header Files\Scene\Game\ShoeKick</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

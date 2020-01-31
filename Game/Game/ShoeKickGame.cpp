@@ -59,6 +59,7 @@ ShoeKickGame::ShoeKickGame(SHOEKICK_SCENE* scenep) : ShoeKickSceneBase(scenep) {
 
 	character = new ShoeCharacter(Vec2(0,GROUND));
 	shoe = new Shoe(&hasItems);
+	shoeGage = new ShoeGage();
 
 	frameCnt = 0;
 
@@ -145,6 +146,7 @@ void ShoeKickGame::update(void) {
 	}
 
 	character->update();
+	shoeGage->update();
 
 }
 
@@ -162,12 +164,13 @@ void ShoeKickGame::draw(void) {
 	TextureAsset(U"shoekick_game").drawAt(x, -Scene::Height() / 2 - (subY));
 	TextureAsset(U"shoekick_game").drawAt(x + Scene::Width(), -Scene::Height() / 2 - (subY));
 
-
+	int meterX = 80;
+	int meterY = 40;
 	//METER描画
 	int meter = (int)(shoe->getTotalVec().x * METER_WEIGHT);
 	Rect tmp = FontAsset(U"shoekick_font")(Format(meter) + U"M").boundingRect();			//座標系さん
-	TextureAsset(U"shoekick_frame").draw(500 - 450, 100 + 0);	//フレーム描画
-	FontAsset(U"shoekick_font")(Format(meter) + U"m").draw(500 - tmp.w,100,ColorF(0,0,0,1));//文字描画
+	TextureAsset(U"shoekick_frame").draw(meterX + 500 - 450, meterY);//フレーム描画
+	FontAsset(U"shoekick_font")(Format(meter) + U"m").draw(meterX +500 - tmp.w,meterY,ColorF(0,0,0,1));//文字描画
 	//看板描画
 	for (auto vec : boardVec) {
 		TextureAsset(U"shoekick_signboard").drawAt(vec.vec.x - shoe->getTotalVec().x, vec.vec.y - (subY));
@@ -188,11 +191,13 @@ void ShoeKickGame::draw(void) {
 	case ShoeKickGame::END:
 		drawFly();
 	}
+	shoeGage->draw();
 	//初回説明描画
 	if (isDescription) {
 		Rect(0, 0, Scene::Width(), Scene::Height()).draw(ColorF(1, 1, 1, 0.8));
 		TextureAsset(U"shoekick_description").drawAt(Scene::Center());
 	}
+	
 }
 
 void ShoeKickGame::setNextState(GAME_STATE next) {
@@ -223,6 +228,7 @@ void ShoeKickGame::updateKick() {
 		if (kickPower < abs(acc.z)) {
 			kickPower = abs(acc.z);
 		}
+		shoeGage->setPower(abs(acc.z) / 80.0);
 	}
 	else {//キック時間下限
 		setNextState(FLY);//シーン移行する
