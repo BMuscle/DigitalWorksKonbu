@@ -72,7 +72,7 @@ void ShoeCharacter::setMoveJump() {
 }
 
 void ShoeCharacter::moveRight() {
-	pos += moveSpeed;
+	pos += moveSpeed * 2;
 }
 void ShoeCharacter::moveJump() {
 	pos += jumpSpeed;
@@ -83,6 +83,7 @@ void ShoeCharacter::draw(float shoeY) {
 }
 void ShoeCharacter::setVecMoveLeft(int x) {
 	pos.x = x;
+
 }
 
 Vec2 ShoeCharacter::getPos() {

@@ -19,9 +19,9 @@ void Main()
 	// ウィンドウを手動リサイズ可能にする
 	Window::SetStyle(WindowStyle::Sizable);
 
-	Window::SetFullscreen(true);					//フルスクリーンに設定
+	//Window::SetFullscreen(true);					//フルスクリーンに設定
 	
-	Graphics::SetTargetFrameRateHz(60);				//FPSを60に固定
+	Graphics::SetTargetFrameRateHz(30);				//FPSを60に固定
 	MySceneManager::initialize();					//シーンの初期化処理
 	Sensor::initialize(false);						//センサーデータの初期化
 	MySocketServer::initialize();					//ソケット通信の初期化

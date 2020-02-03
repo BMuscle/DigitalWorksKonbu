@@ -11,14 +11,14 @@ private:
 	float power;
 	float nowGage;
 	Rect rect;
-	Texture texture[10];
+	Texture texture[11];
 public:
 
 	ShoeGage() {
 		TextureAsset::Register(U"gageback", U"resources/images/items/game/shoekick/game/gageback.png");
 		TextureAsset::Register(U"gageline", U"resources/images/items/game/shoekick/game/gageline.png");
 		Image baseImage(U"resources/images/items/game/shoekick/game/gage.png");
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 11; i++) {
 			texture[i] = Texture(baseImage.clipped(0, i * 103, baseImage.width(), 103));
 		}
 
@@ -36,7 +36,7 @@ public:
 
 	void update() {
 		if (power > 0) {
-			nowGage += 0.02;
+			nowGage += 0.04;
 			if (nowGage > power) {
 				nowGage = power;
 			}
@@ -44,8 +44,8 @@ public:
 	}
 	void draw() {
 		int i = (int)(nowGage * 10.0);
-		if (i > 9) {
-			i = 9;
+		if (i > 10) {
+			i = 10;
 		}
 		texture[i].drawAt(POS.x, POS.y - i);
 		/*

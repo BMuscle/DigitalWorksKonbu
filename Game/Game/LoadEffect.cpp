@@ -1,6 +1,6 @@
 #include "LoadEffect.h"
 
-constexpr float alphaSpeed = 1.0 / 60.0 * 2.0;//暗転するスピード
+constexpr float alphaSpeed = 1.0 / 30.0 * 2.0;//暗転するスピード
 
 LoadEffect::LoadEffect() {
 	loadState = LOAD_STATE::NONE;

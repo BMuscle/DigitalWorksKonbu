@@ -398,6 +398,7 @@ void Soccer::updateThinking() {
 	readflag = 0;
 	if (countdownflag == 0) {
 		coutdown--;
+		coutdown--;
 	}
 
 	if (coutdown == 239) {
@@ -703,19 +704,19 @@ void Soccer::drawThinking() {
 	//TextureAsset(U"gameback").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 	switch (thinkdrawflag) {
 	case 0:
-		TextureAsset(U"three").drawAt(Scene::Width() / 2, Scene::Height() - 400);
+		TextureAsset(U"three").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 		break;
 		
 	case 1:
-		TextureAsset(U"two").drawAt(Scene::Width() / 2, Scene::Height() - 400);
+		TextureAsset(U"two").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 		break;
 
 	case 2:
-		TextureAsset(U"one").drawAt(Scene::Width() / 2, Scene::Height() - 400);
+		TextureAsset(U"one").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 		break;
 
 	case 3:
-		TextureAsset(U"shoot").drawAt(Scene::Width() / 2, Scene::Height() - 400);
+		TextureAsset(U"shoot").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 		break;
 	}
 }
@@ -726,6 +727,7 @@ void Soccer::drawPractical_skill() {
 	static int boal_y = Scene::Height() - 150;
 
 	if (end_flag == 1) {
+		soccerboalcount--;
 		soccerboalcount--;
 		switch (direction_flag) {
 		case -1:
@@ -842,7 +844,8 @@ void Soccer::drawResult() {
 
 void Soccer::frameCount() {
 	framecount++;
-	if (framecount > 60 * 3000) {//上限値チェック
+	framecount++;
+	if (framecount > 30 * 3000) {//上限値チェック
 		framecount = 0;
 	}
 

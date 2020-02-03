@@ -300,6 +300,9 @@
     <ClCompile Include="ShoeKickResult.cpp">
       <Filter>Source Files\Scene\Game\ShoeKick</Filter>
     </ClCompile>
+    <ClCompile Include="MyBlueToothLib.cpp">
+      <Filter>Source Files\MyLib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -708,6 +711,12 @@
     </ClInclude>
     <ClInclude Include="ShoeGage.h">
       <Filter>Header Files\Scene\Game\ShoeKick</Filter>
+    </ClInclude>
+    <ClInclude Include="MyBlueToothLib.h">
+      <Filter>Header Files\MyLib</Filter>
+    </ClInclude>
+    <ClInclude Include="MyBlueTooth.h">
+      <Filter>Header Files\MyLib</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 #include "ShoeKickGame.h"
 
-#define FPS 60
+#define FPS 30
 
 #define METER_WEIGHT 0.01
 
@@ -218,7 +218,7 @@ void ShoeKickGame::updateKick() {
 
 		}
 	}
-	else if (kickCount == -54) {
+	else if (kickCount == -27) {
 		character->setMoveJump();
 	}
 	else if (kickCount > -KICKINTERVAL) {//カウントダウンが終了したのでキック時間

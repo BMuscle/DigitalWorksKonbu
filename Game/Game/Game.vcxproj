@@ -99,6 +99,8 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <ConformanceMode>true</ConformanceMode>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -111,6 +113,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="MyBlueToothLib.cpp" />
     <ClCompile Include="Shoe.cpp" />
     <ClCompile Include="ShoeCharacter.cpp" />
     <ClCompile Include="CreateSaveData.cpp" />
@@ -275,6 +278,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MyBlueTooth.h" />
+    <ClInclude Include="MyBlueToothLib.h" />
     <ClInclude Include="Shoe.h" />
     <ClInclude Include="ShoeCharacter.h" />
     <ClInclude Include="CreateSaveData.h" />

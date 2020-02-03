@@ -7,7 +7,12 @@ Shoe::Shoe(Array<bool>* hasItems) {
 	angle = 0;
 	angleSpeed = 4;
 	totalShoeVec = Vec2(0, SHOE_INIT_Y);
-	gravity = 0.7;
+	gravity = 0.7 * 4
+		
+		
+		
+		
+		;
 	isFly = false;
 
 
@@ -114,6 +119,12 @@ void Shoe::setShoeVector(float kickPower) {
 	if (hasItems->at((int)GACHA_ITEM::SPORTS_SHOE)) {
 		shoeVec *= SPORTS_SHOE_WEIGHT;
 	}
+	shoeVec *= 2;
+
+
+
+
+
 	shoeVecInit = shoeVec;
 }
 void Shoe::setGround() {
