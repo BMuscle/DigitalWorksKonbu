@@ -4,6 +4,7 @@
 #include"MyKey.h"
 #include"Dodge.h"
 #include"MySceneManager.h"
+#include"GeneralSoundEffects.h"
 
 class DodgeTitle:public DodgeSceneBase{
 public:	
