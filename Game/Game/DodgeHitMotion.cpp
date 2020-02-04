@@ -21,7 +21,7 @@ DodgeHitMotion::DodgeHitMotion(DODGE_SCENE* nextScene, int ballCnt,float dVeloci
 	ballJudge = Ball(Vec2(Window::ClientWidth()*0.5,Window::ClientHeight()), U"resources/images/items/game/dodge/ball.png", this->dVelocity);
 	targetJudge = DodgeCharacter(Vec2(Window::ClientCenter()), U"resources/images/items/game/dodge/target.png");
 	nowselect = ANIME;
-	judge =HIT;	//NONEに変える
+	judge =NONE;	//NONEに変える
 	ballDraw = false;
 	hiteffect = new MyImageEffect(U"resources/images/items/game/dodge/effect.png",2,5);
 	effects = new MyEffects();
@@ -33,7 +33,7 @@ DodgeHitMotion::DodgeHitMotion(DODGE_SCENE* nextScene, int ballCnt,float dVeloci
 	sFlag2 = false;
 
 	judgeHitSensorState();
-	//judgeHitOrMiss();   //HITeffect確認のためにコメントアウト中
+	judgeHitOrMiss();   //HITeffect確認のためにコメントアウト中
 	scoreStore();
 	AudioAsset::Register(U"hit", U"resources/musics/items/game/dodge/hit.wav");
 	AudioAsset::Register(U"throw", U"resources/musics/items/game/dodge/throw.wav");
@@ -66,7 +66,7 @@ void DodgeHitMotion::update()
 			nowselect = JUDGE;
 		}
 		else if (nowselect == JUDGE ) {	//現在の状態がジャッジ
-			if (frameWait==100) {
+			if (frameWait==120) {
 				frameWait = 0;
 				nowselect = NEXT;
 			}
