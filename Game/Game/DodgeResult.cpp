@@ -15,8 +15,8 @@ DodgeResult::DodgeResult(DODGE_SCENE* nextScene,Score score) :DodgeSceneBase(nex
 
 
 	//20 と 1800がボタンのX座標
-	button[MAP]   = new MyImageButton(U"resources/images/items/game/dodge/map", U"", 0, 20, Window::ClientHeight() * 0.5);
-	button[TITLE] = new MyImageButton(U"resources/images/items/game/dodge/title", U"", 0, 1800, Window::ClientHeight() * 0.5);
+	button[MAP]   = new MyImageButton(U"resources/images/items/game/dodge/map", U"", 0, 20, Scene::Height() * 0.5);
+	button[TITLE] = new MyImageButton(U"resources/images/items/game/dodge/title", U"", 0, 1800, Scene::Height() * 0.5);
 
 	//値テスト用初期化
 	for (int i = 0; i < DODGE_GAME_PLAY_COUNT; i++) {
@@ -78,7 +78,7 @@ void DodgeResult::draw() {
 		1206,
 	};
 	//背景描画
-	TextureAsset(U"dodgeresult").drawAt(Window::ClientWidth() / 2, Window::ClientHeight() / 2);
+	TextureAsset(U"dodgeresult").drawAt(Scene::Width() / 2, Scene::Height() / 2);
 	//文字描画
 	for (int i = 0; i < DODGE_GAME_PLAY_COUNT; i++) {
 		if (hit[i]) { subFont(U"〇").drawAt(basePosX[0], basePosY[i], Color(255,182,193)); }

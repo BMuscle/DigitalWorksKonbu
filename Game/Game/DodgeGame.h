@@ -78,7 +78,7 @@ private:
 	int frame;
 	int flag = 1;
 	int radius = 20;
-	float movement = 4;
+	float movement = 8;
 	struct DodgeCharacter target;	
 	struct Scope scope;
 	Vec2 initial;

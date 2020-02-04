@@ -35,6 +35,11 @@ MyRoomCollection::MyRoomCollection(MYROOM_SCENE* scenep) :MyRoomSceneBase(scenep
 	alpha = 0;
 
 	TextureAsset::Register(U"myroomcursor",U"resources/images/items/myroom/collection/cursor.png");
+
+	ps = PixelShader(U"example/shader/2d/grayscale" SIV3D_SELECT_SHADER(U".hlsl", U".frag"),{ { U"PSConstants2D", 0 } });
+
+
+
 }
 MyRoomCollection::~MyRoomCollection() {
 	TextureAsset::Unregister(U"myroomback");
@@ -188,6 +193,32 @@ void MyRoomCollection::draw() {
 		890
 	};
 	constexpr float ITEM_ALPHA = 0.6;
+
+	//グレースケールのアイテム描画
+	{
+		// グレースケール化するピクセルシェーダを開始
+		ScopedCustomShader2D shader(ps);
+		//サッカーのガチャアイテム描画
+		for (int row = 0; row < csvItem[(int)GAME_TYPE::SOCCER].rows(); row++) {
+			int median = csvItem[(int)GAME_TYPE::DODGE].rows() / 2;
+			int x = (Scene::Width() / 2) + ((row - median) * ITEM_INTERVAL) + ITEM_OFFSET_X;//画面中央にセンタリングされるよう描画
+			TextureAsset(csvItem[(int)GAME_TYPE::SOCCER].get<String>(row, 1)).scaled(ITEM_SCALED).drawAt(x, ITEM_Y[(int)GAME_TYPE::SOCCER], AlphaF(ITEM_ALPHA));
+		}
+
+		//靴飛ばしのガチャアイテム描画
+		for (int row = 0; row < csvItem[(int)GAME_TYPE::SHOEKICK].rows(); row++) {
+			int median = csvItem[(int)GAME_TYPE::DODGE].rows() / 2;
+			int x = (Scene::Width() / 2) + ((row - median) * ITEM_INTERVAL) + ITEM_OFFSET_X;//画面中央にセンタリングされるよう描画
+			TextureAsset(csvItem[(int)GAME_TYPE::SHOEKICK].get<String>(row, 1)).scaled(ITEM_SCALED).drawAt(x, ITEM_Y[(int)GAME_TYPE::SHOEKICK], AlphaF(ITEM_ALPHA));
+		}
+
+		//ドッジボールのガチャアイテム描画
+		for (int row = 0; row < csvItem[(int)GAME_TYPE::DODGE].rows(); row++) {
+			int median = csvItem[(int)GAME_TYPE::DODGE].rows() / 2;
+			int x = (Scene::Width() / 2) + ((row - median) * ITEM_INTERVAL) + ITEM_OFFSET_X;//画面中央にセンタリングされるよう描画
+			TextureAsset(csvItem[(int)GAME_TYPE::DODGE].get<String>(row, 1)).scaled(ITEM_SCALED).drawAt(x, ITEM_Y[(int)GAME_TYPE::DODGE], AlphaF(ITEM_ALPHA));
+		}
+	}
 
 	//サッカーのガチャアイテム描画
 	for (int row = 0; row < csvItem[(int)GAME_TYPE::SOCCER].rows(); row++) {

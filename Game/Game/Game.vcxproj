@@ -113,6 +113,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DodgeCharacter.cpp" />
+    <ClCompile Include="DodgeHitMotion.cpp" />
     <ClCompile Include="MyBlueToothLib.cpp" />
     <ClCompile Include="Shoe.cpp" />
     <ClCompile Include="ShoeCharacter.cpp" />
@@ -278,8 +280,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DodgeCharacter.h" />
+    <ClInclude Include="DodgeHitMotion.h" />
+    <ClInclude Include="DodgeResult.h" />
+    <ClInclude Include="DodgeRouletteImage.h" />
     <ClInclude Include="MyBlueTooth.h" />
     <ClInclude Include="MyBlueToothLib.h" />
+    <ClInclude Include="Scope.h" />
     <ClInclude Include="Shoe.h" />
     <ClInclude Include="ShoeCharacter.h" />
     <ClInclude Include="CreateSaveData.h" />

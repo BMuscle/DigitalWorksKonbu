@@ -25,6 +25,8 @@ private:
 
 	float alpha;
 
+	PixelShader ps;
+
 	//’I‚Ìs—ñ‚ğ•Û
 	struct CollectionTable {
 		int row;		

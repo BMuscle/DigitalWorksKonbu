@@ -303,6 +303,12 @@
     <ClCompile Include="MyBlueToothLib.cpp">
       <Filter>Source Files\MyLib</Filter>
     </ClCompile>
+    <ClCompile Include="DodgeCharacter.cpp">
+      <Filter>Source Files\Scene\Game\Dodge</Filter>
+    </ClCompile>
+    <ClCompile Include="DodgeHitMotion.cpp">
+      <Filter>Source Files\Scene\Game\Dodge</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -717,6 +723,21 @@
     </ClInclude>
     <ClInclude Include="MyBlueTooth.h">
       <Filter>Header Files\MyLib</Filter>
+    </ClInclude>
+    <ClInclude Include="Scope.h">
+      <Filter>Header Files\Scene\Game\Dodge</Filter>
+    </ClInclude>
+    <ClInclude Include="DodgeCharacter.h">
+      <Filter>Header Files\Scene\Game\Dodge</Filter>
+    </ClInclude>
+    <ClInclude Include="DodgeHitMotion.h">
+      <Filter>Header Files\Scene\Game\Dodge</Filter>
+    </ClInclude>
+    <ClInclude Include="DodgeResult.h">
+      <Filter>Header Files\Scene\Game\Dodge</Filter>
+    </ClInclude>
+    <ClInclude Include="DodgeRouletteImage.h">
+      <Filter>Header Files\Scene\Game\Dodge</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

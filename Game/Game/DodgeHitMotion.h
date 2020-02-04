@@ -132,7 +132,7 @@ private:
 	struct Ball {
 		Ball() {}
 		Ball(Vec2 pos, String filepath, float dVelocity) {
-			constexpr float X_WEIGHT = 2;//ã¸‘¬“x
+			constexpr float X_WEIGHT = 4;//ã¸‘¬“x
 			constexpr float Y_WEIGHT = -0.5;
 			this->pos = pos;
 			this->dVelocity = dVelocity;
@@ -145,7 +145,7 @@ private:
 			isEnd = false;
 		}
 		void Move() {
-			if (Window::ClientWidth() + texture.width() <= pos.x) {
+			if (Scene::Width() + texture.width() <= pos.x) {
 				isEnd = true;
 				return;
 			}
@@ -158,21 +158,22 @@ private:
 
 		bool HitCheck() {
 			if (onetime == false) {
-				if (pos.y <= Window::ClientHeight() * 0.5) {
+				if (pos.y <= Scene::Height() * 0.5) {
 					onetime = true;
 					return true;
 				}
 				else return false;
 			}
+			return true;
 		}
 
 		//DodgeHitMotion‚ÅŽg‚¤‚â‚Â
 		void BallHitUpdate() {	//’†‰›‚ÉŒü‚©‚Á‚Ä
 			if (HitCheck())return;
-			pos -= Vec2(0, 10);
+			pos -= Vec2(0, 20);
 		}
 		void BallMissUpdate() {//
-			pos -= Vec2(0, 10);
+			pos -= Vec2(0, 20);
 		}
 		void BallHitDraw() {
 			if (HitCheck())return;

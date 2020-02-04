@@ -18,10 +18,10 @@ DodgeHitMotion::DodgeHitMotion(DODGE_SCENE* nextScene, int ballCnt,float dVeloci
 	//プレイヤーコンストラクタ引数
 	player=DodgePlayer(pSpawn, U"resources/images/items/game/dodge/player.png");
 	ball = Ball(bSpawn, U"resources/images/items/game/dodge/ball.png", this->dVelocity);
-	ballJudge = Ball(Vec2(Window::ClientWidth()*0.5,Window::ClientHeight()), U"resources/images/items/game/dodge/ball.png", this->dVelocity);
-	targetJudge = DodgeCharacter(Vec2(Window::ClientCenter()), U"resources/images/items/game/dodge/target.png");
+	ballJudge = Ball(Vec2(Scene::Width()*0.5,Scene::Height()), U"resources/images/items/game/dodge/ball.png", this->dVelocity);
+	targetJudge = DodgeCharacter(Vec2(Scene::Center()), U"resources/images/items/game/dodge/target.png");
 	nowselect = ANIME;
-	judge =HIT;	//NONEに変える
+	judge =NONE;	//NONEに変える
 	ballDraw = false;
 	hiteffect = new MyImageEffect(U"resources/images/items/game/dodge/effect.png",2,5);
 	effects = new MyEffects();
@@ -33,7 +33,7 @@ DodgeHitMotion::DodgeHitMotion(DODGE_SCENE* nextScene, int ballCnt,float dVeloci
 	sFlag2 = false;
 
 	judgeHitSensorState();
-	//judgeHitOrMiss();   //HITeffect確認のためにコメントアウト中
+	judgeHitOrMiss();   //HITeffect確認のためにコメントアウト中
 	scoreStore();
 	AudioAsset::Register(U"hit", U"resources/musics/items/game/dodge/hit.wav");
 	AudioAsset::Register(U"throw", U"resources/musics/items/game/dodge/throw.wav");
@@ -61,19 +61,19 @@ void DodgeHitMotion::start(void) {	//ロード空けた後に実行されるもの
 
 void DodgeHitMotion::update() 
 {
-		if (nowselect==ANIME&&frameWait>=150) {
+		if (nowselect==ANIME&&frameWait>=75) {
 			frameWait = 0;
 			nowselect = JUDGE;
 		}
 		else if (nowselect == JUDGE ) {	//現在の状態がジャッジ
-			if (frameWait==100) {
+			if (frameWait==60) {
 				frameWait = 0;
 				nowselect = NEXT;
 			}
 			if (judge == HIT) {//当たった瞬間だけ呼ばれるようにするif
 				if (ballJudge.HitCheck()) {
 					if (!effectFlag) {
-						effects->add(hiteffect, Vec2(Window::ClientCenter()));
+						effects->add(hiteffect, Vec2(Scene::Center()));
 						effectFlag = true;
 					}
 					fontOn = true;

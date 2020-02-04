@@ -1,5 +1,6 @@
 #include"DodgeGame.h"
 #include"MyKey.h"
+#include "MySocketServer.h"
 
 DodgeGame::DodgeGame(DODGE_SCENE* nextScene, int ballCnt,struct Score score) :DodgeSceneBase(nextScene) {
 	this->ballCnt = ballCnt;
@@ -73,7 +74,7 @@ void DodgeGame::update()
 			for (auto& mob : mobs) {
 				mob.Move(movement);
 			}
-			scope.setPlace(scope.getPlace() + Vec2(0, 15));//更新処理update
+			scope.setPlace(scope.getPlace() + Vec2(0, 30));//更新処理update
 			Circle scopeimage(scope.getPlace(), scope.getRadius());
 
 			//再描画
@@ -133,9 +134,9 @@ void DodgeGame::draw()
 			for (auto& balllife : balllife) {
 				balllife.Draw();
 			}
-			//Rect(0, Window::ClientHeight() * 0.5, Window::ClientWidth(), 10).draw(ColorF(1, 0, 0));
+			//Rect(0, Scene::Height() * 0.5, Scene::Width(), 10).draw(ColorF(1, 0, 0));
 			//for (int i = 0; i < 20; i++) {
-			//	Rect(i * 100, Window::ClientHeight() * 0.5, 3, 100).draw(ColorF(1, 0, 0));
+			//	Rect(i * 100, Scene::Height() * 0.5, 3, 100).draw(ColorF(1, 0, 0));
 			//}
 			frame++;
 		default:
@@ -162,7 +163,7 @@ int DodgeGame::getBallCnt() {
 	return ballCnt;
 }
 
-float DodgeGame::getDVelocity() {
+float DodgeGame::getDVelocity(){
 	return dVelocity;
 }
 
@@ -177,6 +178,6 @@ struct Score DodgeGame::getScore() {
 //センサの値とる（5未満は未判定）
 bool DodgeGame::getHitSensorState() {
 	dVelocity = abs(Sensor::getAcceleration().z);
-	if (dVelocity >= 5)	return true;
+	if ((dVelocity >= 5 && MySocketServer::isConnection()) || MyKey::getDecisionKey())	return true;
 	else return false;
 }
